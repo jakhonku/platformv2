@@ -3,6 +3,7 @@ import type { Application, Casting, Vacancy } from "../../types/opportunity.ts";
 import type { MediaItem } from "../../types/media.ts";
 import type { TalentProfile } from "../../types/talent.ts";
 import type { AuditLogEntry, Notification } from "../../types/system.ts";
+import type { Invitation } from "../../types/invitation.ts";
 import type { User } from "../../types/user.ts";
 import {
   APPLICATIONS,
@@ -36,4 +37,5 @@ export const store = {
   collections: clone(COLLECTIONS),
   notifications: clone(NOTIFICATIONS) as Notification[],
   audit: clone(AUDIT_LOG) as AuditLogEntry[],
+  invitations: [] as Invitation[],
 };

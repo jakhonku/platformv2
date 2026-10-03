@@ -250,5 +250,87 @@
       "next": "Keyingi"
     },
     "showResults": "Natijalarni koʻrsatish"
+  },
+  "profile": {
+    "about": "Haqida",
+    "education": "Taʼlim",
+    "experience": "Ish tajribasi",
+    "repertoire": "Repertuar",
+    "portfolio": "Portfolio",
+    "collections": "Toʻplamlar",
+    "contacts": "Kontaktlar",
+    "voiceRange": "Ovoz diapazoni",
+    "works": "Asarlar",
+    "ensembles": "Jamoa turlari",
+    "genres": "Janrlar",
+    "currentCollective": "Hozirgi jamoa",
+    "backToCatalog": "Katalogga qaytish",
+    "present": "hozirgacha",
+    "years": "{from} – {to}",
+    "workMeta": "{year}, {genre}",
+    "minutes": "{count} daq.",
+    "itemsCount": "{count, plural, other {# ta material}}",
+    "noCollections": "Toʻplamlar yoʻq",
+    "noBio": "Maʼlumot kiritilmagan",
+    "contact": {
+      "phone": "Telefon",
+      "email": "Email",
+      "telegram": "Telegram",
+      "website": "Veb-sayt"
+    }
+  },
+  "media": {
+    "tabs": {
+      "video": "Video",
+      "audio": "Audio",
+      "documents": "Hujjatlar"
+    },
+    "play": "Ijro etish",
+    "views": "{count, plural, other {# ta koʻrish}}",
+    "download": "Yuklab olish",
+    "empty": "Bu boʻlimda materiallar yoʻq",
+    "emptyText": "Materiallar tasdiqlangandan soʻng shu yerda koʻrinadi.",
+    "videoUnavailable": "Videoni ochib boʻlmadi",
+    "docType": {
+      "document": "Hujjat",
+      "score": "Partitura",
+      "midi": "MIDI"
+    }
+  },
+  "invite": {
+    "cta": "Taklif yuborish",
+    "title": "Taklif yuborish",
+    "description": "{name} ga taklif yuboring",
+    "senderName": "Ismingiz yoki tashkilot nomi",
+    "contact": "Telefon yoki email",
+    "message": "Taklif matni",
+    "submit": "Yuborish",
+    "sending": "Yuborilmoqda…",
+    "cancel": "Bekor qilish",
+    "success": "Taklif yuborildi",
+    "error": "Taklifni yuborib boʻlmadi. Qayta urinib koʻring.",
+    "errors": {
+      "senderName": "2–80 belgi kiriting",
+      "contact": "Telefon yoki email kiriting (kamida 5 belgi)",
+      "message": "Xabar 10–1000 belgi boʻlishi kerak"
+    }
+  },
+  "collectivePage": {
+    "conductor": "Dirijyor",
+    "members": "Tarkib",
+    "section": "Guruh",
+    "events": "Tadbirlar",
+    "repertoire": "Repertuar",
+    "media": "Media",
+    "contacts": "Kontaktlar",
+    "noMembers": "Tarkib maʼlumoti yoʻq",
+    "noEvents": "Yaqin tadbirlar yoʻq"
+  },
+  "orgPage": {
+    "about": "Tashkilot haqida",
+    "castings": "Kastinglar",
+    "vacancies": "Vakansiyalar",
+    "noOpenings": "Hozircha ochiq kasting va vakansiyalar yoʻq",
+    "contacts": "Kontaktlar"
   }
 }

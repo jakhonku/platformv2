@@ -250,5 +250,87 @@
       "next": "Next"
     },
     "showResults": "Show results"
+  },
+  "profile": {
+    "about": "About",
+    "education": "Education",
+    "experience": "Experience",
+    "repertoire": "Repertoire",
+    "portfolio": "Portfolio",
+    "collections": "Collections",
+    "contacts": "Contacts",
+    "voiceRange": "Voice range",
+    "works": "Works",
+    "ensembles": "Ensemble types",
+    "genres": "Genres",
+    "currentCollective": "Current ensemble",
+    "backToCatalog": "Back to catalog",
+    "present": "present",
+    "years": "{from} – {to}",
+    "workMeta": "{year}, {genre}",
+    "minutes": "{count} min",
+    "itemsCount": "{count, plural, one {# item} other {# items}}",
+    "noCollections": "No collections",
+    "noBio": "No information provided",
+    "contact": {
+      "phone": "Phone",
+      "email": "Email",
+      "telegram": "Telegram",
+      "website": "Website"
+    }
+  },
+  "media": {
+    "tabs": {
+      "video": "Video",
+      "audio": "Audio",
+      "documents": "Documents"
+    },
+    "play": "Play",
+    "views": "{count, plural, one {# view} other {# views}}",
+    "download": "Download",
+    "empty": "No materials in this section",
+    "emptyText": "Materials appear here once approved.",
+    "videoUnavailable": "The video could not be opened",
+    "docType": {
+      "document": "Document",
+      "score": "Score",
+      "midi": "MIDI"
+    }
+  },
+  "invite": {
+    "cta": "Send invitation",
+    "title": "Send invitation",
+    "description": "Send an invitation to {name}",
+    "senderName": "Your name or organization",
+    "contact": "Phone or email",
+    "message": "Invitation text",
+    "submit": "Send",
+    "sending": "Sending…",
+    "cancel": "Cancel",
+    "success": "Invitation sent",
+    "error": "Could not send the invitation. Please try again.",
+    "errors": {
+      "senderName": "Enter 2–80 characters",
+      "contact": "Enter a phone or email (at least 5 characters)",
+      "message": "Message must be 10–1000 characters"
+    }
+  },
+  "collectivePage": {
+    "conductor": "Conductor",
+    "members": "Members",
+    "section": "Section",
+    "events": "Events",
+    "repertoire": "Repertoire",
+    "media": "Media",
+    "contacts": "Contacts",
+    "noMembers": "No member information",
+    "noEvents": "No upcoming events"
+  },
+  "orgPage": {
+    "about": "About the organization",
+    "castings": "Castings",
+    "vacancies": "Vacancies",
+    "noOpenings": "No open castings or vacancies yet",
+    "contacts": "Contacts"
   }
 }

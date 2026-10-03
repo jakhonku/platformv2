@@ -27,6 +27,7 @@ import {
   markNotificationRead,
   moderate,
   paginate,
+  sendInvitation,
   simulateLatency,
   updateApplicationStatus,
 } from "./index.ts";
@@ -230,3 +231,18 @@ test("notifications, stats, users, audit log, references", async () => {
   assert.ok(MOCK_NOW);
 });
 
+
+test("sendInvitation stores a valid invitation and validates input (Review Focus 6)", async () => {
+  const talent = TALENTS.find((t) => t.moderation === "approved")!;
+  const ok = { senderName: "  Filarmoniya  ", contact: "+998 90 123 45 67", message: "Konsertda ishtirok etishingizni taklif qilamiz." };
+  const inv = await sendInvitation(talent.id, ok);
+  assert.equal(inv.talentId, talent.id);
+  assert.equal(inv.senderName, "Filarmoniya");
+
+  await assert.rejects(sendInvitation(talent.id, { ...ok, message: "qisqa" }), (e) => e instanceof DataError && e.code === "invalid");
+  await assert.rejects(sendInvitation(talent.id, { ...ok, message: "x".repeat(1001) }), (e) => e instanceof DataError && e.code === "invalid");
+
+  const pending = TALENTS.find((t) => t.moderation === "rejected")!;
+  await assert.rejects(sendInvitation(pending.id, ok), (e) => e instanceof DataError && e.code === "not_found");
+  await assert.rejects(sendInvitation("yoq", ok), (e) => e instanceof DataError && e.code === "not_found");
+});

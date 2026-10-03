@@ -250,5 +250,87 @@
       "next": "Далее"
     },
     "showResults": "Показать результаты"
+  },
+  "profile": {
+    "about": "О себе",
+    "education": "Образование",
+    "experience": "Опыт работы",
+    "repertoire": "Репертуар",
+    "portfolio": "Портфолио",
+    "collections": "Подборки",
+    "contacts": "Контакты",
+    "voiceRange": "Диапазон голоса",
+    "works": "Сочинения",
+    "ensembles": "Типы коллективов",
+    "genres": "Жанры",
+    "currentCollective": "Текущий коллектив",
+    "backToCatalog": "Вернуться в каталог",
+    "present": "по наст. время",
+    "years": "{from} – {to}",
+    "workMeta": "{year}, {genre}",
+    "minutes": "{count} мин.",
+    "itemsCount": "{count, plural, one {# материал} few {# материала} many {# материалов} other {# материала}}",
+    "noCollections": "Подборок нет",
+    "noBio": "Информация не указана",
+    "contact": {
+      "phone": "Телефон",
+      "email": "Email",
+      "telegram": "Telegram",
+      "website": "Сайт"
+    }
+  },
+  "media": {
+    "tabs": {
+      "video": "Видео",
+      "audio": "Аудио",
+      "documents": "Документы"
+    },
+    "play": "Воспроизвести",
+    "views": "{count, plural, one {# просмотр} few {# просмотра} many {# просмотров} other {# просмотра}}",
+    "download": "Скачать",
+    "empty": "В этом разделе нет материалов",
+    "emptyText": "Материалы появятся здесь после одобрения.",
+    "videoUnavailable": "Не удалось открыть видео",
+    "docType": {
+      "document": "Документ",
+      "score": "Партитура",
+      "midi": "MIDI"
+    }
+  },
+  "invite": {
+    "cta": "Отправить приглашение",
+    "title": "Отправить приглашение",
+    "description": "Отправьте приглашение: {name}",
+    "senderName": "Ваше имя или название организации",
+    "contact": "Телефон или email",
+    "message": "Текст приглашения",
+    "submit": "Отправить",
+    "sending": "Отправка…",
+    "cancel": "Отмена",
+    "success": "Приглашение отправлено",
+    "error": "Не удалось отправить приглашение. Попробуйте ещё раз.",
+    "errors": {
+      "senderName": "Введите от 2 до 80 символов",
+      "contact": "Укажите телефон или email (не менее 5 символов)",
+      "message": "Сообщение должно содержать от 10 до 1000 символов"
+    }
+  },
+  "collectivePage": {
+    "conductor": "Дирижёр",
+    "members": "Состав",
+    "section": "Партия",
+    "events": "События",
+    "repertoire": "Репертуар",
+    "media": "Медиа",
+    "contacts": "Контакты",
+    "noMembers": "Данных о составе нет",
+    "noEvents": "Ближайших событий нет"
+  },
+  "orgPage": {
+    "about": "Об организации",
+    "castings": "Кастинги",
+    "vacancies": "Вакансии",
+    "noOpenings": "Открытых кастингов и вакансий пока нет",
+    "contacts": "Контакты"
   }
 }
