@@ -6,21 +6,29 @@ import { useRouter } from "@/i18n/navigation";
 
 type BoundaryProps = { children: ReactNode; onRetry: () => void };
 
-/** Server komponentlardagi xatolarni ham ushlaydi: faqat shu bo'lim xato holatini ko'rsatadi */
-class ErrorBoundary extends Component<BoundaryProps, { failed: boolean }> {
-  state = { failed: false };
+/** Next.js boshqaruv xatolari (redirect, notFound) oddiy xato emas: ularni yuqoriga qaytarish kerak */
+const isControlFlow = (error: unknown): boolean =>
+  typeof error === "object" && error !== null && typeof (error as { digest?: unknown }).digest === "string" && (error as { digest: string }).digest.startsWith("NEXT_");
 
-  static getDerivedStateFromError() {
-    return { failed: true };
+/** Server komponentlardagi xatolarni ham ushlaydi: faqat shu bo'lim xato holatini ko'rsatadi */
+class ErrorBoundary extends Component<BoundaryProps, { error: unknown; failed: boolean }> {
+  state = { error: null as unknown, failed: false };
+
+  static getDerivedStateFromError(error: unknown) {
+    return { error, failed: true };
   }
 
   retry = () => {
-    this.setState({ failed: false });
+    this.setState({ error: null, failed: false });
     this.props.onRetry();
   };
 
   render() {
-    return this.state.failed ? <ErrorState onRetry={this.retry} /> : this.props.children;
+    if (this.state.failed) {
+      if (isControlFlow(this.state.error)) throw this.state.error;
+      return <ErrorState onRetry={this.retry} />;
+    }
+    return this.props.children;
   }
 }
 

@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useId, useRef, useState } from "react";
+import { use, useEffect, useId, useRef, useState } from "react";
 import { useLocale, useTranslations } from "next-intl";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -98,14 +98,16 @@ function SelectField({
 export function FilterPanel({
   kind,
   talentKind,
-  options,
+  optionsPromise,
   activeCount,
 }: {
   kind: PanelKind;
   talentKind?: TalentKind;
-  options: FilterOptions;
+  /** Server yuboradigan va-da kutiladigan promise: sahifa filtr ma'lumotlarini kutib bloklanmaydi */
+  optionsPromise: Promise<FilterOptions>;
   activeCount: number;
 }) {
+  const options = use(optionsPromise);
   const t = useTranslations("catalog");
   const locale = useLocale() as LocaleCode;
   const { get, set, clear } = useUrlFilters();
