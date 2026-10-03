@@ -1,0 +1,97 @@
+{
+  "app": {
+    "name": "ORCHESTRA & CHOIR TALENT.UZ",
+    "shortName": "Talent.uz",
+    "slogan": "Найди свой талант. Найди свою сцену.",
+    "description": "Цифровая экосистема, объединяющая музыкантов, хористов, дирижёров, композиторов, оркестры и хоры Узбекистана."
+  },
+  "nav": {
+    "home": "Главная",
+    "musicians": "Музыканты",
+    "vocalists": "Хористы и вокалисты",
+    "conductors": "Дирижёры",
+    "composers": "Композиторы",
+    "orchestras": "Оркестры",
+    "choirs": "Хоры",
+    "organizations": "Организации",
+    "castings": "Кастинги",
+    "vacancies": "Вакансии",
+    "competitions": "Конкурсы",
+    "festivals": "Фестивали",
+    "projects": "Проекты",
+    "news": "Новости",
+    "education": "Обучение",
+    "catalogs": "Каталоги",
+    "login": "Войти",
+    "register": "Регистрация"
+  },
+  "cabinet": {
+    "title": "Личный кабинет",
+    "dashboard": "Главная",
+    "profile": "Профиль",
+    "portfolio": "Портфолио",
+    "stats": "Статистика",
+    "applications": "Мои заявки",
+    "offers": "Предложения",
+    "notifications": "Уведомления",
+    "settings": "Настройки",
+    "manageCastings": "Кастинги и вакансии",
+    "candidates": "Кандидаты",
+    "collective": "Страница коллектива"
+  },
+  "admin": {
+    "title": "Административная панель",
+    "dashboard": "Панель управления",
+    "users": "Пользователи и роли",
+    "profiles": "Модерация профилей",
+    "media": "Модерация медиа",
+    "organizations": "Подтверждение организаций",
+    "castings": "Кастинги и вакансии",
+    "competitions": "Конкурсы и фестивали",
+    "news": "Новости и баннеры",
+    "references": "Справочники",
+    "auditLog": "Журнал действий",
+    "statistics": "Статистика",
+    "system": "Настройки системы"
+  },
+  "roles": {
+    "guest": "Гость",
+    "musician": "Музыкант",
+    "vocalist": "Вокалист",
+    "conductor": "Дирижёр",
+    "composer": "Композитор",
+    "collective": "Коллектив",
+    "organization": "Организация",
+    "moderator": "Модератор",
+    "admin": "Администратор"
+  },
+  "auth": {
+    "loginTitle": "Вход в систему",
+    "loginText": "Экран входа будет заполнен на следующем этапе."
+  },
+  "home": {
+    "heroTitle": "Таланты и сцены в одном месте",
+    "heroText": "Платформа, объединяющая музыкантов, коллективы и организации."
+  },
+  "common": {
+    "language": "Язык",
+    "search": "Поиск",
+    "notifications": "Уведомления",
+    "userMenu": "Меню пользователя",
+    "logout": "Выйти",
+    "openMenu": "Открыть меню",
+    "loading": "Загрузка…",
+    "errorTitle": "Произошла ошибка",
+    "retry": "Повторить",
+    "notFoundTitle": "Страница не найдена",
+    "backHome": "Вернуться на главную",
+    "demoUser": "Демо-пользователь"
+  },
+  "footer": {
+    "rights": "Все права защищены."
+  },
+  "demo": {
+    "switchRole": "Сменить роль",
+    "currentRole": "Текущая роль"
+  }
+}

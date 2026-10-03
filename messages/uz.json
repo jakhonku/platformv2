@@ -1,0 +1,97 @@
+{
+  "app": {
+    "name": "ORCHESTRA & CHOIR TALENT.UZ",
+    "shortName": "Talent.uz",
+    "slogan": "Oʻz iqtidoringni top. Oʻz sahnangni top.",
+    "description": "Oʻzbekistondagi musiqachilar, xoristlar, dirijyorlar, kompozitorlar, orkestrlar va xorlarni bogʻlovchi raqamli ekotizim."
+  },
+  "nav": {
+    "home": "Bosh sahifa",
+    "musicians": "Musiqachilar",
+    "vocalists": "Xoristlar va vokalchilar",
+    "conductors": "Dirijyorlar",
+    "composers": "Kompozitorlar",
+    "orchestras": "Orkestrlar",
+    "choirs": "Xorlar",
+    "organizations": "Tashkilotlar",
+    "castings": "Kastinglar",
+    "vacancies": "Vakansiyalar",
+    "competitions": "Tanlovlar",
+    "festivals": "Festivallar",
+    "projects": "Loyihalar",
+    "news": "Yangiliklar",
+    "education": "Taʼlim",
+    "catalogs": "Kataloglar",
+    "login": "Kirish",
+    "register": "Roʻyxatdan oʻtish"
+  },
+  "cabinet": {
+    "title": "Shaxsiy kabinet",
+    "dashboard": "Bosh sahifa",
+    "profile": "Profil",
+    "portfolio": "Portfolio",
+    "stats": "Statistika",
+    "applications": "Mening arizalarim",
+    "offers": "Takliflar",
+    "notifications": "Bildirishnomalar",
+    "settings": "Sozlamalar",
+    "manageCastings": "Kasting va vakansiyalar",
+    "candidates": "Nomzodlar",
+    "collective": "Jamoa sahifasi"
+  },
+  "admin": {
+    "title": "Administrativ panel",
+    "dashboard": "Boshqaruv paneli",
+    "users": "Foydalanuvchilar va rollar",
+    "profiles": "Profillar moderatsiyasi",
+    "media": "Media moderatsiyasi",
+    "organizations": "Tashkilotlarni tasdiqlash",
+    "castings": "Kastinglar va vakansiyalar",
+    "competitions": "Tanlovlar va festivallar",
+    "news": "Yangiliklar va bannerlar",
+    "references": "Spravochniklar",
+    "auditLog": "Harakatlar jurnali",
+    "statistics": "Statistika",
+    "system": "Tizim sozlamalari"
+  },
+  "roles": {
+    "guest": "Mehmon",
+    "musician": "Musiqachi",
+    "vocalist": "Vokalchi",
+    "conductor": "Dirijyor",
+    "composer": "Kompozitor",
+    "collective": "Jamoa",
+    "organization": "Tashkilot",
+    "moderator": "Moderator",
+    "admin": "Administrator"
+  },
+  "auth": {
+    "loginTitle": "Tizimga kirish",
+    "loginText": "Kirish ekrani keyingi bosqichda toʻldiriladi."
+  },
+  "home": {
+    "heroTitle": "Iqtidorlar va sahnalar bir joyda",
+    "heroText": "Musiqachilar, jamoalar va tashkilotlarni birlashtiruvchi platforma."
+  },
+  "common": {
+    "language": "Til",
+    "search": "Qidirish",
+    "notifications": "Bildirishnomalar",
+    "userMenu": "Foydalanuvchi menyusi",
+    "logout": "Chiqish",
+    "openMenu": "Menyuni ochish",
+    "loading": "Yuklanmoqda…",
+    "errorTitle": "Xatolik yuz berdi",
+    "retry": "Qayta urinish",
+    "notFoundTitle": "Sahifa topilmadi",
+    "backHome": "Bosh sahifaga qaytish",
+    "demoUser": "Demo foydalanuvchi"
+  },
+  "footer": {
+    "rights": "Barcha huquqlar himoyalangan."
+  },
+  "demo": {
+    "switchRole": "Rolni almashtirish",
+    "currentRole": "Joriy rol"
+  }
+}

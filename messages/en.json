@@ -1,0 +1,97 @@
+{
+  "app": {
+    "name": "ORCHESTRA & CHOIR TALENT.UZ",
+    "shortName": "Talent.uz",
+    "slogan": "Find your talent. Find your stage.",
+    "description": "A digital ecosystem connecting musicians, choristers, conductors, composers, orchestras and choirs of Uzbekistan."
+  },
+  "nav": {
+    "home": "Home",
+    "musicians": "Musicians",
+    "vocalists": "Choristers & vocalists",
+    "conductors": "Conductors",
+    "composers": "Composers",
+    "orchestras": "Orchestras",
+    "choirs": "Choirs",
+    "organizations": "Organizations",
+    "castings": "Castings",
+    "vacancies": "Vacancies",
+    "competitions": "Competitions",
+    "festivals": "Festivals",
+    "projects": "Projects",
+    "news": "News",
+    "education": "Education",
+    "catalogs": "Catalogs",
+    "login": "Sign in",
+    "register": "Sign up"
+  },
+  "cabinet": {
+    "title": "Personal cabinet",
+    "dashboard": "Dashboard",
+    "profile": "Profile",
+    "portfolio": "Portfolio",
+    "stats": "Statistics",
+    "applications": "My applications",
+    "offers": "Offers",
+    "notifications": "Notifications",
+    "settings": "Settings",
+    "manageCastings": "Castings & vacancies",
+    "candidates": "Candidates",
+    "collective": "Collective page"
+  },
+  "admin": {
+    "title": "Admin panel",
+    "dashboard": "Dashboard",
+    "users": "Users & roles",
+    "profiles": "Profile moderation",
+    "media": "Media moderation",
+    "organizations": "Organization approval",
+    "castings": "Castings & vacancies",
+    "competitions": "Competitions & festivals",
+    "news": "News & banners",
+    "references": "Reference data",
+    "auditLog": "Audit log",
+    "statistics": "Statistics",
+    "system": "System settings"
+  },
+  "roles": {
+    "guest": "Guest",
+    "musician": "Musician",
+    "vocalist": "Vocalist",
+    "conductor": "Conductor",
+    "composer": "Composer",
+    "collective": "Collective",
+    "organization": "Organization",
+    "moderator": "Moderator",
+    "admin": "Administrator"
+  },
+  "auth": {
+    "loginTitle": "Sign in",
+    "loginText": "The sign-in screen will be built in a later stage."
+  },
+  "home": {
+    "heroTitle": "Talents and stages in one place",
+    "heroText": "A platform that brings musicians, collectives and organizations together."
+  },
+  "common": {
+    "language": "Language",
+    "search": "Search",
+    "notifications": "Notifications",
+    "userMenu": "User menu",
+    "logout": "Sign out",
+    "openMenu": "Open menu",
+    "loading": "Loading…",
+    "errorTitle": "Something went wrong",
+    "retry": "Try again",
+    "notFoundTitle": "Page not found",
+    "backHome": "Back to home",
+    "demoUser": "Demo user"
+  },
+  "footer": {
+    "rights": "All rights reserved."
+  },
+  "demo": {
+    "switchRole": "Switch role",
+    "currentRole": "Current role"
+  }
+}
