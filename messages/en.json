@@ -74,7 +74,7 @@
     "heroText": "A platform that brings musicians, collectives and organizations together.",
     "searchLabel": "Search",
     "searchTypeLabel": "What are you looking for?",
-    "searchPlaceholder": "Search by name, collective or title",
+    "searchPlaceholder": "Name, collective or title",
     "searchButton": "Search",
     "searchTypes": {
       "talents": "Musician",

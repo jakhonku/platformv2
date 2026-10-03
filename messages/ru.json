@@ -74,7 +74,7 @@
     "heroText": "Платформа, объединяющая музыкантов, коллективы и организации.",
     "searchLabel": "Поиск",
     "searchTypeLabel": "Что вы ищете?",
-    "searchPlaceholder": "Поиск по имени, коллективу или названию",
+    "searchPlaceholder": "Имя, коллектив или название",
     "searchButton": "Найти",
     "searchTypes": {
       "talents": "Музыкант",

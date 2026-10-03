@@ -74,7 +74,7 @@
     "heroText": "Musiqachilar, jamoalar va tashkilotlarni birlashtiruvchi platforma.",
     "searchLabel": "Qidiruv",
     "searchTypeLabel": "Nimani qidirasiz?",
-    "searchPlaceholder": "Ism, jamoa yoki nom boʻyicha qidiring",
+    "searchPlaceholder": "Ism, jamoa yoki nom",
     "searchButton": "Topish",
     "searchTypes": {
       "talents": "Musiqachi",
