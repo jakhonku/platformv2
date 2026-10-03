@@ -6,3 +6,9 @@ export const routing = defineRouting({
 });
 
 export type Locale = (typeof routing.locales)[number];
+
+export const LOCALE_LABELS: Record<Locale, string> = {
+  uz: "Oʻzbekcha",
+  ru: "Русский",
+  en: "English",
+};
