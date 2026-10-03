@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import { test } from "node:test";
-import { casting, collective, news, talent } from "./routes.ts";
+import { casting, collective, collectiveSection, news, talent, talentSection } from "./routes.ts";
 
 test("talent routes map kinds to catalog sections", () => {
   assert.equal(talent("musician", "jasur-karimov"), "/musicians/jasur-karimov");
@@ -14,4 +14,10 @@ test("collective, casting and news routes", () => {
   assert.equal(collective("choir", "yoshlar"), "/choirs/yoshlar");
   assert.equal(casting("casting-01"), "/castings/casting-01");
   assert.equal(news("yangilik"), "/news/yangilik");
+});
+
+test("section helpers return catalog list routes", () => {
+  assert.equal(talentSection("vocalist"), "/vocalists");
+  assert.equal(collectiveSection("orchestra"), "/orchestras");
+  assert.equal(collectiveSection("choir"), "/choirs");
 });

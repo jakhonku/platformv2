@@ -9,9 +9,11 @@ const TALENT_SECTION: Record<TalentKind, string> = {
   composer: "composers",
 };
 
-export const talent = (kind: TalentKind, slug: string): string => `/${TALENT_SECTION[kind]}/${slug}`;
+export const talentSection = (kind: TalentKind): string => `/${TALENT_SECTION[kind]}`;
+export const talent = (kind: TalentKind, slug: string): string => `${talentSection(kind)}/${slug}`;
+export const collectiveSection = (type: CollectiveType): string => (type === "orchestra" ? "/orchestras" : "/choirs");
 export const collective = (type: CollectiveType, slug: string): string =>
-  `/${type === "orchestra" ? "orchestras" : "choirs"}/${slug}`;
+  `${collectiveSection(type)}/${slug}`;
 export const organization = (slug: string): string => `/organizations/${slug}`;
 export const casting = (id: string): string => `/castings/${id}`;
 export const vacancy = (id: string): string => `/vacancies/${id}`;
