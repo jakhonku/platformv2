@@ -1,5 +1,16 @@
 export { createRng, randomDate } from "./random.ts";
+export { MOCK_NOW } from "./now.ts";
 export { TALENTS, CONDUCTORS } from "./talents.ts";
 export { ORCHESTRAS, CHOIRS } from "./collectives.ts";
 export { ORGANIZATIONS } from "./organizations.ts";
 export { USERS } from "./users.ts";
+export { CASTINGS } from "./castings.ts";
+export { VACANCIES } from "./vacancies.ts";
+export { APPLICATIONS } from "./applications.ts";
+export { COMPETITIONS, FESTIVALS } from "./events.ts";
+export { PROJECTS } from "./projects.ts";
+export { NEWS } from "./news.ts";
+export { MASTERCLASSES } from "./masterclasses.ts";
+export { MEDIA, COLLECTIONS } from "./media.ts";
+export { NOTIFICATIONS } from "./notifications.ts";
+export { AUDIT_LOG } from "./audit.ts";
