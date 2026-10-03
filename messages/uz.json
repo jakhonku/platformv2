@@ -71,7 +71,31 @@
   },
   "home": {
     "heroTitle": "Iqtidorlar va sahnalar bir joyda",
-    "heroText": "Musiqachilar, jamoalar va tashkilotlarni birlashtiruvchi platforma."
+    "heroText": "Musiqachilar, jamoalar va tashkilotlarni birlashtiruvchi platforma.",
+    "searchLabel": "Qidiruv",
+    "searchTypeLabel": "Nimani qidirasiz?",
+    "searchPlaceholder": "Ism, jamoa yoki nom boʻyicha qidiring",
+    "searchButton": "Topish",
+    "searchTypes": {
+      "talents": "Musiqachi",
+      "collectives": "Jamoa",
+      "castings": "Kasting",
+      "vacancies": "Vakansiya"
+    },
+    "categoriesTitle": "Kimni qidiryapsiz?",
+    "featuredTalentsTitle": "Tanlangan iqtidorlar",
+    "featuredCollectivesTitle": "Tanlangan jamoalar",
+    "opportunitiesTitle": "Dolzarb kasting va vakansiyalar",
+    "castingsColumn": "Kastinglar",
+    "vacanciesColumn": "Vakansiyalar",
+    "eventsTitle": "Yaqin tanlov va festivallar",
+    "projectsTitle": "Joriy loyihalar",
+    "newsTitle": "Yangiliklar",
+    "viewAll": "Hammasini koʻrish",
+    "ctaTitle": "Oʻz sahnangni bugun top",
+    "ctaText": "Profil yarating, portfolio yuklang va tashkilotlar sizni topsin.",
+    "emptyTitle": "Hozircha maʼlumot yoʻq",
+    "emptyText": "Keyinroq qayta urinib koʻring."
   },
   "common": {
     "language": "Til",
@@ -93,5 +117,54 @@
   "demo": {
     "switchRole": "Rolni almashtirish",
     "currentRole": "Joriy rol"
+  },
+  "labels": {
+    "verified": "Tasdiqlangan",
+    "availability": {
+      "available": "Bandmas",
+      "busy": "Band",
+      "open_to_offers": "Takliflarga ochiq"
+    },
+    "talentKind": {
+      "musician": "Musiqachi",
+      "vocalist": "Vokalchi",
+      "conductor": "Dirijyor",
+      "composer": "Kompozitor"
+    },
+    "collectiveType": {
+      "orchestra": "Orkestr",
+      "choir": "Xor"
+    },
+    "status": {
+      "open": "Ochiq",
+      "closed": "Yopilgan",
+      "upcoming": "Yaqinda",
+      "ongoing": "Davom etmoqda",
+      "finished": "Tugagan",
+      "planned": "Rejalashtirilgan",
+      "active": "Faol",
+      "completed": "Yakunlangan"
+    },
+    "employment": {
+      "full_time": "Toʻliq stavka",
+      "part_time": "Yarim stavka",
+      "contract": "Shartnoma asosida"
+    },
+    "eventKind": {
+      "competition": "Tanlov",
+      "festival": "Festival"
+    }
+  },
+  "cards": {
+    "experience": "{count, plural, other {# yillik tajriba}}",
+    "deadline": "Muddat: {date}",
+    "daysLeft": "{count, plural, other {# kun qoldi}}",
+    "deadlineToday": "Muddat tugamoqda",
+    "applicants": "{count, plural, other {# ta ariza}}",
+    "members": "{count, plural, other {# ta aʼzo}}",
+    "founded": "{year}-yilda tashkil topgan",
+    "salary": "{from} – {to}",
+    "prizeFund": "Mukofot fondi: {amount}",
+    "readMore": "Batafsil"
   }
 }

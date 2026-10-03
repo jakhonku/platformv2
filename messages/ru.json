@@ -71,7 +71,31 @@
   },
   "home": {
     "heroTitle": "Таланты и сцены в одном месте",
-    "heroText": "Платформа, объединяющая музыкантов, коллективы и организации."
+    "heroText": "Платформа, объединяющая музыкантов, коллективы и организации.",
+    "searchLabel": "Поиск",
+    "searchTypeLabel": "Что вы ищете?",
+    "searchPlaceholder": "Поиск по имени, коллективу или названию",
+    "searchButton": "Найти",
+    "searchTypes": {
+      "talents": "Музыкант",
+      "collectives": "Коллектив",
+      "castings": "Кастинг",
+      "vacancies": "Вакансия"
+    },
+    "categoriesTitle": "Кого вы ищете?",
+    "featuredTalentsTitle": "Избранные таланты",
+    "featuredCollectivesTitle": "Избранные коллективы",
+    "opportunitiesTitle": "Актуальные кастинги и вакансии",
+    "castingsColumn": "Кастинги",
+    "vacanciesColumn": "Вакансии",
+    "eventsTitle": "Ближайшие конкурсы и фестивали",
+    "projectsTitle": "Текущие проекты",
+    "newsTitle": "Новости",
+    "viewAll": "Смотреть все",
+    "ctaTitle": "Найди свою сцену уже сегодня",
+    "ctaText": "Создайте профиль, загрузите портфолио — и организации найдут вас.",
+    "emptyTitle": "Пока нет данных",
+    "emptyText": "Попробуйте позже."
   },
   "common": {
     "language": "Язык",
@@ -93,5 +117,54 @@
   "demo": {
     "switchRole": "Сменить роль",
     "currentRole": "Текущая роль"
+  },
+  "labels": {
+    "verified": "Подтверждён",
+    "availability": {
+      "available": "Свободен",
+      "busy": "Занят",
+      "open_to_offers": "Открыт к предложениям"
+    },
+    "talentKind": {
+      "musician": "Музыкант",
+      "vocalist": "Вокалист",
+      "conductor": "Дирижёр",
+      "composer": "Композитор"
+    },
+    "collectiveType": {
+      "orchestra": "Оркестр",
+      "choir": "Хор"
+    },
+    "status": {
+      "open": "Открыто",
+      "closed": "Закрыто",
+      "upcoming": "Скоро",
+      "ongoing": "Идёт",
+      "finished": "Завершено",
+      "planned": "Запланирован",
+      "active": "Активен",
+      "completed": "Завершён"
+    },
+    "employment": {
+      "full_time": "Полная занятость",
+      "part_time": "Частичная занятость",
+      "contract": "По договору"
+    },
+    "eventKind": {
+      "competition": "Конкурс",
+      "festival": "Фестиваль"
+    }
+  },
+  "cards": {
+    "experience": "Опыт: {count, plural, one {# год} few {# года} many {# лет} other {# года}}",
+    "deadline": "Срок: {date}",
+    "daysLeft": "{count, plural, one {остался # день} few {осталось # дня} many {осталось # дней} other {осталось # дня}}",
+    "deadlineToday": "Срок истекает",
+    "applicants": "{count, plural, one {# заявка} few {# заявки} many {# заявок} other {# заявки}}",
+    "members": "{count, plural, one {# участник} few {# участника} many {# участников} other {# участника}}",
+    "founded": "Основан в {year} году",
+    "salary": "{from} – {to}",
+    "prizeFund": "Призовой фонд: {amount}",
+    "readMore": "Подробнее"
   }
 }

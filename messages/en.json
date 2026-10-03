@@ -71,7 +71,31 @@
   },
   "home": {
     "heroTitle": "Talents and stages in one place",
-    "heroText": "A platform that brings musicians, collectives and organizations together."
+    "heroText": "A platform that brings musicians, collectives and organizations together.",
+    "searchLabel": "Search",
+    "searchTypeLabel": "What are you looking for?",
+    "searchPlaceholder": "Search by name, collective or title",
+    "searchButton": "Search",
+    "searchTypes": {
+      "talents": "Musician",
+      "collectives": "Collective",
+      "castings": "Casting",
+      "vacancies": "Vacancy"
+    },
+    "categoriesTitle": "Who are you looking for?",
+    "featuredTalentsTitle": "Featured talents",
+    "featuredCollectivesTitle": "Featured collectives",
+    "opportunitiesTitle": "Open castings and vacancies",
+    "castingsColumn": "Castings",
+    "vacanciesColumn": "Vacancies",
+    "eventsTitle": "Upcoming competitions and festivals",
+    "projectsTitle": "Current projects",
+    "newsTitle": "News",
+    "viewAll": "View all",
+    "ctaTitle": "Find your stage today",
+    "ctaText": "Create a profile, upload your portfolio and let organizations find you.",
+    "emptyTitle": "Nothing here yet",
+    "emptyText": "Please try again later."
   },
   "common": {
     "language": "Language",
@@ -93,5 +117,54 @@
   "demo": {
     "switchRole": "Switch role",
     "currentRole": "Current role"
+  },
+  "labels": {
+    "verified": "Verified",
+    "availability": {
+      "available": "Available",
+      "busy": "Busy",
+      "open_to_offers": "Open to offers"
+    },
+    "talentKind": {
+      "musician": "Musician",
+      "vocalist": "Vocalist",
+      "conductor": "Conductor",
+      "composer": "Composer"
+    },
+    "collectiveType": {
+      "orchestra": "Orchestra",
+      "choir": "Choir"
+    },
+    "status": {
+      "open": "Open",
+      "closed": "Closed",
+      "upcoming": "Upcoming",
+      "ongoing": "Ongoing",
+      "finished": "Finished",
+      "planned": "Planned",
+      "active": "Active",
+      "completed": "Completed"
+    },
+    "employment": {
+      "full_time": "Full-time",
+      "part_time": "Part-time",
+      "contract": "Contract"
+    },
+    "eventKind": {
+      "competition": "Competition",
+      "festival": "Festival"
+    }
+  },
+  "cards": {
+    "experience": "{count, plural, one {# year} other {# years}} of experience",
+    "deadline": "Deadline: {date}",
+    "daysLeft": "{count, plural, one {# day left} other {# days left}}",
+    "deadlineToday": "Closing soon",
+    "applicants": "{count, plural, one {# application} other {# applications}}",
+    "members": "{count, plural, one {# member} other {# members}}",
+    "founded": "Founded in {year}",
+    "salary": "{from} – {to}",
+    "prizeFund": "Prize fund: {amount}",
+    "readMore": "Read more"
   }
 }
