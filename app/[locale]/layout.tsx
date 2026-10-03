@@ -23,7 +23,11 @@ export function generateStaticParams() {
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: "app" });
+  const siteUrl = process.env.VERCEL_PROJECT_PRODUCTION_URL
+    ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
+    : (process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000");
   return {
+    metadataBase: new URL(siteUrl),
     title: { default: t("name"), template: `%s · ${t("shortName")}` },
     description: t("description"),
   };
