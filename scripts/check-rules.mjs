@@ -26,6 +26,20 @@ for (const f of files) {
     errors.push(`${rel}: lib/mock faqat lib/data ichida import qilinadi`);
 }
 
+// Oʻzbekcha matnlarda ASCII apostrof (o', g') taqiqlanadi: faqat U+02BB / U+02BC
+const textDirs = ["lib/mock", "lib/constants", "lib/data"];
+const asciiApostrophe = /["`][^"`\n]*[OoGg]'[^"`\n]*["`]/;
+for (const f of textDirs.flatMap((d) => walk(join(root, d))).filter((p) => /\.ts$/.test(p) && !/\.test\.ts$/.test(p))) {
+  const rel = relative(root, f).split(sep).join("/");
+  readFileSync(f, "utf8")
+    .split("\n")
+    .forEach((line, i) => {
+      const t = line.trim();
+      if (t.startsWith("//") || t.startsWith("*") || t.startsWith("/*")) return;
+      if (asciiApostrophe.test(line)) errors.push(`${rel}:${i + 1}: ASCII apostrof (oʻ/gʻ uchun U+02BB ishlating)`);
+    });
+}
+
 const langs = ["uz", "ru", "en"];
 const msgFiles = langs.map((l) => join(root, "messages", `${l}.json`));
 if (msgFiles.every(existsSync)) {

@@ -82,7 +82,7 @@ export async function moderate(
   actorId = "user-moderator",
 ): Promise<ModerationItem> {
   await simulateLatency();
-  if (decision !== "approved" && decision !== "rejected") throw new DataError("invalid", "Noto'g'ri qaror");
+  if (decision !== "approved" && decision !== "rejected") throw new DataError("invalid", "Notoʻgʻri qaror");
 
   let item: ModerationItem | undefined;
   if (kind === "profile") {
