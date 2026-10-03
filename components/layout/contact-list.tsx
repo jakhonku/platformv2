@@ -15,7 +15,7 @@ export function ContactList({ contacts }: { contacts: Contacts }) {
       key: "telegram",
       Icon: Send,
       label: contacts.telegram,
-      href: `https://t.me/${contacts.telegram.replace(/^@/, "")}`,
+      href: `https://t.me/${encodeURIComponent(contacts.telegram.replace(/^@/, ""))}`,
     },
     contacts.website && { key: "website", Icon: Globe, label: contacts.website.replace(/^https?:\/\//i, ""), href: website },
   ].filter((r): r is { key: string; Icon: typeof Phone; label: string; href: string | null } => !!r);

@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import { test } from "node:test";
-import { daysLeft, formatDate, formatDateRange, formatMoneyUzs } from "./format.ts";
+import { daysLeft, formatCount, formatDate, formatDateRange, formatMoneyUzs } from "./format.ts";
 import { localized } from "./localized.ts";
 
 test("localized picks the requested language", () => {
@@ -43,4 +43,13 @@ test("formatDateRange collapses a single-day range", () => {
   const a = "2026-10-03T10:00:00.000Z";
   assert.equal(formatDateRange(a, "2026-10-03T12:00:00.000Z", "en"), formatDate(a, "en"));
   assert.match(formatDateRange(a, "2026-10-07T10:00:00.000Z", "en"), /–/);
+});
+
+test("formatCount groups thousands with a no-break space regardless of runtime ICU (hydration-safe)", () => {
+  assert.equal(formatCount(0), "0");
+  assert.equal(formatCount(999), "999");
+  assert.equal(formatCount(2767), "2 767");
+  assert.equal(formatCount(1234567), "1 234 567");
+  assert.equal(formatCount(-4500), "-4 500");
+  assert.equal(formatCount(Number.NaN), "0");
 });

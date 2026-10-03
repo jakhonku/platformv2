@@ -1,6 +1,7 @@
 import { Eye } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { Card } from "@/components/ui/card";
+import { formatCount } from "@/lib/format";
 import { formatDuration } from "@/lib/media";
 import type { MediaItem } from "@/types/media";
 
@@ -20,7 +21,7 @@ export function MediaCard({ item, children }: { item: MediaItem; children: React
         {duration && <span>{duration}</span>}
         <span className="inline-flex items-center gap-1">
           <Eye className="size-3.5" aria-hidden />
-          {t("views", { count: item.views })}
+          {t("views", { count: item.views, formatted: formatCount(item.views) })}
         </span>
       </div>
     </Card>

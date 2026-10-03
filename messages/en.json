@@ -286,7 +286,7 @@
       "documents": "Documents"
     },
     "play": "Play",
-    "views": "{count, plural, one {# view} other {# views}}",
+    "views": "{count, plural, one {{formatted} view} other {{formatted} views}}",
     "download": "Download",
     "empty": "No materials in this section",
     "emptyText": "Materials appear here once approved.",

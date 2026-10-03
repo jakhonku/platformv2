@@ -286,7 +286,7 @@
       "documents": "Документы"
     },
     "play": "Воспроизвести",
-    "views": "{count, plural, one {# просмотр} few {# просмотра} many {# просмотров} other {# просмотра}}",
+    "views": "{count, plural, one {{formatted} просмотр} few {{formatted} просмотра} many {{formatted} просмотров} other {{formatted} просмотра}}",
     "download": "Скачать",
     "empty": "В этом разделе нет материалов",
     "emptyText": "Материалы появятся здесь после одобрения.",

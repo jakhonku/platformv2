@@ -286,7 +286,7 @@
       "documents": "Hujjatlar"
     },
     "play": "Ijro etish",
-    "views": "{count, plural, other {# ta koʻrish}}",
+    "views": "{count, plural, other {{formatted} ta koʻrish}}",
     "download": "Yuklab olish",
     "empty": "Bu boʻlimda materiallar yoʻq",
     "emptyText": "Materiallar tasdiqlangandan soʻng shu yerda koʻrinadi.",

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Send } from "lucide-react";
 import { useTranslations } from "next-intl";
@@ -19,6 +19,8 @@ type Values = { senderName: string; contact: string; message: string };
 export function InviteDialog({ talentId, talentName }: { talentId: string; talentName: string }) {
   const t = useTranslations("invite");
   const [open, setOpen] = useState(false);
+  // Sinxron guard: isSubmitting render'dan keyin yangilanadi, tez ikki bosish ikkinchi yuborishni o'tkazib yubormasligi uchun
+  const sending = useRef(false);
 
   const schema = z.object({
     senderName: z.string().trim().min(2, t("errors.senderName")).max(80, t("errors.senderName")),
@@ -44,6 +46,17 @@ export function InviteDialog({ talentId, talentName }: { talentId: string; talen
     }
   });
 
+  const onFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    if (sending.current) {
+      e.preventDefault();
+      return;
+    }
+    sending.current = true;
+    void onSubmit(e).finally(() => {
+      sending.current = false;
+    });
+  };
+
   return (
     <>
       <Button onClick={() => setOpen(true)}>
@@ -56,7 +69,7 @@ export function InviteDialog({ talentId, talentName }: { talentId: string; talen
             <DialogTitle>{t("title")}</DialogTitle>
             <DialogDescription>{t("description", { name: talentName })}</DialogDescription>
           </DialogHeader>
-          <form onSubmit={onSubmit} noValidate className="flex flex-col gap-4">
+          <form onSubmit={onFormSubmit} noValidate className="flex flex-col gap-4">
             <div className="flex flex-col gap-1.5">
               <Label htmlFor="invite-sender">{t("senderName")}</Label>
               <Input

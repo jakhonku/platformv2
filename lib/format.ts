@@ -29,3 +29,10 @@ export function formatMoneyUzs(amount: number, locale: LocaleCode): string {
 export function daysLeft(iso: string, nowIso: string): number {
   return Math.max(0, Math.ceil((Date.parse(iso) - Date.parse(nowIso)) / DAY_MS));
 }
+
+/** Ming ajratgich bilan butun son. Intl o'rniga qo'lda: Node va brauzer ICU'si farq qilib, gidratatsiya xatosi bermasligi uchun */
+export function formatCount(n: number): string {
+  if (!Number.isFinite(n)) return "0";
+  const sign = n < 0 ? "-" : "";
+  return sign + String(Math.trunc(Math.abs(n))).replace(/\B(?=(\d{3})+(?!\d))/g, " ");
+}
