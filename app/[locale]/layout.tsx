@@ -2,7 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Inter } from "next/font/google";
 import { notFound } from "next/navigation";
 import { hasLocale, NextIntlClientProvider } from "next-intl";
-import { getTranslations, setRequestLocale } from "next-intl/server";
+import { getTranslations } from "next-intl/server";
 import { Toaster } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { routing } from "@/i18n/routing";
@@ -38,7 +38,6 @@ export default async function LocaleLayout({
 }) {
   const { locale } = await params;
   if (!hasLocale(routing.locales, locale)) notFound();
-  setRequestLocale(locale);
 
   return (
     <html lang={locale} style={{ colorScheme: "light" }} className={`${fontSans.variable} h-full antialiased`}>
