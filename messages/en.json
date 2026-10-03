@@ -166,5 +166,89 @@
     "salary": "{from} – {to}",
     "prizeFund": "Prize fund: {amount}",
     "readMore": "Read more"
+  },
+  "catalog": {
+    "title": {
+      "musicians": "Musicians",
+      "vocalists": "Choristers & vocalists",
+      "conductors": "Conductors",
+      "composers": "Composers & arrangers",
+      "orchestras": "Orchestras",
+      "choirs": "Choirs",
+      "organizations": "Organizations"
+    },
+    "description": {
+      "musicians": "Directory of musicians in Uzbekistan: search by instrument, region and experience.",
+      "vocalists": "Directory of choristers and vocalists: voice type, range and region.",
+      "conductors": "Directory of orchestra and choir conductors.",
+      "composers": "Directory of composers and arrangers.",
+      "orchestras": "Directory of orchestras: lineup, repertoire and events.",
+      "choirs": "Directory of choirs: lineup, repertoire and events.",
+      "organizations": "Directory of philharmonics, theatres, conservatories and other organizations."
+    },
+    "filtersButton": "Filters",
+    "filtersTitle": "Filters",
+    "filters": {
+      "name": "Name or title",
+      "namePlaceholder": "Search…",
+      "instrument": "Instrument",
+      "voiceType": "Voice type",
+      "specialty": "Specialty",
+      "region": "Region",
+      "city": "City",
+      "education": "Educational institution",
+      "experience": "Experience",
+      "collective": "Collective",
+      "availability": "Availability",
+      "verifiedOnly": "Verified profiles only",
+      "orgKind": "Organization type",
+      "any": "Any"
+    },
+    "experienceOptions": {
+      "2": "Over 2 years",
+      "5": "Over 5 years",
+      "10": "Over 10 years",
+      "20": "Over 20 years"
+    },
+    "instrumentFamily": {
+      "symphonic": "Symphonic",
+      "keyboard": "Keyboard",
+      "percussion": "Percussion",
+      "folk": "Folk",
+      "jazz": "Jazz"
+    },
+    "orgKind": {
+      "philharmonic": "Philharmonic",
+      "theatre": "Theatre",
+      "conservatory": "Conservatory (university)",
+      "college": "College",
+      "school": "Music school",
+      "festival_org": "Festival organizer",
+      "agency": "Creative agency"
+    },
+    "sort": {
+      "label": "Sort by",
+      "name": "Name",
+      "experience": "Experience",
+      "recent": "Recently added",
+      "founded": "Year founded",
+      "members": "Number of members"
+    },
+    "view": {
+      "label": "View",
+      "cards": "Cards",
+      "list": "List"
+    },
+    "results": "{count, plural, one {# result} other {# results}}",
+    "reset": "Clear filters",
+    "emptyTitle": "Nothing found",
+    "emptyText": "Try changing or clearing the filters.",
+    "pagination": {
+      "label": "Pages",
+      "page": "Page {page}",
+      "prev": "Previous",
+      "next": "Next"
+    },
+    "showResults": "Show results"
   }
 }

@@ -166,5 +166,89 @@
     "salary": "{from} – {to}",
     "prizeFund": "Mukofot fondi: {amount}",
     "readMore": "Batafsil"
+  },
+  "catalog": {
+    "title": {
+      "musicians": "Musiqachilar",
+      "vocalists": "Xoristlar va vokalchilar",
+      "conductors": "Dirijyorlar",
+      "composers": "Kompozitorlar va aranjirovkachilar",
+      "orchestras": "Orkestrlar",
+      "choirs": "Xorlar",
+      "organizations": "Tashkilotlar"
+    },
+    "description": {
+      "musicians": "Oʻzbekistondagi musiqachilar katalogi: cholgʻu, hudud va tajriba boʻyicha qidiring.",
+      "vocalists": "Xoristlar va vokalchilar katalogi: ovoz turi, diapazon va hudud boʻyicha qidiring.",
+      "conductors": "Orkestr va xor dirijyorlari katalogi.",
+      "composers": "Kompozitorlar va aranjirovkachilar katalogi.",
+      "orchestras": "Orkestrlar katalogi: tarkib, repertuar va tadbirlar.",
+      "choirs": "Xorlar katalogi: tarkib, repertuar va tadbirlar.",
+      "organizations": "Filarmoniya, teatr, konservatoriya va boshqa tashkilotlar katalogi."
+    },
+    "filtersButton": "Filtrlar",
+    "filtersTitle": "Filtrlar",
+    "filters": {
+      "name": "Ism yoki nom",
+      "namePlaceholder": "Qidirish…",
+      "instrument": "Cholgʻu",
+      "voiceType": "Ovoz turi",
+      "specialty": "Mutaxassislik",
+      "region": "Hudud",
+      "city": "Shahar",
+      "education": "Taʼlim muassasasi",
+      "experience": "Tajriba",
+      "collective": "Jamoa",
+      "availability": "Mavjudlik",
+      "verifiedOnly": "Faqat tasdiqlangan profillar",
+      "orgKind": "Tashkilot turi",
+      "any": "Hammasi"
+    },
+    "experienceOptions": {
+      "2": "2 yildan ortiq",
+      "5": "5 yildan ortiq",
+      "10": "10 yildan ortiq",
+      "20": "20 yildan ortiq"
+    },
+    "instrumentFamily": {
+      "symphonic": "Simfonik",
+      "keyboard": "Klavishli",
+      "percussion": "Zarbli",
+      "folk": "Xalq cholgʻulari",
+      "jazz": "Jazz"
+    },
+    "orgKind": {
+      "philharmonic": "Filarmoniya",
+      "theatre": "Teatr",
+      "conservatory": "Konservatoriya (OTM)",
+      "college": "Kollej",
+      "school": "Musiqa maktabi",
+      "festival_org": "Festival tashkilotchisi",
+      "agency": "Ijodiy agentlik"
+    },
+    "sort": {
+      "label": "Saralash",
+      "name": "Nom boʻyicha",
+      "experience": "Tajriba boʻyicha",
+      "recent": "Yangi qoʻshilganlar",
+      "founded": "Tashkil topgan yil",
+      "members": "Aʼzolar soni"
+    },
+    "view": {
+      "label": "Koʻrinish",
+      "cards": "Kartochkalar",
+      "list": "Roʻyxat"
+    },
+    "results": "{count, plural, other {# ta natija}}",
+    "reset": "Filtrlarni tozalash",
+    "emptyTitle": "Hech narsa topilmadi",
+    "emptyText": "Filtrlarni oʻzgartirib koʻring yoki tozalang.",
+    "pagination": {
+      "label": "Sahifalar",
+      "page": "{page}-sahifa",
+      "prev": "Oldingi",
+      "next": "Keyingi"
+    },
+    "showResults": "Natijalarni koʻrsatish"
   }
 }
