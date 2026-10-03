@@ -6,8 +6,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   return { title: t("loginTitle") };
 }
 
-export default async function LoginPage({ params }: { params: Promise<{ locale: string }> }) {
-  const { locale } = await params;
+export default async function LoginPage() {
   const t = await getTranslations("auth");
 
   return (

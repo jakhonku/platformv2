@@ -3,8 +3,7 @@ import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { getDemoRole } from "@/lib/demo/server";
 
-export default async function CabinetPage({ params }: { params: Promise<{ locale: string }> }) {
-  const { locale } = await params;
+export default async function CabinetPage() {
   const t = await getTranslations();
   const role = await getDemoRole();
 
