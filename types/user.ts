@@ -8,6 +8,15 @@ import type { Role } from "../lib/demo/role.ts";
 
 export type UserStatus = "active" | "pending" | "blocked";
 
+export type UserIdentity = {
+  type: "individual" | "legal";
+  pinfl?: string;
+  stir?: string;
+  source: "oneid" | "manual";
+  /** OneID orqali shaxsi (PINFL/STIR) davlat tizimida tasdiqlangan */
+  verified: boolean;
+};
+
 export type User = {
   id: string;
   fullName: string;
@@ -16,4 +25,5 @@ export type User = {
   roles: Role[];
   status: UserStatus;
   createdAt: IsoDate;
+  identity?: UserIdentity;
 };

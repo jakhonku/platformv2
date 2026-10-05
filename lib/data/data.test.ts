@@ -24,6 +24,14 @@ import {
   getTalents,
   getUsers,
   getVacancies,
+  getCollectiveDetailById,
+  getCollectiveInvitesFor,
+  getCollectiveInvitesOf,
+  getSubjectForUser,
+  inviteCollectiveMember,
+  oneIdSignIn,
+  respondToCollectiveInvite,
+  verifyAndActivate,
   createBackup,
   deleteEvent,
   deleteNews,
@@ -486,4 +494,119 @@ test("rejecting requires a reason of at least 5 characters (Review Focus 2)", as
   await assert.rejects(() => moderate("media", item.id, "rejected", "yo"), { code: "invalid" });
   const done = await moderate("media", item.id, "rejected", "Sifat talabiga mos emas");
   assert.equal(done.status, "rejected");
+});
+
+const doc = [{ name: "nizom.pdf", size: 1000 }];
+
+test("registerAccount creates real pending records per role (Review Focus 1)", async () => {
+  const t = await registerAccount({ role: "composer", fullName: "Yangi Kompozitor", contact: "+998 93 111 22 33", password: "password123" });
+  const subj = await getSubjectForUser(t.userId);
+  assert.equal(subj?.talent?.moderation, "pending");
+  assert.equal(subj?.talent?.kind, "composer");
+  assert.equal(subj?.user.status, "pending");
+  assert.equal(subj?.user.identity?.source, "manual");
+
+  const org = await registerAccount({ role: "organization", fullName: "Vakil Shaxs", contact: "org-new@example.uz", password: "password123", entityName: "Yangi Teatr", stir: "123456789", orgKind: "theatre", documents: doc });
+  const orgSubj = await getSubjectForUser(org.userId);
+  assert.equal(orgSubj?.organization?.verification, "pending");
+  assert.equal(orgSubj?.organization?.stir, "123456789");
+  assert.equal(orgSubj?.user.identity?.type, "legal");
+
+  const col = await registerAccount({ role: "collective", fullName: "Rahbar Shaxs", contact: "col-new@example.uz", password: "password123", entityName: "Yangi Xor", collectiveType: "choir", documents: doc });
+  const colSubj = await getSubjectForUser(col.userId);
+  assert.equal(colSubj?.collective?.moderation, "pending");
+  assert.equal(colSubj?.collective?.type, "choir");
+  assert.equal(await getSubjectForUser("yoq"), null);
+});
+
+test("entity registration validates name, STIR, documents and duplicates (Review Focus 1)", async () => {
+  const base = { role: "organization" as const, fullName: "Vakil Shaxs", contact: "org-bad@example.uz", password: "password123", entityName: "Teatr Bad", stir: "987654321", documents: doc };
+  await assert.rejects(() => registerAccount({ ...base, entityName: "" }), { code: "invalid" });
+  await assert.rejects(() => registerAccount({ ...base, stir: "123" }), { code: "invalid" });
+  await assert.rejects(() => registerAccount({ ...base, documents: [] }), { code: "invalid" });
+  await assert.rejects(() => registerAccount({ ...base, documents: [{ name: "x.exe", size: 5 }] }), { code: "invalid" });
+  await registerAccount(base);
+  await assert.rejects(() => registerAccount({ ...base, contact: "org-bad2@example.uz" }), { code: "duplicate" });
+  await assert.rejects(() => registerAccount({ role: "collective", fullName: "Rahbar", contact: "col-bad@example.uz", password: "password123", entityName: "Xor", documents: [] }), { code: "invalid" });
+});
+
+test("verifyAndActivate activates a pending user", async () => {
+  await registerAccount({ role: "musician", fullName: "Faollashuvchi", contact: "+998 94 555 66 77", password: "password123" });
+  await assert.rejects(() => verifyAndActivate("+998 94 555 66 77", "000000"), { code: "invalid" });
+  await assert.rejects(() => verifyAndActivate("+998 90 999 99 99", "123456"), { code: "not_found" });
+  const res = await verifyAndActivate("+998 94 555 66 77", "123456");
+  assert.equal(res.role, "musician");
+  assert.equal((await getSubjectForUser(res.userId))?.user.status, "active");
+});
+
+test("oneIdSignIn distinguishes individuals and legal entities (Review Focus 1, 4)", async () => {
+  const a = await oneIdSignIn({ type: "individual", pinfl: "12345678901234", fullName: "Oneid Musiqachi", role: "musician" });
+  assert.equal(a.isNew, true);
+  const subj = await getSubjectForUser(a.userId);
+  assert.equal(subj?.user.status, "active");
+  assert.equal(subj?.user.identity?.verified, true);
+  assert.equal(subj?.user.identity?.source, "oneid");
+  assert.equal(subj?.talent?.moderation, "pending");
+  const again = await oneIdSignIn({ type: "individual", pinfl: "12345678901234", fullName: "Oneid Musiqachi", role: "musician" });
+  assert.equal(again.isNew, false);
+  assert.equal(again.userId, a.userId);
+  const queue = await getModerationQueue("profile");
+  assert.ok(queue.some((q) => q.id === subj!.talent!.id && q.meta?.identity === "oneid"));
+  await moderate("profile", subj!.talent!.id, "approved");
+  assert.equal((await getSubjectForUser(a.userId))?.talent?.verified, true);
+
+  const legal = await oneIdSignIn({ type: "legal", stir: "555666777", entityName: "Oneid Filarmoniya", representative: "Vakil", role: "organization" });
+  assert.equal(legal.twoFactor, true);
+  const org = (await getSubjectForUser(legal.userId))?.organization;
+  assert.equal(org?.verification, "pending");
+  assert.equal(org?.stir, "555666777");
+  await assert.rejects(() => oneIdSignIn({ type: "individual", pinfl: "123", fullName: "X Y", role: "musician" }), { code: "invalid" });
+  await assert.rejects(() => oneIdSignIn({ type: "legal", stir: "12", entityName: "Teatr", representative: "Vakil", role: "organization" }), { code: "invalid" });
+  await assert.rejects(() => oneIdSignIn({ type: "legal", stir: "111222333", entityName: "Teatr", representative: "Vakil", role: "musician" as never }), { code: "invalid" });
+});
+
+test("moderation covers collectives and keeps the rejection note (Review Focus 3)", async () => {
+  const res = await registerAccount({ role: "collective", fullName: "Rahbar Ikki", contact: "col-mod@example.uz", password: "password123", entityName: "Moderatsiya Orkestri", documents: doc });
+  const collective = (await getSubjectForUser(res.userId))!.collective!;
+  const queue = await getModerationQueue("collective");
+  assert.ok(queue.some((q) => q.id === collective.id));
+  await assert.rejects(() => moderate("collective", collective.id, "rejected"), { code: "invalid" });
+  await moderate("collective", collective.id, "rejected", "Hujjat yetarli emas");
+  assert.equal((await getCollectiveDetailById(collective.id))?.moderationNote, "Hujjat yetarli emas");
+  await moderate("collective", collective.id, "approved");
+  const approvedCollective = await getCollectiveDetailById(collective.id);
+  assert.equal(approvedCollective?.moderation, "approved");
+  assert.equal(approvedCollective?.moderationNote, undefined);
+});
+
+test("unverified organizations cannot create openings (Review Focus 2)", async () => {
+  const res = await registerAccount({ role: "organization", fullName: "Vakil Uch", contact: "org-open@example.uz", password: "password123", entityName: "Ochiq Teatr", stir: "246813579", documents: doc });
+  const org = (await getSubjectForUser(res.userId))!.organization!;
+  const payload = { title: "Yangi kasting nomi", description: "Kamida yigirma belgidan iborat tavsif matni.", location: "Toshkent", eventDate: "2027-03-01T18:00:00.000Z", deadline: "2026-12-30T18:00:00.000Z" };
+  await assert.rejects(() => createCasting(org.id, payload), { code: "forbidden" });
+  await moderate("organization", org.id, "approved");
+  const c = await createCasting(org.id, payload);
+  assert.equal(c.organizationId, org.id);
+});
+
+test("collective membership is two-sided (Review Focus 5)", async () => {
+  const col = ORCHESTRAS[1];
+  const fresh = approved.find((t) => !col.members.some((m) => m.talentId === t.id))!;
+  const invite = await inviteCollectiveMember(col.id, { talentId: fresh.id, section: "Skripka" });
+  assert.equal(invite.status, "pending");
+  assert.ok((await getCollectiveInvitesOf(col.id)).some((i) => i.id === invite.id));
+  assert.ok((await getCollectiveInvitesFor(fresh.id)).some((i) => i.id === invite.id));
+  await assert.rejects(() => inviteCollectiveMember(col.id, { talentId: fresh.id, section: "Skripka" }), { code: "duplicate" });
+  await assert.rejects(() => inviteCollectiveMember(col.id, { talentId: col.members[0].talentId, section: "X" }), { code: "duplicate" });
+  assert.ok(!(await getCollectiveDetailById(col.id))!.members.some((m) => m.talentId === fresh.id));
+  await respondToCollectiveInvite(invite.id, "accepted");
+  assert.ok((await getCollectiveDetailById(col.id))!.members.some((m) => m.talentId === fresh.id));
+  await assert.rejects(() => respondToCollectiveInvite(invite.id, "accepted"), { code: "invalid" });
+
+  const other = approved.find((t) => t.id !== fresh.id && !col.members.some((m) => m.talentId === t.id))!;
+  const declined = await inviteCollectiveMember(col.id, { talentId: other.id, section: "Alt" });
+  await respondToCollectiveInvite(declined.id, "declined");
+  assert.ok(!(await getCollectiveDetailById(col.id))!.members.some((m) => m.talentId === other.id));
+  await assert.rejects(() => respondToCollectiveInvite("yoq", "accepted"), { code: "not_found" });
+  await assert.rejects(() => inviteCollectiveMember(col.id, { talentId: "yoq", section: "X" }), { code: "not_found" });
 });

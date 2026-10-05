@@ -27,6 +27,8 @@ export const createCasting = (...args: Parameters<typeof cabinet.createCasting>)
 export const createVacancy = (...args: Parameters<typeof cabinet.createVacancy>) => unwrap(actions.createVacancyAction(...args));
 export const setOpportunityStatus = (...args: Parameters<typeof cabinet.setOpportunityStatus>) => unwrap(actions.setOpportunityStatusAction(...args));
 export const updateCollective = (...args: Parameters<typeof cabinet.updateCollective>) => unwrap(actions.updateCollectiveAction(...args));
+export const inviteCollectiveMember = (...args: Parameters<typeof cabinet.inviteCollectiveMember>) => unwrap(actions.inviteCollectiveMemberAction(...args));
+export const respondToCollectiveInvite = (...args: Parameters<typeof cabinet.respondToCollectiveInvite>) => unwrap(actions.respondToCollectiveInviteAction(...args));
 export const addCollectiveMember = (...args: Parameters<typeof cabinet.addCollectiveMember>) => unwrap(actions.addCollectiveMemberAction(...args));
 export const removeCollectiveMember = (...args: Parameters<typeof cabinet.removeCollectiveMember>) => unwrap(actions.removeCollectiveMemberAction(...args));
 export const addCollectiveEvent = (...args: Parameters<typeof cabinet.addCollectiveEvent>) => unwrap(actions.addCollectiveEventAction(...args));
@@ -39,6 +41,8 @@ export const markNotificationRead = (...args: Parameters<typeof account.markNoti
 export const login = (...args: Parameters<typeof auth.login>) => unwrap(actions.loginAction(...args));
 export const registerAccount = (...args: Parameters<typeof auth.registerAccount>) => unwrap(actions.registerAccountAction(...args));
 export const verifyCode = (...args: Parameters<typeof auth.verifyCode>) => unwrap(actions.verifyCodeAction(...args));
+export const verifyAndActivate = (...args: Parameters<typeof auth.verifyAndActivate>) => unwrap(actions.verifyAndActivateAction(...args));
+export const oneIdSignIn = (...args: Parameters<typeof auth.oneIdSignIn>) => unwrap(actions.oneIdSignInAction(...args));
 export const moderate = (...args: Parameters<typeof admin.moderate>) => unwrap(actions.moderateAction(...args));
 export const setUserStatus = (...args: Parameters<typeof admin_ops.setUserStatus>) => unwrap(actions.setUserStatusAction(...args));
 export const setUserRoles = (...args: Parameters<typeof admin_ops.setUserRoles>) => unwrap(actions.setUserRolesAction(...args));

@@ -1,11 +1,11 @@
 // Hosil qiluvchi: `node scripts/gen-actions.mjs` — lib/data/actions.ts va lib/data/client.ts ni qayta yozadi
 import fs from "node:fs";
 const fns = {
-  "./cabinet.ts": ["updateTalentProfile", "addMedia", "updateMedia", "deleteMedia", "createCollection", "deleteCollection", "respondToInvitation", "saveNotificationSettings", "markAllNotificationsRead", "createCasting", "createVacancy", "setOpportunityStatus", "updateCollective", "addCollectiveMember", "removeCollectiveMember", "addCollectiveEvent", "removeCollectiveEvent"],
+  "./cabinet.ts": ["updateTalentProfile", "addMedia", "updateMedia", "deleteMedia", "createCollection", "deleteCollection", "respondToInvitation", "saveNotificationSettings", "markAllNotificationsRead", "createCasting", "createVacancy", "setOpportunityStatus", "updateCollective", "inviteCollectiveMember", "respondToCollectiveInvite", "addCollectiveMember", "removeCollectiveMember", "addCollectiveEvent", "removeCollectiveEvent"],
   "./opportunities.ts": ["applyToCasting", "applyToVacancy", "updateApplicationStatus"],
   "./invitations.ts": ["sendInvitation"],
   "./account.ts": ["markNotificationRead"],
-  "./auth.ts": ["login", "registerAccount", "verifyCode"],
+  "./auth.ts": ["login", "registerAccount", "verifyCode", "verifyAndActivate", "oneIdSignIn"],
   "./admin.ts": ["moderate"],
   "./admin-ops.ts": ["setUserStatus", "setUserRoles", "deleteOpening", "saveCompetition", "saveFestival", "deleteEvent", "saveNews", "deleteNews", "saveBanner", "deleteBanner", "saveReference", "deleteReference", "saveSystemSettings", "createBackup"],
 };

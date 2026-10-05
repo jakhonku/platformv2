@@ -51,6 +51,13 @@ export async function getCollectiveBySlug(slug: string): Promise<CollectiveDetai
   return found ? toDetail(found) : null;
 }
 
+/** Kabinet uchun: ko'rinish (moderatsiya) holatidan qat'i nazar jamoa tafsiloti */
+export async function getCollectiveDetailById(id: string): Promise<CollectiveDetail | null> {
+  await simulateLatency();
+  const found = store.collectives.find((c) => c.id === id);
+  return found ? toDetail(found) : null;
+}
+
 export async function getCollectiveById(id: string): Promise<Collective | null> {
   await simulateLatency();
   const found = store.collectives.find((c) => c.id === id);

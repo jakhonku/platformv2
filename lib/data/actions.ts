@@ -4,11 +4,11 @@
 // shunda `router.refresh()` dan keyin server sahifalari yangi holatni ko'radi. Natija `ActionResult` ko'rinishida
 // qaytadi (DataError server chegarasida xabarga aylanib ketmasligi uchun).
 import { DataError, type DataErrorCode } from "./errors.ts";
-import { updateTalentProfile, addMedia, updateMedia, deleteMedia, createCollection, deleteCollection, respondToInvitation, saveNotificationSettings, markAllNotificationsRead, createCasting, createVacancy, setOpportunityStatus, updateCollective, addCollectiveMember, removeCollectiveMember, addCollectiveEvent, removeCollectiveEvent } from "./cabinet.ts";
+import { updateTalentProfile, addMedia, updateMedia, deleteMedia, createCollection, deleteCollection, respondToInvitation, saveNotificationSettings, markAllNotificationsRead, createCasting, createVacancy, setOpportunityStatus, updateCollective, inviteCollectiveMember, respondToCollectiveInvite, addCollectiveMember, removeCollectiveMember, addCollectiveEvent, removeCollectiveEvent } from "./cabinet.ts";
 import { applyToCasting, applyToVacancy, updateApplicationStatus } from "./opportunities.ts";
 import { sendInvitation } from "./invitations.ts";
 import { markNotificationRead } from "./account.ts";
-import { login, registerAccount, verifyCode } from "./auth.ts";
+import { login, registerAccount, verifyCode, verifyAndActivate, oneIdSignIn } from "./auth.ts";
 import { moderate } from "./admin.ts";
 import { setUserStatus, setUserRoles, deleteOpening, saveCompetition, saveFestival, deleteEvent, saveNews, deleteNews, saveBanner, deleteBanner, saveReference, deleteReference, saveSystemSettings, createBackup } from "./admin-ops.ts";
 
@@ -61,6 +61,12 @@ export async function setOpportunityStatusAction(...args: Parameters<typeof setO
 export async function updateCollectiveAction(...args: Parameters<typeof updateCollective>) {
   return run(() => updateCollective(...args));
 }
+export async function inviteCollectiveMemberAction(...args: Parameters<typeof inviteCollectiveMember>) {
+  return run(() => inviteCollectiveMember(...args));
+}
+export async function respondToCollectiveInviteAction(...args: Parameters<typeof respondToCollectiveInvite>) {
+  return run(() => respondToCollectiveInvite(...args));
+}
 export async function addCollectiveMemberAction(...args: Parameters<typeof addCollectiveMember>) {
   return run(() => addCollectiveMember(...args));
 }
@@ -96,6 +102,12 @@ export async function registerAccountAction(...args: Parameters<typeof registerA
 }
 export async function verifyCodeAction(...args: Parameters<typeof verifyCode>) {
   return run(() => verifyCode(...args));
+}
+export async function verifyAndActivateAction(...args: Parameters<typeof verifyAndActivate>) {
+  return run(() => verifyAndActivate(...args));
+}
+export async function oneIdSignInAction(...args: Parameters<typeof oneIdSignIn>) {
+  return run(() => oneIdSignIn(...args));
 }
 export async function moderateAction(...args: Parameters<typeof moderate>) {
   return run(() => moderate(...args));

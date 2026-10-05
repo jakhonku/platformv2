@@ -25,7 +25,7 @@ export type ApplicationView = Application & {
 
 export type ApplicantView = Application & { talent: TalentProfile | null };
 
-export type ModerationKind = "profile" | "media" | "organization";
+export type ModerationKind = "profile" | "media" | "organization" | "collective";
 
 export type ModerationItem = {
   id: string;
@@ -34,5 +34,15 @@ export type ModerationItem = {
   subtitle: string;
   status: ModerationStatus;
   submittedAt: string;
-  payload: TalentProfile | MediaItem | Organization;
+  payload: TalentProfile | MediaItem | Organization | Collective;
+  meta?: ModerationMeta;
+};
+
+/** Moderator uchun qo`shimcha: shaxs qanday aniqlangan, STIR va hujjatlar */
+export type ModerationMeta = {
+  identity?: "oneid" | "manual";
+  identityType?: "individual" | "legal";
+  stir?: string;
+  documents?: string[];
+  owner?: string;
 };

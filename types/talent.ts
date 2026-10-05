@@ -42,6 +42,7 @@ export type TalentProfile = {
   moderation: ModerationStatus;
   contacts: Contacts;
   createdAt: IsoDate;
+  moderationNote?: string;
 };
 
 export type ComposedWork = {

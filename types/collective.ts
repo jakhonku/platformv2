@@ -32,6 +32,9 @@ export type Collective = {
   verified: boolean;
   moderation: ModerationStatus;
   contacts: Contacts;
+  ownerUserId?: string;
+  documents?: string[];
+  moderationNote?: string;
 };
 
 export type OrganizationKind =
@@ -54,5 +57,21 @@ export type Organization = {
   description: string;
   verification: ModerationStatus;
   contacts: Contacts;
+  createdAt: IsoDate;
+  stir?: string;
+  ownerUserId?: string;
+  documents?: string[];
+  moderationNote?: string;
+};
+
+export type CollectiveInviteStatus = "pending" | "accepted" | "declined";
+
+/** Jamoa a`zoligi ikki tomonlama: rahbar taklif qiladi, iqtidor qabul qiladi */
+export type CollectiveInvite = {
+  id: string;
+  collectiveId: string;
+  talentId: string;
+  section: string;
+  status: CollectiveInviteStatus;
   createdAt: IsoDate;
 };

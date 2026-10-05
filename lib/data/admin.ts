@@ -8,7 +8,11 @@ import { simulateLatency } from "./latency.ts";
 import { paginate } from "./paginate.ts";
 import { store } from "./store.ts";
 import { clone, matches } from "./text.ts";
-import type { ModerationItem, ModerationKind } from "./views.ts";
+import type { Collective, Organization } from "../../types/collective.ts";
+import type { MediaItem } from "../../types/media.ts";
+import type { TalentProfile } from "../../types/talent.ts";
+import { logAudit } from "./audit.ts";
+import type { ModerationItem, ModerationKind, ModerationMeta } from "./views.ts";
 
 export async function getAdminStats(): Promise<AdminStats> {
   await simulateLatency();
@@ -27,7 +31,8 @@ export async function getAdminStats(): Promise<AdminStats> {
     pendingModeration:
       store.talents.filter((t) => t.moderation === "pending").length +
       store.media.filter((m) => m.moderation === "pending").length +
-      store.organizations.filter((o) => o.verification === "pending").length,
+      store.organizations.filter((o) => o.verification === "pending").length +
+      store.collectives.filter((c) => c.moderation === "pending").length,
     monthlyViews,
   };
 }
@@ -53,20 +58,29 @@ export async function getUsers(filters: UserFilters = {}, page?: number, pageSiz
   return { ...result, items: clone(result.items) };
 }
 
+const ownerMeta = (userId?: string): ModerationMeta => {
+  const user = userId ? store.users.find((u) => u.id === userId) : undefined;
+  return user?.identity ? { identity: user.identity.source, identityType: user.identity.type, stir: user.identity.stir, owner: user.fullName } : { owner: user?.fullName };
+};
+
+const toItem = {
+  profile: (t: TalentProfile): ModerationItem => ({ id: t.id, kind: "profile", title: t.fullName, subtitle: t.specialty, status: t.moderation, submittedAt: t.createdAt, payload: t, meta: ownerMeta(t.userId) }),
+  media: (m: MediaItem): ModerationItem => ({ id: m.id, kind: "media", title: m.title, subtitle: m.type, status: m.moderation, submittedAt: m.createdAt, payload: m }),
+  organization: (o: Organization): ModerationItem => ({ id: o.id, kind: "organization", title: o.name, subtitle: o.kind, status: o.verification, submittedAt: o.createdAt, payload: o, meta: { ...ownerMeta(o.ownerUserId), stir: o.stir ?? ownerMeta(o.ownerUserId).stir, documents: o.documents } }),
+  collective: (c: Collective): ModerationItem => ({ id: c.id, kind: "collective", title: c.name, subtitle: c.type, status: c.moderation, submittedAt: c.foundedYear ? `${c.foundedYear}-01-01T00:00:00.000Z` : new Date().toISOString(), payload: c, meta: { ...ownerMeta(c.ownerUserId), documents: c.documents } }),
+};
+
 function queueFor(kind: ModerationKind): ModerationItem[] {
-  if (kind === "profile") {
-    return store.talents
-      .filter((t) => t.moderation === "pending")
-      .map((t) => ({ id: t.id, kind, title: t.fullName, subtitle: t.specialty, status: t.moderation, submittedAt: t.createdAt, payload: t }));
+  switch (kind) {
+    case "profile":
+      return store.talents.filter((t) => t.moderation === "pending").map(toItem.profile);
+    case "media":
+      return store.media.filter((m) => m.moderation === "pending").map(toItem.media);
+    case "organization":
+      return store.organizations.filter((o) => o.verification === "pending").map(toItem.organization);
+    case "collective":
+      return store.collectives.filter((c) => c.moderation === "pending").map(toItem.collective);
   }
-  if (kind === "media") {
-    return store.media
-      .filter((m) => m.moderation === "pending")
-      .map((m) => ({ id: m.id, kind, title: m.title, subtitle: m.type, status: m.moderation, submittedAt: m.createdAt, payload: m }));
-  }
-  return store.organizations
-    .filter((o) => o.verification === "pending")
-    .map((o) => ({ id: o.id, kind, title: o.name, subtitle: o.kind, status: o.verification, submittedAt: o.createdAt, payload: o }));
 }
 
 export async function getModerationQueue(kind: ModerationKind): Promise<ModerationItem[]> {
@@ -74,6 +88,7 @@ export async function getModerationQueue(kind: ModerationKind): Promise<Moderati
   return clone(queueFor(kind));
 }
 
+/** Rad etilsa sabab egasiga ko`rinadi (`moderationNote`); tasdiqlansa tozalanadi */
 export async function moderate(
   kind: ModerationKind,
   id: string,
@@ -84,37 +99,42 @@ export async function moderate(
   await simulateLatency();
   if (decision !== "approved" && decision !== "rejected") throw new DataError("invalid", "Notoʻgʻri qaror");
   if (decision === "rejected" && (reason?.trim().length ?? 0) < 5) throw new DataError("invalid", "Rad etish sababi kamida 5 belgi boʻlsin");
+  const note = decision === "rejected" ? reason!.trim() : undefined;
 
   let item: ModerationItem | undefined;
   if (kind === "profile") {
     const t = store.talents.find((x) => x.id === id);
     if (t) {
       t.moderation = decision;
-      item = { id: t.id, kind, title: t.fullName, subtitle: t.specialty, status: t.moderation, submittedAt: t.createdAt, payload: t };
+      t.moderationNote = note;
+      // OneID orqali shaxsi tasdiqlangan egaga "verified" belgisi tasdiqlash bilan beriladi
+      if (decision === "approved" && store.users.find((u) => u.id === t.userId)?.identity?.verified) t.verified = true;
+      item = toItem.profile(t);
     }
   } else if (kind === "media") {
     const m = store.media.find((x) => x.id === id);
     if (m) {
       m.moderation = decision;
-      item = { id: m.id, kind, title: m.title, subtitle: m.type, status: m.moderation, submittedAt: m.createdAt, payload: m };
+      item = toItem.media(m);
     }
-  } else {
+  } else if (kind === "organization") {
     const o = store.organizations.find((x) => x.id === id);
     if (o) {
       o.verification = decision;
-      item = { id: o.id, kind, title: o.name, subtitle: o.kind, status: o.verification, submittedAt: o.createdAt, payload: o };
+      o.moderationNote = note;
+      item = toItem.organization(o);
+    }
+  } else {
+    const c = store.collectives.find((x) => x.id === id);
+    if (c) {
+      c.moderation = decision;
+      c.moderationNote = note;
+      if (decision === "approved" && c.ownerUserId && store.users.find((u) => u.id === c.ownerUserId)?.identity?.verified) c.verified = true;
+      item = toItem.collective(c);
     }
   }
   if (!item) throw new DataError("not_found", "Yozuv topilmadi");
 
-  store.audit.unshift({
-    id: `audit-${String(store.audit.length + 1).padStart(3, "0")}`,
-    actorId,
-    action: `${kind}.${decision === "approved" ? "approve" : "reject"}`,
-    entityType: kind === "profile" ? "talent" : kind,
-    entityId: id,
-    details: reason,
-    at: new Date().toISOString(),
-  });
+  logAudit(actorId, `${kind}.${decision === "approved" ? "approve" : "reject"}`, kind === "profile" ? "talent" : kind, id, reason);
   return clone(item);
 }

@@ -1,5 +1,5 @@
 import { z } from "zod";
-import type { Collective } from "../../types/collective.ts";
+import type { Collective, CollectiveInvite } from "../../types/collective.ts";
 import type { Invitation } from "../../types/invitation.ts";
 import type { Collection, MediaItem } from "../../types/media.ts";
 import type { Casting, Requirements, Vacancy } from "../../types/opportunity.ts";
@@ -250,11 +250,16 @@ const vacancySchema = z
   })
   .refine((v) => v.salaryFromUzs === undefined || v.salaryToUzs === undefined || v.salaryFromUzs <= v.salaryToUzs, "Maosh oraligʻi notoʻgʻri");
 
-const orgExists = (id: string) => store.organizations.some((o) => o.id === id);
+/** Tashkilot topilmasa not_found, tasdiqlanmagan bo'lsa forbidden (moderator tasdig'igacha e'lon yaratib bo'lmaydi) */
+function requireVerifiedOrg(id: string): void {
+  const org = store.organizations.find((o) => o.id === id);
+  if (!org) throw new DataError("not_found", "Tashkilot topilmadi");
+  if (org.verification !== "approved") throw new DataError("forbidden", "Tashkilot hali tasdiqlanmagan");
+}
 
 export async function createCasting(orgId: string, p: CastingPayload): Promise<Casting> {
   await simulateLatency();
-  if (!orgExists(orgId)) throw new DataError("not_found", "Tashkilot topilmadi");
+  requireVerifiedOrg(orgId);
   const v = check(castingSchema, p);
   const now = new Date().toISOString();
   const casting: Casting = { id: `casting-${String(store.castings.length + 1).padStart(2, "0")}`, organizationId: orgId, ...v, status: "open", createdAt: now };
@@ -264,7 +269,7 @@ export async function createCasting(orgId: string, p: CastingPayload): Promise<C
 
 export async function createVacancy(orgId: string, p: VacancyPayload): Promise<Vacancy> {
   await simulateLatency();
-  if (!orgExists(orgId)) throw new DataError("not_found", "Tashkilot topilmadi");
+  requireVerifiedOrg(orgId);
   const v = check(vacancySchema, p);
   const now = new Date().toISOString();
   const vacancy: Vacancy = { id: `vacancy-${String(store.vacancies.length + 1).padStart(2, "0")}`, organizationId: orgId, ...v, status: "open", createdAt: now };
@@ -327,4 +332,50 @@ export async function removeCollectiveEvent(id: string, eventId: string): Promis
   const c = findCollective(id);
   c.events = c.events.filter((e) => e.id !== eventId);
   return clone(c);
+}
+
+/* ------------------------------ Jamoa a'zoligi (taklif / qabul) ------------------------------ */
+
+export async function inviteCollectiveMember(id: string, p: { talentId: string; section: string }): Promise<CollectiveInvite> {
+  await simulateLatency();
+  const c = findCollective(id);
+  const section = check(z.string().trim().min(1).max(60), p.section);
+  if (!store.talents.some((t) => t.id === p.talentId && t.moderation === "approved")) throw new DataError("not_found", "Iqtidor topilmadi");
+  if (c.members.some((m) => m.talentId === p.talentId)) throw new DataError("duplicate", "Iqtidor allaqachon aʼzo");
+  if (store.collectiveInvites.some((i) => i.collectiveId === id && i.talentId === p.talentId && i.status === "pending")) throw new DataError("duplicate", "Taklif allaqachon yuborilgan");
+  const invite: CollectiveInvite = { id: `collective-invite-${Date.now().toString(36)}-${store.collectiveInvites.length + 1}`, collectiveId: id, talentId: p.talentId, section, status: "pending", createdAt: new Date().toISOString() };
+  store.collectiveInvites.push(invite);
+  return clone(invite);
+}
+
+export async function getCollectiveInvitesOf(collectiveId: string): Promise<CollectiveInvite[]> {
+  await simulateLatency();
+  return clone(store.collectiveInvites.filter((i) => i.collectiveId === collectiveId).sort((a, b) => b.createdAt.localeCompare(a.createdAt)));
+}
+
+export async function getCollectiveInvitesFor(talentId: string): Promise<(CollectiveInvite & { collectiveName: string })[]> {
+  await simulateLatency();
+  return clone(
+    store.collectiveInvites
+      .filter((i) => i.talentId === talentId)
+      .map((i) => ({ ...i, collectiveName: store.collectives.find((c) => c.id === i.collectiveId)?.name ?? "" }))
+      .sort((a, b) => b.createdAt.localeCompare(a.createdAt)),
+  );
+}
+
+/** Iqtidor qabul qilsa jamoaga a'zo bo'ladi; rad etsa hech narsa qo'shilmaydi */
+export async function respondToCollectiveInvite(id: string, status: "accepted" | "declined"): Promise<CollectiveInvite> {
+  await simulateLatency();
+  const invite = store.collectiveInvites.find((i) => i.id === id);
+  if (!invite) throw new DataError("not_found", "Taklif topilmadi");
+  if (status !== "accepted" && status !== "declined") throw invalid();
+  if (invite.status !== "pending") throw invalid("Taklif allaqachon javob olgan");
+  invite.status = status;
+  if (status === "accepted") {
+    const c = findCollective(invite.collectiveId);
+    if (!c.members.some((m) => m.talentId === invite.talentId)) c.members.push({ talentId: invite.talentId, section: invite.section });
+    const talent = store.talents.find((t) => t.id === invite.talentId);
+    if (talent) talent.currentCollectiveId = invite.collectiveId;
+  }
+  return clone(invite);
 }

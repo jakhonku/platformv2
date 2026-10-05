@@ -1,4 +1,4 @@
-import type { Collective, Organization } from "../../types/collective.ts";
+import type { Collective, CollectiveInvite, Organization } from "../../types/collective.ts";
 import type { Application, Casting, Vacancy } from "../../types/opportunity.ts";
 import type { MediaItem } from "../../types/media.ts";
 import type { TalentProfile } from "../../types/talent.ts";
@@ -47,6 +47,12 @@ export const store = {
   audit: clone(AUDIT_LOG) as AuditLogEntry[],
   invitations: clone(INVITATIONS) as Invitation[],
   settings: {} as Record<string, Record<NotificationChannel, boolean>>,
+  // Demo uchun ikkita kutilayotgan jamoa taklifi (birinchi tasdiqlangan iqtidorlarga)
+  collectiveInvites: (() => {
+    const col = ORCHESTRAS[2] ?? ORCHESTRAS[0];
+    const targets = TALENTS.filter((t) => t.moderation === "approved" && t.verified && !col.members.some((m) => m.talentId === t.id)).slice(0, 2);
+    return targets.map((t, i) => ({ id: `collective-invite-seed-${i + 1}`, collectiveId: col.id, talentId: t.id, section: i === 0 ? "Birinchi skripkalar" : "Alt partiyasi", status: "pending", createdAt: "2026-09-28T10:00:00.000Z" })) as CollectiveInvite[];
+  })(),
   competitions: clone(COMPETITIONS) as Competition[],
   festivals: clone(FESTIVALS) as Festival[],
   news: clone(NEWS) as NewsItem[],
