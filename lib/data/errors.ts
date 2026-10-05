@@ -1,6 +1,6 @@
-export type DataErrorCode = "not_found" | "duplicate" | "closed" | "invalid";
+export type DataErrorCode = "not_found" | "duplicate" | "closed" | "invalid" | "forbidden";
 
-/** Backend ulanganda HTTP 404 / 409 / 410 / 422 javoblariga mos keladi */
+/** Backend ulanganda HTTP 403 / 404 / 409 / 410 / 422 javoblariga mos keladi */
 export class DataError extends Error {
   code: DataErrorCode;
 

@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import { test } from "node:test";
-import { APPLICATIONS, CASTINGS, MOCK_NOW, NOTIFICATIONS, TALENTS, VACANCIES } from "../mock/index.ts";
+import { APPLICATIONS, CASTINGS, MOCK_NOW, NOTIFICATIONS, TALENTS, USERS, VACANCIES } from "../mock/index.ts";
 import {
   DataError,
   applyToCasting,
@@ -24,6 +24,9 @@ import {
   getTalents,
   getUsers,
   getVacancies,
+  login,
+  registerAccount,
+  verifyCode,
   markNotificationRead,
   moderate,
   paginate,
@@ -245,4 +248,37 @@ test("sendInvitation stores a valid invitation and validates input (Review Focus
   const pending = TALENTS.find((t) => t.moderation === "rejected")!;
   await assert.rejects(sendInvitation(pending.id, ok), (e) => e instanceof DataError && e.code === "not_found");
   await assert.rejects(sendInvitation("yoq", ok), (e) => e instanceof DataError && e.code === "not_found");
+});
+
+test("login: staff needs two-factor, talents do not", async () => {
+  const admin = await login({ identifier: "admin@example.uz", password: "password123" });
+  assert.equal(admin.role, "admin");
+  assert.equal(admin.twoFactor, true);
+  const talentUser = USERS.find((u) => u.roles[0] === "musician" && u.status === "active")!;
+  const res = await login({ identifier: talentUser.email, password: "password123" });
+  assert.equal(res.role, "musician");
+  assert.equal(res.twoFactor, false);
+});
+
+test("login errors (Review Focus 3)", async () => {
+  await assert.rejects(() => login({ identifier: "nobody@example.uz", password: "password123" }), { code: "not_found" });
+  await assert.rejects(() => login({ identifier: "admin@example.uz", password: "short" }), { code: "invalid" });
+  await assert.rejects(() => login({ identifier: "<script>", password: "password123" }), { code: "invalid" });
+  const blocked = USERS.find((u) => u.status === "blocked")!;
+  await assert.rejects(() => login({ identifier: blocked.email, password: "password123" }), { code: "forbidden" });
+});
+
+test("registerAccount creates a pending user and rejects duplicates (Review Focus 4)", async () => {
+  const payload = { role: "vocalist" as const, fullName: "Test Foydalanuvchi", contact: "+998 91 000 11 22", password: "password123" };
+  const { userId } = await registerAccount(payload);
+  assert.ok(userId);
+  await assert.rejects(() => registerAccount(payload), { code: "duplicate" });
+  await assert.rejects(() => registerAccount({ ...payload, contact: "x" }), { code: "invalid" });
+  await assert.rejects(() => registerAccount({ ...payload, contact: "new@example.uz", fullName: "A" }), { code: "invalid" });
+  await assert.rejects(() => registerAccount({ ...payload, contact: "new@example.uz", role: "admin" }), { code: "invalid" });
+});
+
+test("verifyCode accepts only the demo code", async () => {
+  await verifyCode("123456");
+  await assert.rejects(() => verifyCode("000000"), { code: "invalid" });
 });
