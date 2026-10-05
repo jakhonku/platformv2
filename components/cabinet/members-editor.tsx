@@ -13,12 +13,13 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { NativeSelect } from "@/components/ui/native-select";
 import { useRouter } from "@/i18n/navigation";
-import { addCollectiveMember, removeCollectiveMember } from "@/lib/data/client";
+import { inviteCollectiveMember, removeCollectiveMember } from "@/lib/data/client";
 import { DataError } from "@/lib/data/errors";
 
 type Member = { talentId: string; name: string; section: string };
+type Invite = { id: string; name: string; section: string; status: "pending" | "accepted" | "declined" };
 
-export function MembersEditor({ collectiveId, members, candidates }: { collectiveId: string; members: Member[]; candidates: { id: string; name: string }[] }) {
+export function MembersEditor({ collectiveId, members, invites, candidates }: { collectiveId: string; members: Member[]; invites: Invite[]; candidates: { id: string; name: string }[] }) {
   const t = useTranslations("cabinetPage.collective");
   const router = useRouter();
   const [talentId, setTalentId] = useState("");
@@ -32,8 +33,8 @@ export function MembersEditor({ collectiveId, members, candidates }: { collectiv
     if (!talentId) return setError(t("errors.pickTalent"));
     if (!section.trim()) return setError(t("errors.section"));
     try {
-      await addCollectiveMember(collectiveId, { talentId, section });
-      toast.success(t("memberAdded"));
+      await inviteCollectiveMember(collectiveId, { talentId, section });
+      toast.success(t("inviteSent"));
       setTalentId("");
       setSection("");
       setError(null);
@@ -79,10 +80,27 @@ export function MembersEditor({ collectiveId, members, candidates }: { collectiv
         </div>
         <Button type="submit">
           <UserPlus aria-hidden />
-          {t("addMember")}
+          {t("inviteMember")}
         </Button>
       </form>
+      <p className="text-xs text-muted-foreground">{t("inviteNote")}</p>
       <div aria-live="polite">{error && <p className="text-sm text-destructive">{error}</p>}</div>
+      {invites.length > 0 && (
+        <div className="flex flex-col gap-2">
+          <h3 className="text-sm font-semibold">{t("invitesTitle")}</h3>
+          <ul className="grid gap-2 sm:grid-cols-2">
+            {invites.map((i) => (
+              <li key={i.id} className="flex items-center justify-between gap-2 rounded-xl border border-dashed p-3">
+                <div className="min-w-0">
+                  <p className="truncate text-sm font-medium">{i.name}</p>
+                  <p className="truncate text-xs text-muted-foreground">{i.section}</p>
+                </div>
+                <span className="shrink-0 rounded-full bg-muted px-2 py-0.5 text-xs">{t(`inviteStatus.${i.status}`)}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
       {members.length === 0 ? (
         <EmptyState title={t("noMembers")} />
       ) : (

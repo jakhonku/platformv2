@@ -656,6 +656,20 @@
         "new": "Yangi",
         "accepted": "Qabul qilingan",
         "declined": "Rad etilgan"
+      },
+      "collectiveInvites": {
+        "title": "Jamoa takliflari",
+        "section": "Partiya: {section}",
+        "status": {
+          "pending": "Kutilmoqda",
+          "accepted": "Qabul qilingan",
+          "declined": "Rad etilgan"
+        },
+        "accept": "Qabul qilish",
+        "decline": "Rad etish",
+        "acceptedToast": "Jamoa tarkibiga qoʻshildingiz",
+        "declinedToast": "Taklif rad etildi",
+        "error": "Amalni bajarib boʻlmadi"
       }
     },
     "notifications": {
@@ -923,10 +937,19 @@
         "website": "Veb-sayt https:// bilan boshlanishi kerak.",
         "pickTalent": "Iqtidorni tanlang.",
         "section": "Guruh nomini kiriting.",
-        "duplicate": "Bu iqtidor allaqachon aʼzo.",
+        "duplicate": "Bu iqtidor allaqachon aʼzo yoki unga taklif yuborilgan.",
         "eventFields": "Nom va joyni kiriting (kamida 2 belgi).",
         "eventDate": "Sanani tanlang.",
         "generic": "Amalni bajarib boʻlmadi."
+      },
+      "inviteMember": "Taklif yuborish",
+      "inviteSent": "Taklif yuborildi. Iqtidor qabul qilgach aʼzo boʻladi",
+      "inviteNote": "Aʼzolik ikki tomonlama: iqtidor taklifni qabul qilgandagina tarkibga qoʻshiladi.",
+      "invitesTitle": "Yuborilgan takliflar",
+      "inviteStatus": {
+        "pending": "Kutilmoqda",
+        "accepted": "Qabul qilindi",
+        "declined": "Rad etildi"
       }
     },
     "banner": {

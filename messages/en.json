@@ -656,6 +656,20 @@
         "new": "New",
         "accepted": "Accepted",
         "declined": "Declined"
+      },
+      "collectiveInvites": {
+        "title": "Collective invitations",
+        "section": "Section: {section}",
+        "status": {
+          "pending": "Pending",
+          "accepted": "Accepted",
+          "declined": "Declined"
+        },
+        "accept": "Accept",
+        "decline": "Decline",
+        "acceptedToast": "You joined the collective",
+        "declinedToast": "Invitation declined",
+        "error": "The action failed"
       }
     },
     "notifications": {
@@ -923,10 +937,19 @@
         "website": "The website must start with https://.",
         "pickTalent": "Pick a talent.",
         "section": "Enter the section name.",
-        "duplicate": "This talent is already a member.",
+        "duplicate": "This talent is already a member or has a pending invitation.",
         "eventFields": "Enter a title and venue (at least 2 characters).",
         "eventDate": "Pick a date.",
         "generic": "The action failed."
+      },
+      "inviteMember": "Send invitation",
+      "inviteSent": "Invitation sent. The talent joins once they accept",
+      "inviteNote": "Membership is two-sided: a talent is added to the roster only after accepting the invitation.",
+      "invitesTitle": "Sent invitations",
+      "inviteStatus": {
+        "pending": "Pending",
+        "accepted": "Accepted",
+        "declined": "Declined"
       }
     },
     "banner": {

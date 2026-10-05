@@ -7,7 +7,7 @@ import { StatCard } from "@/components/cabinet/stat-card";
 import { EmptyState } from "@/components/layout/empty-state";
 import { Card } from "@/components/ui/card";
 import { Link } from "@/i18n/navigation";
-import { getApplicantsFor, getCastings, getInvitationsFor, getMyApplications, getNotifications, getPortfolioStats, getVacancies } from "@/lib/data";
+import { getApplicantsFor, getCastings, getCollectiveInvitesFor, getInvitationsFor, getMyApplications, getNotifications, getPortfolioStats, getVacancies } from "@/lib/data";
 import { getDemoSubject } from "@/lib/demo/server";
 import type { DemoSubject } from "@/lib/demo/subject";
 import { casting as castingRoute, vacancy as vacancyRoute } from "@/lib/routes";
@@ -17,13 +17,14 @@ const DASHBOARD_ROLES = ["musician", "vocalist", "conductor", "composer", "colle
 async function TalentDashboard({ subject }: { subject: DemoSubject }) {
   const t = await getTranslations("cabinetPage.dashboard");
   const talentId = subject.talent!.id;
-  const [stats, applications, offers, notifications] = await Promise.all([
+  const [stats, applications, offers, collectiveInvites, notifications] = await Promise.all([
     getPortfolioStats(talentId),
     getMyApplications(talentId),
     getInvitationsFor(talentId),
+    getCollectiveInvitesFor(talentId),
     subject.userId ? getNotifications(subject.userId) : Promise.resolve([]),
   ]);
-  const newOffers = offers.filter((o) => (o.status ?? "new") === "new").length;
+  const newOffers = offers.filter((o) => (o.status ?? "new") === "new").length + collectiveInvites.filter((i) => i.status === "pending").length;
   const unread = notifications.filter((n) => !n.read).length;
 
   return (
