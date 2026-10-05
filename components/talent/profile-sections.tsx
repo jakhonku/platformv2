@@ -22,9 +22,9 @@ export function ProfileSection({
 }
 
 /** Statik (ma'lumot talab qilmaydigan) blok: sarlavha va karkas */
-export function InfoBlock({ id, title, children }: { id: string; title: string; children: React.ReactNode }) {
+export function InfoBlock({ id, title, children, card = false }: { id: string; title: string; children: React.ReactNode; card?: boolean }) {
   return (
-    <section aria-labelledby={id} className="flex min-w-0 flex-col gap-3">
+    <section aria-labelledby={id} className={card ? "glass flex min-w-0 flex-col gap-3 rounded-3xl p-5 sm:p-6" : "flex min-w-0 flex-col gap-3"}>
       <h2 id={id} className="text-base font-semibold tracking-tight">
         {title}
       </h2>

@@ -1,4 +1,4 @@
-// Loyiha qoidalari tekshiruvi: dark rejim yoʻq, mock faqat lib/data da, messages pariteti
+// Loyiha qoidalari tekshiruvi: mock faqat lib/data da, messages pariteti, UZ matnlarida toʻgʻri apostrof
 import { readdirSync, readFileSync, existsSync, statSync } from "node:fs";
 import { join, relative, sep } from "node:path";
 
@@ -19,9 +19,6 @@ const files = scanDirs.flatMap((d) => walk(join(root, d))).filter((f) => /\.(tsx
 for (const f of files) {
   const rel = relative(root, f).split(sep).join("/");
   const src = readFileSync(f, "utf8");
-  if (/(^|[\s"'`:])dark:/m.test(src)) errors.push(`${rel}: "dark:" prefiksi`);
-  if (/\.dark\b|@custom-variant\s+dark/.test(src)) errors.push(`${rel}: ".dark" / custom-variant dark`);
-  if (/next-themes/.test(src)) errors.push(`${rel}: next-themes`);
   if (/from\s+["'][^"']*lib\/mock/.test(src) && !rel.startsWith("lib/data/"))
     errors.push(`${rel}: lib/mock faqat lib/data ichida import qilinadi`);
 }

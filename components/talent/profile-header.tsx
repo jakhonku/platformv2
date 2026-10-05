@@ -22,27 +22,35 @@ export function ProfileHeader({ talent }: { talent: TalentProfile }) {
   });
 
   return (
-    <header className="flex flex-col gap-5 rounded-2xl border bg-card p-4 sm:p-6">
+    <header className="glass-strong relative flex flex-col gap-5 overflow-hidden rounded-[2rem] p-5 sm:p-8">
+      <Image
+        src={talent.photoUrl}
+        alt=""
+        aria-hidden
+        width={64}
+        height={64}
+        className="pointer-events-none absolute -top-10 -right-10 size-80 scale-150 rounded-full object-cover opacity-30 blur-3xl"
+      />
       <Link
         href={talentSection(talent.kind)}
-        className="inline-flex w-fit items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground"
+        className="glass relative inline-flex w-fit items-center gap-1.5 rounded-full px-3 py-1.5 text-sm text-foreground/70 hover:text-foreground"
       >
         <ArrowLeft className="size-4" aria-hidden />
         {t("backToCatalog")}
       </Link>
-      <div className="flex flex-col gap-5 sm:flex-row sm:items-center">
+      <div className="relative flex flex-col gap-5 sm:flex-row sm:items-center">
         <Image
           src={talent.photoUrl}
           alt={talent.fullName}
           width={128}
           height={128}
           priority
-          className="size-24 shrink-0 rounded-full border object-cover sm:size-32"
+          className="size-28 shrink-0 rounded-full object-cover shadow-xl ring-4 ring-(--avatar-ring) sm:size-36"
         />
         <div className="flex min-w-0 flex-1 flex-col gap-2">
           <p className="text-xs font-medium uppercase tracking-wide text-primary">{kindLabel(talent.kind)}</p>
           <div className="flex items-center gap-2">
-            <h1 className="min-w-0 break-words text-2xl font-semibold tracking-tight sm:text-3xl">{talent.fullName}</h1>
+            <h1 className="min-w-0 break-words text-3xl font-semibold tracking-tight sm:text-4xl">{talent.fullName}</h1>
             {talent.verified && <VerifiedBadge />}
           </div>
           <p className="text-muted-foreground">{talent.specialty}</p>

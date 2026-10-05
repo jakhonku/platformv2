@@ -8,6 +8,7 @@ import { DetailShell } from "@/components/listing/detail-shell";
 import { detailMetadata } from "@/components/listing/metadata";
 import { InfoBlock } from "@/components/talent/profile-sections";
 import { TalentCard } from "@/components/talent/talent-card";
+import { AppIcon } from "@/components/ui/app-icon";
 import { StatusBadge } from "@/components/ui/status-badge";
 import { getTalentById } from "@/lib/data";
 import { formatDate, formatMoneyUzs } from "@/lib/format";
@@ -41,31 +42,31 @@ export async function EducationDetail({ params }: { params: Promise<{ slug: stri
 
   return (
     <DetailShell backHref="/education" backLabel={t("back")}>
-      <div className="overflow-hidden rounded-2xl border bg-card">
+      <div className="glass-strong overflow-hidden rounded-[2rem]">
         <CoverImage src={item.imageUrl} alt={item.title} />
-        <div className="flex flex-col gap-3 p-4 sm:p-6">
+        <div className="flex flex-col gap-3 p-5 sm:p-8">
           <div className="flex flex-wrap items-center gap-2">
             <StatusBadge tone="blue">{tf(item.format)}</StatusBadge>
             <StatusBadge tone={item.seats > 0 ? "green" : "red"}>{item.seats > 0 ? t("seatsLeft", { count: item.seats }) : t("noSeats")}</StatusBadge>
           </div>
-          <h1 className="break-words text-2xl font-semibold tracking-tight sm:text-3xl">{item.title}</h1>
+          <h1 className="break-words text-3xl font-semibold tracking-tight sm:text-4xl">{item.title}</h1>
           <div className="flex flex-col gap-2 text-sm text-muted-foreground sm:flex-row sm:flex-wrap sm:gap-x-5">
-            <span className="inline-flex items-center gap-1.5">
-              <CalendarDays className="size-4 shrink-0" aria-hidden />
+            <span className="inline-flex items-center gap-2">
+              <AppIcon icon={CalendarDays} size="sm" />
               {formatDate(item.date, locale, "long")}
             </span>
-            <span className="inline-flex items-center gap-1.5">
-              <Clock className="size-4 shrink-0" aria-hidden />
+            <span className="inline-flex items-center gap-2">
+              <AppIcon icon={Clock} size="sm" />
               {t("duration")}: {t("hours", { count: item.durationHours })}
             </span>
-            <span className="inline-flex items-center gap-1.5">
-              <Wallet className="size-4 shrink-0" aria-hidden />
+            <span className="inline-flex items-center gap-2">
+              <AppIcon icon={Wallet} size="sm" />
               {t("price")}: {item.priceUzs > 0 ? formatMoneyUzs(item.priceUzs, locale) : t("free")}
             </span>
           </div>
         </div>
       </div>
-      <p className="whitespace-pre-line break-words text-sm leading-relaxed">{item.description}</p>
+      <p className="glass whitespace-pre-line break-words rounded-3xl p-5 text-sm leading-relaxed sm:p-6">{item.description}</p>
       <SectionBoundary fallback={<CardSkeletons count={1} />}>
         <Teacher id={item.teacherId} title={t("teacher")} />
       </SectionBoundary>

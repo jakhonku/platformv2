@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { Building2, ClipboardList, Mic, Music, PenLine, ShieldCheck, UsersRound, Wand2, type Icon } from "@/components/icons";
 import { useTranslations } from "next-intl";
+import { AppIcon } from "@/components/ui/app-icon";
 import { useRouter } from "@/i18n/navigation";
 import { homeFor } from "@/lib/auth/flow";
 import { signInAs } from "@/lib/demo/actions";
@@ -49,13 +50,11 @@ export function RolePicker() {
           disabled={pending !== null}
           onClick={() => enter(role)}
           className={cn(
-            "flex min-w-0 items-center gap-3 rounded-2xl border bg-card p-3 text-left shadow-xs transition-[background-color,border-color,transform] duration-150 ease-[cubic-bezier(0.23,1,0.32,1)] hover:bg-muted active:scale-[0.97] focus-visible:outline-2 focus-visible:outline-ring disabled:opacity-60",
-            pending === role && "border-primary bg-primary/10",
+            "glass glass-hover flex min-w-0 items-center gap-3 rounded-3xl p-3 text-left focus-visible:outline-2 focus-visible:outline-ring disabled:opacity-60",
+            pending === role && "ring-2 ring-primary/50",
           )}
         >
-          <span className="flex size-10 shrink-0 items-center justify-center rounded-[11px] bg-primary text-primary-foreground">
-            <RoleIcon className="size-5" aria-hidden />
-          </span>
+          <AppIcon icon={RoleIcon} size="md" />
           <span className="flex min-w-0 flex-col">
             <span className="text-sm font-medium">{tr(role)}</span>
             <span className="text-xs text-muted-foreground">{t(`desc.${role}`)}</span>

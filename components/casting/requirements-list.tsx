@@ -13,7 +13,7 @@ export function RequirementsList({ requirements }: { requirements: Requirements 
   return (
     <dl className="grid gap-3 sm:grid-cols-2">
       {rows.map((row) => (
-        <div key={row.key} className="min-w-0 rounded-xl border bg-card p-3">
+        <div key={row.key} className="glass min-w-0 rounded-2xl p-4">
           <dt className="text-xs text-muted-foreground">{t(row.key)}</dt>
           <dd className="mt-1 break-words text-sm font-medium">
             {row.key === "experience"

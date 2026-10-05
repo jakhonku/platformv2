@@ -132,8 +132,8 @@ export function MembersImport({ kind, targetId }: { kind: "collective" | "organi
           <>
             <div className="flex flex-wrap gap-2 text-sm">
               <span className="rounded-full bg-muted px-3 py-1">{t("summary.total", { count: parsed.total })}</span>
-              <span className="rounded-full bg-green-50 px-3 py-1 text-green-700">{t("summary.valid", { count: parsed.rows.length })}</span>
-              {parsed.errors.length > 0 && <span className="rounded-full bg-red-50 px-3 py-1 text-red-700">{t("summary.errors", { count: parsed.errors.length })}</span>}
+              <span className="rounded-full bg-green-50 dark:bg-green-500/10 px-3 py-1 text-green-700 dark:text-green-300">{t("summary.valid", { count: parsed.rows.length })}</span>
+              {parsed.errors.length > 0 && <span className="rounded-full bg-red-50 dark:bg-red-500/10 px-3 py-1 text-red-700 dark:text-red-300">{t("summary.errors", { count: parsed.errors.length })}</span>}
             </div>
             {parsed.tooMany && <p className="text-sm text-destructive">{t("tooMany", { max: MAX_IMPORT_ROWS })}</p>}
 
@@ -184,7 +184,7 @@ export function MembersImport({ kind, targetId }: { kind: "collective" | "organi
         )}
 
         {result && (
-          <div role="status" className="flex flex-col gap-1 rounded-lg border border-green-200 bg-green-50 p-3 text-sm text-green-800">
+          <div role="status" className="flex flex-col gap-1 rounded-lg border border-green-200 dark:border-green-400/25 bg-green-50 dark:bg-green-500/10 p-3 text-sm text-green-800 dark:text-green-300">
             <p className="font-medium">{t("resultTitle")}</p>
             <p>{t(kind === "collective" ? "resultCollective" : "resultOrganization", result)}</p>
           </div>

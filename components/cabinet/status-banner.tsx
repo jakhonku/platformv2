@@ -20,7 +20,7 @@ export async function StatusBanner({ subject }: { subject: DemoSubject }) {
   const rejected = entity.status === "rejected";
   const Icon = rejected ? XCircle : Clock;
   return (
-    <div role="status" className={`mb-4 flex items-start gap-3 rounded-xl border p-3 text-sm ${rejected ? "border-red-200 bg-red-50 text-red-800" : "border-amber-200 bg-amber-50 text-amber-800"}`}>
+    <div role="status" className={`mb-4 flex items-start gap-3 rounded-xl border p-3 text-sm ${rejected ? "border-red-200 dark:border-red-400/25 bg-red-50 dark:bg-red-500/10 text-red-800 dark:text-red-300" : "border-amber-200 dark:border-amber-400/25 bg-amber-50 dark:bg-amber-500/10 text-amber-800 dark:text-amber-300"}`}>
       <Icon className="mt-0.5 size-4 shrink-0" aria-hidden />
       <div className="flex min-w-0 flex-col gap-0.5">
         <p className="font-medium">{t(rejected ? "rejectedTitle" : "pendingTitle")}</p>

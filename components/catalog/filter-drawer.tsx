@@ -11,7 +11,7 @@ export function FilterDrawer({ activeCount, children }: { activeCount: number; c
   return (
     <div className="lg:hidden">
       <Sheet>
-        <SheetTrigger render={<Button variant="outline" />}>
+        <SheetTrigger render={<Button variant="outline" className="glass h-10 rounded-full border-(--glass-border) px-4" />}>
           <SlidersHorizontal aria-hidden />
           {t("filtersButton")}
           {activeCount > 0 && (

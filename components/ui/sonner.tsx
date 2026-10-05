@@ -1,12 +1,14 @@
 "use client"
 
+import { useIsDark } from "@/lib/use-is-dark"
 import { Toaster as Sonner, type ToasterProps } from "sonner"
 import { CircleCheckIcon, InfoIcon, TriangleAlertIcon, OctagonXIcon, Loader2Icon } from "@/components/icons"
 
 const Toaster = ({ ...props }: ToasterProps) => {
+  const dark = useIsDark();
   return (
     <Sonner
-      theme="light"
+      theme={dark ? "dark" : "light"}
       className="toaster group"
       icons={{
         success: (

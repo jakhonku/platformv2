@@ -17,10 +17,10 @@ export function CollectiveCard({ collective }: { collective: Collective }) {
   const region = regionById(collective.regionId);
 
   return (
-    <Link href={collectiveRoute(collective.type, collective.slug)} className="group block h-full rounded-xl focus-visible:outline-2 focus-visible:outline-ring">
-      <Card className="h-full gap-3 p-4 transition-shadow group-hover:shadow-md">
+    <Link href={collectiveRoute(collective.type, collective.slug)} className="group block h-full rounded-3xl focus-visible:outline-2 focus-visible:outline-ring">
+      <Card className="h-full gap-3 p-5">
         <div className="flex items-start gap-3">
-          <Image src={collective.logoUrl} alt="" width={56} height={56} className="size-14 shrink-0 rounded-xl border object-cover" />
+          <Image src={collective.logoUrl} alt="" width={56} height={56} className="size-14 shrink-0 rounded-2xl object-cover shadow-md ring-2 ring-(--avatar-ring)" />
           <div className="min-w-0 flex-1">
             <div className="flex items-center gap-1.5">
               <h3 className="line-clamp-2 text-sm font-semibold">{collective.name}</h3>

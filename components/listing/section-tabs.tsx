@@ -19,8 +19,8 @@ export function SectionTabs({ group, active }: { group: "opportunities" | "event
               href={listingHref(key)}
               aria-current={key === active ? "page" : undefined}
               className={cn(
-                "inline-flex h-9 items-center rounded-lg border px-3 text-sm font-medium whitespace-nowrap transition-colors",
-                key === active ? "border-primary bg-primary/10 text-primary" : "bg-background text-muted-foreground hover:bg-muted hover:text-foreground",
+                "inline-flex h-9 items-center rounded-full border px-4 text-sm font-medium whitespace-nowrap transition-colors",
+                key === active ? "border-transparent bg-primary text-primary-foreground shadow-sm" : "glass border-(--glass-border) text-foreground/70 hover:bg-(--glass-hover) hover:text-foreground",
               )}
             >
               {t(key)}

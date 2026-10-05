@@ -7,7 +7,7 @@ Next.js 16 (App Router) + Tailwind v4 + shadcn (base-nova) + next-intl (`/uz`, `
 - `npm run dev` — development server
 - `npm run build && npm start` — production build
 - `npm run lint`, `npx tsc --noEmit` — static checks
-- `npm run check` — project rules (light theme only, no direct `lib/mock` imports, message parity)
+- `npm run check` — project rules (no direct `lib/mock` imports, message parity, Uzbek apostrophes)
 - `npm test` — unit tests for `lib/**`
 
 ## Structure

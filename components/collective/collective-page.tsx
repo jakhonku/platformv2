@@ -43,16 +43,16 @@ export async function CollectivePage({ type, params }: { type: CollectiveType; p
 
   return (
     <div className="mx-auto flex w-full max-w-7xl flex-col gap-8 px-3 py-6 sm:px-6 sm:py-8">
-      <header className="flex flex-col gap-5 rounded-2xl border bg-card p-4 sm:p-6">
-        <Link href={collectiveSection(c.type)} className="inline-flex w-fit items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground">
+      <header className="glass-strong flex flex-col gap-5 rounded-[2rem] p-5 sm:p-8">
+        <Link href={collectiveSection(c.type)} className="glass inline-flex w-fit items-center gap-1.5 rounded-full px-3 py-1.5 text-sm text-foreground/70 hover:text-foreground">
           <ArrowLeft className="size-4" aria-hidden />
           {labels("profile.backToCatalog")}
         </Link>
         <div className="flex flex-col gap-5 sm:flex-row sm:items-center">
-          <Image src={c.logoUrl} alt="" width={112} height={112} priority className="size-24 shrink-0 rounded-2xl border object-cover sm:size-28" />
+          <Image src={c.logoUrl} alt="" width={112} height={112} priority className="size-28 shrink-0 rounded-[1.75rem] object-cover shadow-xl ring-4 ring-(--avatar-ring) sm:size-32" />
           <div className="flex min-w-0 flex-col gap-2">
             <div className="flex items-center gap-2">
-              <h1 className="min-w-0 break-words text-2xl font-semibold tracking-tight sm:text-3xl">{c.name}</h1>
+              <h1 className="min-w-0 break-words text-3xl font-semibold tracking-tight sm:text-4xl">{c.name}</h1>
               {c.verified && <VerifiedBadge />}
             </div>
             <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-sm text-muted-foreground">
@@ -70,7 +70,7 @@ export async function CollectivePage({ type, params }: { type: CollectiveType; p
 
       <div className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_20rem]">
         <div className="flex min-w-0 flex-col gap-8">
-          <p className="whitespace-pre-line break-words text-sm leading-relaxed">{c.description}</p>
+          <p className="glass whitespace-pre-line break-words rounded-3xl p-5 text-sm leading-relaxed sm:p-6">{c.description}</p>
 
           {conductor && (
             <InfoBlock id="conductor" title={t("conductor")}>
@@ -101,7 +101,7 @@ export async function CollectivePage({ type, params }: { type: CollectiveType; p
           </ProfileSection>
         </div>
 
-        <aside className="flex min-w-0 flex-col gap-6 rounded-2xl border bg-muted/30 p-4 sm:p-5 lg:self-start">
+        <aside className="flex min-w-0 flex-col gap-6 glass rounded-3xl p-5 sm:p-6 lg:sticky lg:top-24 lg:self-start">
           <InfoBlock id="contacts" title={t("contacts")}>
             <ContactList contacts={c.contacts} />
           </InfoBlock>

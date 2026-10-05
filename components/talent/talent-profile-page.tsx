@@ -50,22 +50,22 @@ export async function TalentProfilePage({ kind, params }: { kind: TalentKind; pa
       <ProfileHeader talent={talent} />
       <div className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_20rem]">
         <div className="flex min-w-0 flex-col gap-8">
-          <InfoBlock id="about" title={t("about")}>
+          <InfoBlock card id="about" title={t("about")}>
             <p className="whitespace-pre-line break-words text-sm leading-relaxed">{talent.bio || t("noBio")}</p>
           </InfoBlock>
 
           {talent.kind === "vocalist" && (talent.voiceTypeId || talent.voiceRange) && (
-            <InfoBlock id="voice" title={t("voiceRange")}>
+            <InfoBlock card id="voice" title={t("voiceRange")}>
               <VoiceRangeBar voiceTypeId={talent.voiceTypeId} range={talent.voiceRange} />
             </InfoBlock>
           )}
           {isConductor(talent) && talent.ensembleTypes.length > 0 && (
-            <InfoBlock id="ensembles" title={t("ensembles")}>
+            <InfoBlock card id="ensembles" title={t("ensembles")}>
               <ConductorEnsembles conductor={talent} />
             </InfoBlock>
           )}
           {isComposer(talent) && (
-            <InfoBlock id="works" title={t("works")}>
+            <InfoBlock card id="works" title={t("works")}>
               <ComposerWorks composer={talent} />
             </InfoBlock>
           )}
@@ -95,7 +95,7 @@ export async function TalentProfilePage({ kind, params }: { kind: TalentKind; pa
           </ProfileSection>
         </div>
 
-        <aside className="flex min-w-0 flex-col gap-6 rounded-2xl border bg-muted/30 p-4 sm:p-5 lg:self-start">
+        <aside className="flex min-w-0 flex-col gap-6 glass rounded-3xl p-5 sm:p-6 lg:sticky lg:top-24 lg:self-start">
           {talent.currentCollectiveId && (
             <InfoBlock id="current-collective" title={t("currentCollective")}>
               <SectionBoundary fallback={<Skeleton className="h-5 w-40" />}>

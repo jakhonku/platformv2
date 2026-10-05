@@ -6,11 +6,13 @@ import { EventsSection } from "@/components/home/events-section";
 import { FeaturedCollectivesSection } from "@/components/home/featured-collectives";
 import { FeaturedTalentsSection } from "@/components/home/featured-talents";
 import { HeroSearch } from "@/components/home/hero-search";
+import { Reveal } from "@/components/home/reveal";
+import { SectionBoundary } from "@/components/home/section-boundary";
+import { HeroBackground } from "@/components/home/hero-background";
+import { StatsStrip } from "@/components/home/stats-strip";
 import { NewsSection } from "@/components/home/news-section";
 import { OpportunitiesSection } from "@/components/home/opportunities-section";
 import { ProjectsSection } from "@/components/home/projects-section";
-import { Button } from "@/components/ui/button";
-import { Link } from "@/i18n/navigation";
 import { routing } from "@/i18n/routing";
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
@@ -38,29 +40,53 @@ export default async function HomePage() {
 
   return (
     <>
-      <section className="border-b bg-muted/40">
-        <div className="mx-auto flex w-full max-w-7xl flex-col items-start gap-6 px-3 py-12 sm:px-6 sm:py-20">
-          <p className="text-sm font-medium text-primary">{t("app.slogan")}</p>
-          <h1 className="max-w-3xl text-4xl font-semibold tracking-tight sm:text-5xl">{t("home.heroTitle")}</h1>
-          <p className="max-w-2xl text-lg text-muted-foreground">{t("home.heroText")}</p>
-          <HeroSearch />
-          <div className="flex flex-wrap gap-3">
-            <Button nativeButton={false} render={<Link href="/login" />}>
-              {t("nav.login")}
-            </Button>
+      {/* Rasm foni: header ostiga cho'ziladi (header balandligi 68px) */}
+      <section className="relative isolate -mt-[68px] overflow-hidden">
+        <HeroBackground />
+        <div className="hero-in relative mx-auto flex min-h-[calc(100svh-4rem)] w-full max-w-7xl flex-col items-start justify-end gap-6 px-4 pt-32 pb-28 text-left sm:px-6 sm:pb-32">
+          <h1 style={{ "--i": 0 } as React.CSSProperties} className="max-w-3xl text-balance text-5xl text-foreground sm:text-7xl sm:leading-[1.06]">
+            {t("home.heroTitle")}
+          </h1>
+          <p style={{ "--i": 1 } as React.CSSProperties} className="max-w-xl text-balance text-lg text-foreground/75 sm:text-xl">
+            {t("home.heroText")}
+          </p>
+          <div style={{ "--i": 2 } as React.CSSProperties} className="flex w-full justify-start">
+            <HeroSearch />
           </div>
         </div>
+        <div aria-hidden className="pointer-events-none absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-(--page-bg) to-transparent" />
       </section>
 
-      <div className="flex flex-col gap-14 py-12 sm:py-16">
-        <CategoryGrid />
-        <FeaturedTalentsSection />
-        <FeaturedCollectivesSection />
-        <OpportunitiesSection />
-        <EventsSection />
-        <ProjectsSection />
-        <NewsSection />
-        <CtaBanner />
+      <div className="flex flex-col gap-16 pb-16 sm:gap-24 sm:pb-24">
+        <Reveal>
+          <SectionBoundary fallback={null}>
+            <StatsStrip />
+          </SectionBoundary>
+        </Reveal>
+        <Reveal>
+          <CategoryGrid />
+        </Reveal>
+        <Reveal>
+          <FeaturedTalentsSection />
+        </Reveal>
+        <Reveal>
+          <FeaturedCollectivesSection />
+        </Reveal>
+        <Reveal>
+          <OpportunitiesSection />
+        </Reveal>
+        <Reveal>
+          <EventsSection />
+        </Reveal>
+        <Reveal>
+          <ProjectsSection />
+        </Reveal>
+        <Reveal>
+          <NewsSection />
+        </Reveal>
+        <Reveal>
+          <CtaBanner />
+        </Reveal>
       </div>
     </>
   );

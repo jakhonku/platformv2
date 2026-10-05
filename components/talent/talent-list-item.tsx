@@ -26,9 +26,9 @@ export function TalentListItem({ talent, collectiveName }: { talent: TalentProfi
   ];
 
   return (
-    <Link href={talentRoute(talent.kind, talent.slug)} className="group block rounded-xl focus-visible:outline-2 focus-visible:outline-ring">
+    <Link href={talentRoute(talent.kind, talent.slug)} className="group block rounded-3xl focus-visible:outline-2 focus-visible:outline-ring">
       <Card className="flex-row items-center gap-4 p-4 transition-shadow group-hover:shadow-md">
-        <Image src={talent.photoUrl} alt={talent.fullName} width={56} height={56} className="size-14 shrink-0 rounded-full border object-cover" />
+        <Image src={talent.photoUrl} alt={talent.fullName} width={56} height={56} className="size-14 shrink-0 rounded-full object-cover shadow-md ring-2 ring-(--avatar-ring)" />
         <div className="min-w-0 flex-1">
           <div className="flex items-center gap-1.5">
             <h3 className="truncate text-sm font-semibold">{talent.fullName}</h3>

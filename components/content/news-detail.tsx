@@ -47,15 +47,15 @@ export async function NewsDetail({ params }: { params: Promise<{ slug: string }>
   return (
     <DetailShell backHref="/news" backLabel={t("back")}>
       <article className="flex flex-col gap-4">
-        <div className="overflow-hidden rounded-2xl border">
+        <div className="glass-strong overflow-hidden rounded-[2rem] p-1.5">
           <CoverImage src={item.imageUrl} alt={item.title} />
         </div>
-        <p className="text-sm text-muted-foreground">
+        <p className="text-sm font-medium text-primary">
           {category ? `${localized(category.name, locale)} · ` : ""}
           {formatDate(item.publishedAt, locale, "long")}
         </p>
-        <h1 className="break-words text-2xl font-semibold tracking-tight sm:text-3xl">{item.title}</h1>
-        <div className="flex flex-col gap-3">
+        <h1 className="break-words text-3xl font-semibold tracking-tight text-balance sm:text-5xl">{item.title}</h1>
+        <div className="glass flex flex-col gap-4 rounded-3xl p-5 sm:p-8">
           {paragraphs.map((p, i) => (
             <p key={i} className="break-words text-base leading-relaxed">
               {p}

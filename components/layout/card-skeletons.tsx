@@ -5,7 +5,7 @@ export function CardSkeletons({ count = 4, media = false }: { count?: number; me
   return (
     <>
       {Array.from({ length: count }, (_, i) => (
-        <div key={i} className="overflow-hidden rounded-xl border bg-card">
+        <div key={i} className="glass overflow-hidden rounded-3xl">
           {media && <Skeleton className="aspect-video w-full rounded-none" />}
           <div className="flex flex-col gap-3 p-4">
             <div className="flex items-center gap-3">

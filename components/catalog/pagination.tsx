@@ -13,8 +13,8 @@ export function Pagination({ page, pageSize, total }: { page: number; pageSize: 
   const pages = totalPages(total, pageSize);
   if (pages <= 1) return null;
 
-  const item = "inline-flex h-9 min-w-9 items-center justify-center rounded-lg border px-2 text-sm font-medium transition-colors";
-  const idle = "bg-background text-foreground hover:bg-muted";
+  const item = "inline-flex h-10 min-w-10 items-center justify-center rounded-full border px-3 text-sm font-medium transition-colors";
+  const idle = "glass border-(--glass-border) text-foreground hover:bg-(--glass-hover)";
 
   return (
     <nav aria-label={t("label")} className="flex flex-wrap items-center justify-center gap-1.5">
@@ -36,7 +36,7 @@ export function Pagination({ page, pageSize, total }: { page: number; pageSize: 
             href={hrefFor({ page: String(n) })}
             aria-label={t("page", { page: n })}
             aria-current={n === page ? "page" : undefined}
-            className={cn(item, n === page ? "border-primary bg-primary text-primary-foreground" : idle)}
+            className={cn(item, n === page ? "border-transparent bg-primary text-primary-foreground shadow-sm" : idle)}
           >
             {n}
           </Link>

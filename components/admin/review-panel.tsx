@@ -87,7 +87,7 @@ export function ReviewPanel({ item, actorId, actors }: { item: ModerationItem; a
         <Section title={t("completeness")}>
           <div className="flex items-center gap-3">
             <div className="h-2 flex-1 overflow-hidden rounded-full bg-muted" role="progressbar" aria-valuenow={item.completeness.percent} aria-valuemin={0} aria-valuemax={100} aria-label={t("completeness")}>
-              <div className={`h-full rounded-full ${item.completeness.percent === 100 ? "bg-green-500" : "bg-amber-500"}`} style={{ width: `${item.completeness.percent}%` }} />
+              <div className={`h-full rounded-full ${item.completeness.percent === 100 ? "bg-green-50 dark:bg-green-500/100" : "bg-amber-50 dark:bg-amber-500/100"}`} style={{ width: `${item.completeness.percent}%` }} />
             </div>
             <span className="text-sm font-medium tabular-nums">{item.completeness.percent}%</span>
           </div>
@@ -100,7 +100,7 @@ export function ReviewPanel({ item, actorId, actors }: { item: ModerationItem; a
               ))}
             </ul>
           ) : (
-            <p className="text-xs text-green-700">{t("complete")}</p>
+            <p className="text-xs text-green-700 dark:text-green-300">{t("complete")}</p>
           )}
         </Section>
       )}
@@ -167,7 +167,7 @@ export function ReviewPanel({ item, actorId, actors }: { item: ModerationItem; a
               <p className="text-sm text-destructive">{t("noPhone")}</p>
             )}
             <p className="flex items-center gap-1.5 text-xs">
-              {review?.checklist.phone ? <Check className="size-4 text-green-600" aria-hidden /> : <Clock className="size-4 text-muted-foreground" aria-hidden />}
+              {review?.checklist.phone ? <Check className="size-4 text-green-600 dark:text-green-300" aria-hidden /> : <Clock className="size-4 text-muted-foreground" aria-hidden />}
               {t(review?.checklist.phone ? "phoneVerified" : "phonePending")}
             </p>
             {review && review.calls.length > 0 && (
@@ -220,7 +220,7 @@ export function ReviewPanel({ item, actorId, actors }: { item: ModerationItem; a
         ) : (
           <>
             {blockers.length > 0 && (
-              <ul className="flex flex-col gap-1 rounded-lg bg-amber-50 p-3 text-xs text-amber-800" aria-label={t("blockersTitle")}>
+              <ul className="flex flex-col gap-1 rounded-lg bg-amber-50 dark:bg-amber-500/10 p-3 text-xs text-amber-800 dark:text-amber-300" aria-label={t("blockersTitle")}>
                 {blockers.map((b) => (
                   <li key={b}>• {t(`blockers.${b}`)}</li>
                 ))}

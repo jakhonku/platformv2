@@ -6,6 +6,7 @@ import { DeadlineLabel } from "@/components/casting/deadline-label";
 import { DetailShell } from "@/components/listing/detail-shell";
 import { detailMetadata } from "@/components/listing/metadata";
 import { InfoBlock } from "@/components/talent/profile-sections";
+import { AppIcon } from "@/components/ui/app-icon";
 import { StatusBadge, type Tone } from "@/components/ui/status-badge";
 import { Link } from "@/i18n/navigation";
 import { categoryById, regionById } from "@/lib/constants";
@@ -47,21 +48,21 @@ export async function EventDetail({ kind, params }: { kind: Kind; params: Promis
 
   return (
     <DetailShell backHref={kind === "competition" ? "/competitions" : "/festivals"} backLabel={kind === "competition" ? t("backCompetitions") : t("backFestivals")}>
-      <div className="overflow-hidden rounded-2xl border bg-card">
+      <div className="glass-strong overflow-hidden rounded-[2rem]">
         <CoverImage src={event.imageUrl} alt={event.title} />
-        <div className="flex flex-col gap-3 p-4 sm:p-6">
+        <div className="flex flex-col gap-3 p-5 sm:p-8">
           <div className="flex flex-wrap items-center gap-2">
             <StatusBadge tone="blue">{labels(`eventKind.${kind}`)}</StatusBadge>
             <StatusBadge tone={TONE[event.status]}>{labels(`status.${event.status}`)}</StatusBadge>
           </div>
-          <h1 className="break-words text-2xl font-semibold tracking-tight sm:text-3xl">{event.title}</h1>
+          <h1 className="break-words text-3xl font-semibold tracking-tight sm:text-4xl">{event.title}</h1>
           <div className="flex flex-col gap-2 text-sm text-muted-foreground sm:flex-row sm:flex-wrap sm:gap-x-5">
-            <span className="inline-flex items-center gap-1.5">
-              <CalendarDays className="size-4 shrink-0" aria-hidden />
+            <span className="inline-flex items-center gap-2">
+              <AppIcon icon={CalendarDays} size="sm" />
               {formatDateRange(event.startDate, event.endDate, locale)}
             </span>
-            <span className="inline-flex items-center gap-1.5">
-              <MapPin className="size-4 shrink-0" aria-hidden />
+            <span className="inline-flex items-center gap-2">
+              <AppIcon icon={MapPin} size="sm" />
               {event.city}
               {region ? `, ${localized(region.name, locale)}` : ""}
             </span>
@@ -82,14 +83,14 @@ export async function EventDetail({ kind, params }: { kind: Kind; params: Promis
         </div>
       </div>
 
-      <InfoBlock id="about" title={labels(`eventKind.${kind}`)}>
+      <InfoBlock card id="about" title={labels(`eventKind.${kind}`)}>
         <p className="whitespace-pre-line break-words text-sm leading-relaxed">{event.description}</p>
       </InfoBlock>
       {festival && festival.lineup.length > 0 && (
         <InfoBlock id="lineup" title={t("lineup")}>
           <ul className="grid gap-2 sm:grid-cols-2">
             {festival.lineup.map((name) => (
-              <li key={name} className="min-w-0 break-words rounded-xl border bg-card px-3 py-2 text-sm">
+              <li key={name} className="glass min-w-0 break-words rounded-2xl px-4 py-3 text-sm">
                 {name}
               </li>
             ))}
@@ -97,7 +98,7 @@ export async function EventDetail({ kind, params }: { kind: Kind; params: Promis
         </InfoBlock>
       )}
       {organizer && (
-        <InfoBlock id="organizer" title={t("organizer")}>
+        <InfoBlock card id="organizer" title={t("organizer")}>
           <Link href={organizationRoute(organizer.slug)} className="w-fit text-sm font-medium text-primary hover:underline">
             {organizer.name}
           </Link>

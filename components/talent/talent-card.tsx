@@ -17,15 +17,15 @@ export function TalentCard({ talent, collectiveName }: { talent: TalentProfile; 
   const region = regionById(talent.regionId);
 
   return (
-    <Link href={talentRoute(talent.kind, talent.slug)} className="group block h-full rounded-xl focus-visible:outline-2 focus-visible:outline-ring">
-      <Card className="h-full gap-3 p-4 transition-shadow group-hover:shadow-md">
+    <Link href={talentRoute(talent.kind, talent.slug)} className="group block h-full rounded-3xl focus-visible:outline-2 focus-visible:outline-ring">
+      <Card className="glass glass-hover h-full gap-3 rounded-3xl border-0 p-5 ring-0 group-hover:-translate-y-0.5">
         <div className="flex items-start gap-3">
           <Image
             src={talent.photoUrl}
             alt={talent.fullName}
             width={56}
             height={56}
-            className="size-14 shrink-0 rounded-full border object-cover"
+            className="size-14 shrink-0 rounded-full object-cover shadow-md ring-2 ring-(--avatar-ring)"
           />
           <div className="min-w-0 flex-1">
             <div className="flex items-center gap-1.5">

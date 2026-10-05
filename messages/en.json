@@ -245,6 +245,9 @@
     "projectsTitle": "Current projects",
     "newsTitle": "News",
     "viewAll": "View all",
+    "statsTalents": "Talents",
+    "statsCollectives": "Collectives",
+    "statsCastings": "Castings",
     "ctaTitle": "Find your stage today",
     "ctaText": "Create a profile, upload your portfolio and let organizations find you.",
     "emptyTitle": "Nothing here yet",
@@ -257,6 +260,11 @@
     "userMenu": "User menu",
     "logout": "Sign out",
     "openMenu": "Open menu",
+    "mainNav": "Main navigation",
+    "theme": {
+      "toDark": "Switch to night mode",
+      "toLight": "Switch to day mode"
+    },
     "loading": "Loading…",
     "errorTitle": "Something went wrong",
     "retry": "Try again",

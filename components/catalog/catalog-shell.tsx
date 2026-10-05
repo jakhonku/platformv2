@@ -48,7 +48,9 @@ export function CatalogShell({
       {tabs ?? (active && <CatalogTabs active={active} />)}
       <div className="grid gap-8 lg:grid-cols-[17rem_minmax(0,1fr)]">
         <aside className="hidden lg:block">
-          <Suspense fallback={<PanelSkeleton />}>{panel}</Suspense>
+          <div className="glass sticky top-24 rounded-3xl p-5">
+            <Suspense fallback={<PanelSkeleton />}>{panel}</Suspense>
+          </div>
         </aside>
         <div className="flex min-w-0 flex-col gap-4">
           <div className="flex flex-wrap items-center justify-between gap-3">

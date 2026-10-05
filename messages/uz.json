@@ -245,6 +245,9 @@
     "projectsTitle": "Joriy loyihalar",
     "newsTitle": "Yangiliklar",
     "viewAll": "Hammasini koʻrish",
+    "statsTalents": "Iqtidorlar",
+    "statsCollectives": "Jamoalar",
+    "statsCastings": "Kastinglar",
     "ctaTitle": "Oʻz sahnangni bugun top",
     "ctaText": "Profil yarating, portfolio yuklang va tashkilotlar sizni topsin.",
     "emptyTitle": "Hozircha maʼlumot yoʻq",
@@ -257,6 +260,11 @@
     "userMenu": "Foydalanuvchi menyusi",
     "logout": "Chiqish",
     "openMenu": "Menyuni ochish",
+    "mainNav": "Asosiy navigatsiya",
+    "theme": {
+      "toDark": "Kechki rejimga oʻtish",
+      "toLight": "Kunduzgi rejimga oʻtish"
+    },
     "loading": "Yuklanmoqda…",
     "errorTitle": "Xatolik yuz berdi",
     "retry": "Qayta urinish",

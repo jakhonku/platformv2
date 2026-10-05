@@ -6,7 +6,7 @@ export function Brand({ href = "/" }: { href?: string }) {
   const t = useTranslations("app");
   return (
     <Link href={href} className="flex min-w-0 items-center gap-2.5">
-      <span className="flex size-9 shrink-0 items-center justify-center rounded-lg bg-primary text-primary-foreground">
+      <span className="icon-glass squircle flex size-9 shrink-0 items-center justify-center text-primary">
         <Music className="size-4.5" />
       </span>
       <span className="flex min-w-0 flex-col leading-tight">

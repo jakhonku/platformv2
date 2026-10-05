@@ -15,7 +15,7 @@ export function ViewToggle({ view }: { view: View }) {
   ];
 
   return (
-    <div role="group" aria-label={t("label")} className="inline-flex rounded-lg border bg-background p-0.5">
+    <div role="group" aria-label={t("label")} className="glass inline-flex rounded-full p-0.5">
       {options.map(({ value, icon: Icon }) => (
         <button
           key={value}
@@ -24,8 +24,8 @@ export function ViewToggle({ view }: { view: View }) {
           title={t(value)}
           onClick={() => set({ view: value }, { replace: true })}
           className={cn(
-            "inline-flex h-8 items-center gap-1.5 rounded-md px-2.5 text-sm font-medium outline-none focus-visible:ring-3 focus-visible:ring-ring/50",
-            view === value ? "bg-primary/10 text-primary" : "text-muted-foreground hover:text-foreground",
+            "inline-flex h-8 items-center gap-1.5 rounded-full px-3 text-sm font-medium outline-none focus-visible:ring-3 focus-visible:ring-ring/50",
+            view === value ? "bg-primary text-primary-foreground shadow-sm" : "text-foreground/60 hover:text-foreground",
           )}
         >
           <Icon className="size-4" aria-hidden />

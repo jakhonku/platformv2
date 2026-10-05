@@ -6,6 +6,7 @@ import { ContactList } from "@/components/layout/contact-list";
 import { DetailShell } from "@/components/listing/detail-shell";
 import { detailMetadata } from "@/components/listing/metadata";
 import { InfoBlock } from "@/components/talent/profile-sections";
+import { AppIcon } from "@/components/ui/app-icon";
 import { StatusBadge } from "@/components/ui/status-badge";
 import { Link } from "@/i18n/navigation";
 import { regionById } from "@/lib/constants";
@@ -36,8 +37,8 @@ export async function opportunityMetadata(kind: Kind, id: string, locale: string
 
 function Meta({ icon: Icon, children }: { icon: typeof MapPin; children: React.ReactNode }) {
   return (
-    <span className="inline-flex min-w-0 items-center gap-1.5">
-      <Icon className="size-4 shrink-0" aria-hidden />
+    <span className="inline-flex min-w-0 items-center gap-2">
+      <AppIcon icon={Icon} size="sm" />
       <span className="min-w-0 break-words">{children}</span>
     </span>
   );
@@ -64,9 +65,9 @@ export async function OpportunityDetail({ kind, params }: { kind: Kind; params: 
 
   return (
     <DetailShell backHref={kind === "casting" ? "/castings" : "/vacancies"} backLabel={kind === "casting" ? t("backCastings") : t("backVacancies")}>
-      <header className="flex flex-col gap-3 rounded-2xl border bg-card p-4 sm:p-6">
+      <header className="glass-strong flex flex-col gap-3 rounded-[2rem] p-5 sm:p-8">
         <div className="flex flex-wrap items-start justify-between gap-3">
-          <h1 className="min-w-0 break-words text-2xl font-semibold tracking-tight sm:text-3xl">{item.title}</h1>
+          <h1 className="min-w-0 break-words text-3xl font-semibold tracking-tight sm:text-4xl">{item.title}</h1>
           <StatusBadge tone={closed ? "red" : "green"}>{labels(`status.${item.status}`)}</StatusBadge>
         </div>
         {org && (
@@ -106,17 +107,17 @@ export async function OpportunityDetail({ kind, params }: { kind: Kind; params: 
 
       <div className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_18rem]">
         <div className="flex min-w-0 flex-col gap-8">
-          <InfoBlock id="description" title={t("description")}>
+          <InfoBlock card id="description" title={t("description")}>
             <p className="whitespace-pre-line break-words text-sm leading-relaxed">{item.description}</p>
           </InfoBlock>
           {Object.keys(item.requirements).length > 0 && (
-            <InfoBlock id="requirements" title={t("requirements")}>
+            <InfoBlock card id="requirements" title={t("requirements")}>
               <RequirementsList requirements={item.requirements} />
             </InfoBlock>
           )}
         </div>
         {org && (
-          <aside className="flex min-w-0 flex-col gap-4 rounded-2xl border bg-muted/30 p-4 lg:self-start">
+          <aside className="flex min-w-0 flex-col gap-4 glass rounded-3xl p-5 sm:p-6 lg:sticky lg:top-24 lg:self-start">
             <InfoBlock id="org" title={t("organization")}>
               <Link href={organizationRoute(org.slug)} className="text-sm font-medium text-primary hover:underline">
                 {org.name}

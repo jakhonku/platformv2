@@ -1,5 +1,7 @@
 "use client";
 
+import { filled } from "@/components/icons";
+import { AppIcon } from "@/components/ui/app-icon";
 import { useTranslations } from "next-intl";
 import { Link, usePathname } from "@/i18n/navigation";
 import type { Role } from "@/lib/demo/role";
@@ -18,11 +20,11 @@ function NavLink({ item, onNavigate }: { item: NavItem; onNavigate?: () => void 
       onClick={onNavigate}
       aria-current={active ? "page" : undefined}
       className={cn(
-        "flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium transition-colors",
+        "flex items-center gap-3 rounded-xl px-2.5 py-1.5 text-sm font-medium transition-colors",
         active ? "bg-primary/10 text-primary" : "text-muted-foreground hover:bg-muted hover:text-foreground",
       )}
     >
-      <Icon className="size-4 shrink-0" />
+      <AppIcon icon={active ? filled(Icon) : Icon} size="sm" className={active ? "text-primary" : undefined} />
       <span className="truncate">{t(item.labelKey)}</span>
     </Link>
   );

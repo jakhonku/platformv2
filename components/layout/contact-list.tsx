@@ -1,5 +1,6 @@
 import { Globe, Mail, Phone, Send } from "@/components/icons";
 import { useTranslations } from "next-intl";
+import { AppIcon } from "@/components/ui/app-icon";
 import type { Contacts } from "@/types/common";
 
 /** Faqat http(s) havolalar ruxsat etiladi (javascript: kabi sxemalar havola bo'lmaydi) */
@@ -23,10 +24,10 @@ export function ContactList({ contacts }: { contacts: Contacts }) {
   if (rows.length === 0) return null;
 
   return (
-    <ul className="flex flex-col gap-2">
+    <ul className="flex flex-col gap-2.5">
       {rows.map(({ key, Icon, label, href }) => (
-        <li key={key} className="flex min-w-0 items-center gap-2 text-sm">
-          <Icon className="size-4 shrink-0 text-muted-foreground" aria-hidden />
+        <li key={key} className="flex min-w-0 items-center gap-3 text-sm">
+          <AppIcon icon={Icon} size="sm" />
           <span className="sr-only">{t(key)}:</span>
           {href ? (
             <a href={href} className="min-w-0 truncate text-primary hover:underline" {...(key === "website" || key === "telegram" ? { target: "_blank", rel: "noopener noreferrer" } : {})}>

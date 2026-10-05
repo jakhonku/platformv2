@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Inter } from "next/font/google";
+import { Inter, Playfair_Display } from "next/font/google";
 import { notFound } from "next/navigation";
 import { hasLocale, NextIntlClientProvider } from "next-intl";
 import { getTranslations } from "next-intl/server";
@@ -9,11 +9,18 @@ import { routing } from "@/i18n/routing";
 import "../globals.css";
 
 // "latin" subseti U+02BB (ʻ) va U+02BC (ʼ) belgilarini oʻz ichiga oladi
-const fontSans = Inter({ variable: "--font-sans", subsets: ["latin", "latin-ext", "cyrillic"] });
+const fontSans = Inter({ variable: "--font-inter", subsets: ["latin", "latin-ext", "cyrillic"] });
+
+const fontDisplay = Playfair_Display({ variable: "--font-display", subsets: ["latin", "latin-ext", "cyrillic"] });
+
+const THEME_SCRIPT = `try{if(localStorage.getItem('theme')==='dark')document.documentElement.classList.add('dark')}catch(e){}`;
 
 export const viewport: Viewport = {
-  themeColor: "#ffffff",
-  colorScheme: "light",
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#f6f3ec" },
+    { media: "(prefers-color-scheme: dark)", color: "#0d1016" },
+  ],
+  colorScheme: "light dark",
 };
 
 export function generateStaticParams() {
@@ -44,7 +51,11 @@ export default async function LocaleLayout({
   if (!hasLocale(routing.locales, locale)) notFound();
 
   return (
-    <html lang={locale} style={{ colorScheme: "light" }} className={`${fontSans.variable} h-full antialiased`}>
+    <html lang={locale} suppressHydrationWarning className={`${fontSans.variable} ${fontDisplay.variable} h-full antialiased`}>
+      <head>
+        {/* Tanlangan mavzuni sahifa chizilishidan oldin qo'llaydi (yorqin "flash" bo'lmasligi uchun) */}
+        <script dangerouslySetInnerHTML={{ __html: THEME_SCRIPT }} />
+      </head>
       <body className="flex min-h-full flex-col">
         <NextIntlClientProvider>
           <TooltipProvider>

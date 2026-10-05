@@ -12,8 +12,8 @@ export function CastingCard({ casting }: { casting: Casting & { organizationName
   const closed = casting.status === "closed";
 
   return (
-    <Link href={castingRoute(casting.id)} className="group block h-full rounded-xl focus-visible:outline-2 focus-visible:outline-ring">
-      <Card className="h-full gap-2 p-4 transition-shadow group-hover:shadow-md">
+    <Link href={castingRoute(casting.id)} className="group block h-full rounded-3xl focus-visible:outline-2 focus-visible:outline-ring">
+      <Card className="glass glass-hover h-full gap-2 rounded-3xl border-0 p-5 ring-0">
         <div className="flex items-start justify-between gap-2">
           <h3 className="line-clamp-2 text-sm font-semibold">{casting.title}</h3>
           <StatusBadge tone={closed ? "red" : "green"}>{t(`labels.status.${casting.status}`)}</StatusBadge>

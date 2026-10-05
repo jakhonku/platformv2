@@ -9,6 +9,7 @@ import { Brand } from "./brand";
 import { DashboardNav } from "./dashboard-nav";
 import { DemoRoleSwitcher } from "./demo-role-switcher";
 import { LanguageSwitcher } from "./language-switcher";
+import { ThemeToggle } from "./theme-toggle";
 import { MobileNav } from "./mobile-nav";
 import type { NavArea } from "./nav-items";
 import { NotificationBell } from "./notification-bell";
@@ -40,6 +41,7 @@ export async function DashboardShell({ area, children }: { area: NavArea; childr
           <div className="flex-1" />
           {isDemoEnabled() && <DemoRoleSwitcher current={role} />}
           <NotificationBell href={area === "admin" ? "/admin" : "/cabinet/notifications"} unread={unread} />
+          <ThemeToggle />
           <LanguageSwitcher />
           <UserMenu fullName={subject.name || t("common.demoUser")} roleLabel={t(`roles.${role}`)} profileHref={area === "admin" ? "/admin" : "/cabinet/profile"} />
         </header>

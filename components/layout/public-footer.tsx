@@ -6,11 +6,10 @@ import { PUBLIC_NAV } from "./nav-items";
 export async function PublicFooter() {
   const t = await getTranslations();
   return (
-    <footer className="border-t bg-muted/40">
-      <div className="mx-auto flex w-full max-w-7xl flex-col gap-6 px-3 py-8 sm:px-6">
+    <footer className="px-3 pb-28 sm:px-6 lg:pb-6">
+      <div className="glass mx-auto flex w-full max-w-7xl flex-col gap-6 rounded-[2rem] p-6 sm:p-8">
         <div className="flex flex-col gap-3">
           <Brand />
-          <p className="text-sm text-muted-foreground">{t("app.slogan")}</p>
         </div>
         <nav className="flex flex-wrap gap-x-5 gap-y-2 text-sm">
           {PUBLIC_NAV.map((item) => (

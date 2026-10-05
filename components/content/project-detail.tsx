@@ -9,6 +9,7 @@ import { DetailShell } from "@/components/listing/detail-shell";
 import { detailMetadata } from "@/components/listing/metadata";
 import { InfoBlock } from "@/components/talent/profile-sections";
 import { TalentCard } from "@/components/talent/talent-card";
+import { AppIcon } from "@/components/ui/app-icon";
 import { StatusBadge, type Tone } from "@/components/ui/status-badge";
 import { Link } from "@/i18n/navigation";
 import { getCollectiveById, getOrganizationById, getTalentById } from "@/lib/data";
@@ -78,15 +79,15 @@ export async function ProjectDetail({ params }: { params: Promise<{ slug: string
 
   return (
     <DetailShell backHref="/projects" backLabel={t("back")}>
-      <div className="overflow-hidden rounded-2xl border bg-card">
+      <div className="glass-strong overflow-hidden rounded-[2rem]">
         <CoverImage src={project.imageUrl} alt={project.title} />
-        <div className="flex flex-col gap-3 p-4 sm:p-6">
+        <div className="flex flex-col gap-3 p-5 sm:p-8">
           <div>
             <StatusBadge tone={TONE[project.status]}>{labels(project.status)}</StatusBadge>
           </div>
-          <h1 className="break-words text-2xl font-semibold tracking-tight sm:text-3xl">{project.title}</h1>
-          <p className="inline-flex items-center gap-1.5 text-sm text-muted-foreground">
-            <CalendarDays className="size-4 shrink-0" aria-hidden />
+          <h1 className="break-words text-3xl font-semibold tracking-tight sm:text-4xl">{project.title}</h1>
+          <p className="inline-flex items-center gap-2 text-sm text-muted-foreground">
+            <AppIcon icon={CalendarDays} size="sm" />
             {t("period")}: {formatDate(project.startDate, locale)} – {project.endDate ? formatDate(project.endDate, locale) : t("ongoing")}
           </p>
           {project.organizationId && (
@@ -96,7 +97,7 @@ export async function ProjectDetail({ params }: { params: Promise<{ slug: string
           )}
         </div>
       </div>
-      <p className="whitespace-pre-line break-words text-sm leading-relaxed">{project.description}</p>
+      <p className="glass whitespace-pre-line break-words rounded-3xl p-5 text-sm leading-relaxed sm:p-6">{project.description}</p>
       {project.collectiveIds.length > 0 && (
         <SectionBoundary fallback={<CardSkeletons count={2} />}>
           <Collectives ids={project.collectiveIds} title={t("collectives")} />
