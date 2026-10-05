@@ -47,7 +47,7 @@ async function unwrap<T>(promise: Promise<actions.ActionResult<T>>): Promise<T> 
 }
 `;
 for (const [mod, names] of Object.entries(fns)) {
-  const ns = mod.replace("./", "").replace(".ts", "").replace(/W/g, "_");
+  const ns = mod.replace("./", "").replace(".ts", "").replace(/[^a-zA-Z0-9]/g, "_");
   for (const n of names) {
     actions += `export async function ${n}Action(...args: Parameters<typeof ${n}>) {\n  return run(() => ${n}(...args));\n}\n`;
     client += `export const ${n} = (...args: Parameters<typeof ${ns}.${n}>) => unwrap(actions.${n}Action(...args));\n`;
