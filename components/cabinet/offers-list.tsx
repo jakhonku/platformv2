@@ -8,7 +8,7 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { StatusBadge, type Tone } from "@/components/ui/status-badge";
 import { useRouter } from "@/i18n/navigation";
-import { respondToInvitation } from "@/lib/data";
+import { respondToInvitation } from "@/lib/data/client";
 import { formatDate } from "@/lib/format";
 import type { LocaleCode } from "@/types/common";
 import type { Invitation } from "@/types/invitation";

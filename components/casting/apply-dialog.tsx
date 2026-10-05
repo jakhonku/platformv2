@@ -13,7 +13,8 @@ import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, D
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Link } from "@/i18n/navigation";
-import { applyToCasting, applyToVacancy, DataError } from "@/lib/data";
+import { applyToCasting, applyToVacancy } from "@/lib/data/client";
+import { DataError } from "@/lib/data/errors";
 import type { Role } from "@/lib/demo/role";
 
 export type ApplyTarget = { kind: "casting" | "vacancy"; id: string; title: string };

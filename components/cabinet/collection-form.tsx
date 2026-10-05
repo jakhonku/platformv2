@@ -10,7 +10,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { useRouter } from "@/i18n/navigation";
-import { createCollection } from "@/lib/data";
+import { createCollection } from "@/lib/data/client";
 
 /** Yangi to'plam: nom, tavsif va materiallar tanlovi */
 export function CollectionForm({ ownerId, items }: { ownerId: string; items: { id: string; title: string }[] }) {

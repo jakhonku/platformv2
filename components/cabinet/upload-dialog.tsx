@@ -13,7 +13,7 @@ import { NativeSelect } from "@/components/ui/native-select";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Textarea } from "@/components/ui/textarea";
 import { useRouter } from "@/i18n/navigation";
-import { addMedia } from "@/lib/data";
+import { addMedia } from "@/lib/data/client";
 import { formatBytes, parseYoutubeId, UPLOAD_RULES, validateUpload, type UploadKind } from "@/lib/upload";
 import { cn } from "@/lib/utils";
 

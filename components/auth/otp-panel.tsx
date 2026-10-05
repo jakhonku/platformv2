@@ -6,7 +6,8 @@ import { toast } from "sonner";
 import { useSingleSubmit } from "@/components/layout/use-single-submit";
 import { Button } from "@/components/ui/button";
 import { DEMO_OTP, MAX_OTP_ATTEMPTS, OTP_LENGTH } from "@/lib/auth/contact";
-import { DataError, verifyCode } from "@/lib/data";
+import { verifyCode } from "@/lib/data/client";
+import { DataError } from "@/lib/data/errors";
 import { OtpInput } from "./otp-input";
 
 const RESEND_SECONDS = 30;

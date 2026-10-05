@@ -825,6 +825,51 @@
       "changeStatus": "Holatni oʻzgartirish",
       "statusChanged": "Holat yangilandi",
       "error": "Holatni oʻzgartirib boʻlmadi"
+    },
+    "collective": {
+      "title": "Jamoa sahifasi",
+      "aboutTitle": "Jamoa haqida",
+      "description": "Tavsif",
+      "repertoire": "Repertuar",
+      "repertoireHint": "Har bir asar yangi qatordan",
+      "contact": {
+        "phone": "Telefon",
+        "email": "Email",
+        "telegram": "Telegram",
+        "website": "Veb-sayt"
+      },
+      "save": "Saqlash",
+      "saved": "Jamoa sahifasi saqlandi",
+      "membersTitle": "Tarkib",
+      "talent": "Iqtidor",
+      "section": "Guruh / partiya",
+      "addMember": "Aʼzo qoʻshish",
+      "memberAdded": "Aʼzo qoʻshildi",
+      "memberRemoved": "Aʼzo olib tashlandi",
+      "noMembers": "Tarkib boʻsh",
+      "removeMember": "Aʼzoni olib tashlash",
+      "removeMemberText": "{name} jamoa tarkibidan olib tashlanadi.",
+      "cancel": "Bekor qilish",
+      "remove": "Olib tashlash",
+      "eventsTitle": "Tadbirlar",
+      "eventTitle": "Tadbir nomi",
+      "venue": "Joy",
+      "date": "Sana",
+      "addEvent": "Tadbir qoʻshish",
+      "eventAdded": "Tadbir qoʻshildi",
+      "eventRemoved": "Tadbir oʻchirildi",
+      "noEvents": "Tadbirlar yoʻq",
+      "removeEvent": "Tadbirni oʻchirish",
+      "errors": {
+        "description": "Tavsif kamida 10 belgi boʻlsin.",
+        "website": "Veb-sayt https:// bilan boshlanishi kerak.",
+        "pickTalent": "Iqtidorni tanlang.",
+        "section": "Guruh nomini kiriting.",
+        "duplicate": "Bu iqtidor allaqachon aʼzo.",
+        "eventFields": "Nom va joyni kiriting (kamida 2 belgi).",
+        "eventDate": "Sanani tanlang.",
+        "generic": "Amalni bajarib boʻlmadi."
+      }
     }
   }
 }

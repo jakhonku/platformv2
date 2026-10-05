@@ -825,6 +825,51 @@
       "changeStatus": "Change status",
       "statusChanged": "Status updated",
       "error": "Could not change the status"
+    },
+    "collective": {
+      "title": "Collective page",
+      "aboutTitle": "About the collective",
+      "description": "Description",
+      "repertoire": "Repertoire",
+      "repertoireHint": "One piece per line",
+      "contact": {
+        "phone": "Phone",
+        "email": "Email",
+        "telegram": "Telegram",
+        "website": "Website"
+      },
+      "save": "Save",
+      "saved": "Collective page saved",
+      "membersTitle": "Members",
+      "talent": "Talent",
+      "section": "Section / part",
+      "addMember": "Add member",
+      "memberAdded": "Member added",
+      "memberRemoved": "Member removed",
+      "noMembers": "No members yet",
+      "removeMember": "Remove member",
+      "removeMemberText": "{name} will be removed from the collective.",
+      "cancel": "Cancel",
+      "remove": "Remove",
+      "eventsTitle": "Events",
+      "eventTitle": "Event title",
+      "venue": "Venue",
+      "date": "Date",
+      "addEvent": "Add event",
+      "eventAdded": "Event added",
+      "eventRemoved": "Event removed",
+      "noEvents": "No events",
+      "removeEvent": "Remove event",
+      "errors": {
+        "description": "Description must be at least 10 characters.",
+        "website": "The website must start with https://.",
+        "pickTalent": "Pick a talent.",
+        "section": "Enter the section name.",
+        "duplicate": "This talent is already a member.",
+        "eventFields": "Enter a title and venue (at least 2 characters).",
+        "eventDate": "Pick a date.",
+        "generic": "The action failed."
+      }
     }
   }
 }

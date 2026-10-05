@@ -14,7 +14,7 @@ import { StatusBadge, type Tone } from "@/components/ui/status-badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Textarea } from "@/components/ui/textarea";
 import { useRouter } from "@/i18n/navigation";
-import { deleteCollection, deleteMedia, updateMedia } from "@/lib/data";
+import { deleteCollection, deleteMedia, updateMedia } from "@/lib/data/client";
 import type { Collection, MediaItem } from "@/types/media";
 import { CollectionForm } from "./collection-form";
 import { UploadDialog } from "./upload-dialog";

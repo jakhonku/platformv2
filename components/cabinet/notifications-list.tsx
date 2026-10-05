@@ -8,7 +8,7 @@ import { EmptyState } from "@/components/layout/empty-state";
 import { Button } from "@/components/ui/button";
 import { StatusBadge } from "@/components/ui/status-badge";
 import { Link, useRouter } from "@/i18n/navigation";
-import { markAllNotificationsRead, markNotificationRead } from "@/lib/data";
+import { markAllNotificationsRead, markNotificationRead } from "@/lib/data/client";
 import { formatDate } from "@/lib/format";
 import { cn } from "@/lib/utils";
 import type { LocaleCode } from "@/types/common";

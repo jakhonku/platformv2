@@ -10,7 +10,8 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { StatusBadge } from "@/components/ui/status-badge";
 import { Link, useRouter } from "@/i18n/navigation";
-import { setOpportunityStatus, type CastingItem, type VacancyItem } from "@/lib/data";
+import { setOpportunityStatus } from "@/lib/data/client";
+import type { CastingItem, VacancyItem } from "@/lib/data";
 import { casting as castingRoute, vacancy as vacancyRoute } from "@/lib/routes";
 import { OpeningForm, type OpeningOptions } from "./opening-form";
 

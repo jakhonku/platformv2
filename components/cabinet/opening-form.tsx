@@ -12,7 +12,7 @@ import { Label } from "@/components/ui/label";
 import { NativeSelect } from "@/components/ui/native-select";
 import { Textarea } from "@/components/ui/textarea";
 import { useRouter } from "@/i18n/navigation";
-import { createCasting, createVacancy } from "@/lib/data";
+import { createCasting, createVacancy } from "@/lib/data/client";
 import type { Requirements } from "@/types/opportunity";
 
 type Option = { value: string; label: string };

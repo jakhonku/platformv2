@@ -14,7 +14,7 @@ import { Input } from "@/components/ui/input";
 import { NativeSelect } from "@/components/ui/native-select";
 import { Textarea } from "@/components/ui/textarea";
 import { useRouter } from "@/i18n/navigation";
-import { updateTalentProfile } from "@/lib/data";
+import { updateTalentProfile } from "@/lib/data/client";
 import { REGIONS } from "@/lib/constants";
 import { cn } from "@/lib/utils";
 import type { TalentProfile } from "@/types/talent";

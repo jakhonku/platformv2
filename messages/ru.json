@@ -825,6 +825,51 @@
       "changeStatus": "Изменить статус",
       "statusChanged": "Статус обновлён",
       "error": "Не удалось изменить статус"
+    },
+    "collective": {
+      "title": "Страница коллектива",
+      "aboutTitle": "О коллективе",
+      "description": "Описание",
+      "repertoire": "Репертуар",
+      "repertoireHint": "Каждое произведение с новой строки",
+      "contact": {
+        "phone": "Телефон",
+        "email": "Email",
+        "telegram": "Telegram",
+        "website": "Сайт"
+      },
+      "save": "Сохранить",
+      "saved": "Страница коллектива сохранена",
+      "membersTitle": "Состав",
+      "talent": "Талант",
+      "section": "Группа / партия",
+      "addMember": "Добавить участника",
+      "memberAdded": "Участник добавлен",
+      "memberRemoved": "Участник удалён",
+      "noMembers": "Состав пуст",
+      "removeMember": "Удалить участника",
+      "removeMemberText": "{name} будет удалён из состава коллектива.",
+      "cancel": "Отмена",
+      "remove": "Удалить",
+      "eventsTitle": "События",
+      "eventTitle": "Название события",
+      "venue": "Место",
+      "date": "Дата",
+      "addEvent": "Добавить событие",
+      "eventAdded": "Событие добавлено",
+      "eventRemoved": "Событие удалено",
+      "noEvents": "Событий нет",
+      "removeEvent": "Удалить событие",
+      "errors": {
+        "description": "Описание — не менее 10 символов.",
+        "website": "Сайт должен начинаться с https://.",
+        "pickTalent": "Выберите талант.",
+        "section": "Укажите группу.",
+        "duplicate": "Этот талант уже в составе.",
+        "eventFields": "Укажите название и место (не менее 2 символов).",
+        "eventDate": "Выберите дату.",
+        "generic": "Не удалось выполнить действие."
+      }
     }
   }
 }
