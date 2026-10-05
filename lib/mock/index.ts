@@ -14,3 +14,4 @@ export { MASTERCLASSES } from "./masterclasses.ts";
 export { MEDIA, COLLECTIONS } from "./media.ts";
 export { NOTIFICATIONS } from "./notifications.ts";
 export { AUDIT_LOG } from "./audit.ts";
+export { INVITATIONS } from "./invitations.ts";

@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import { test } from "node:test";
-import { APPLICATIONS, CASTINGS, MOCK_NOW, NOTIFICATIONS, TALENTS, USERS, VACANCIES } from "../mock/index.ts";
+import { APPLICATIONS, CASTINGS, MOCK_NOW, NOTIFICATIONS, ORCHESTRAS, TALENTS, USERS, VACANCIES } from "../mock/index.ts";
 import {
   DataError,
   applyToCasting,
@@ -24,6 +24,22 @@ import {
   getTalents,
   getUsers,
   getVacancies,
+  addCollectiveEvent,
+  addCollectiveMember,
+  addMedia,
+  createCasting,
+  createCollection,
+  createVacancy,
+  deleteMedia,
+  getCollectionsForOwner,
+  getInvitationsFor,
+  getNotificationSettings,
+  getPortfolioStats,
+  markAllNotificationsRead,
+  respondToInvitation,
+  saveNotificationSettings,
+  updateMedia,
+  updateTalentProfile,
   login,
   registerAccount,
   verifyCode,
@@ -281,4 +297,94 @@ test("registerAccount creates a pending user and rejects duplicates (Review Focu
 test("verifyCode accepts only the demo code", async () => {
   await verifyCode("123456");
   await assert.rejects(() => verifyCode("000000"), { code: "invalid" });
+});
+
+const me = approved.find((t) => t.verified)!;
+const YT = "https://youtu.be/dQw4w9WgXcQ";
+
+test("updateTalentProfile updates valid fields and rejects invalid ones (Review Focus 3)", async () => {
+  const updated = await updateTalentProfile(me.id, { specialty: "Yangi mutaxassislik", bio: "Qisqa bio", experienceYears: 12 });
+  assert.equal(updated.specialty, "Yangi mutaxassislik");
+  assert.equal(updated.experienceYears, 12);
+  await assert.rejects(() => updateTalentProfile(me.id, { bio: "x".repeat(2001) }), { code: "invalid" });
+  await assert.rejects(() => updateTalentProfile(me.id, { experienceYears: -1 }), { code: "invalid" });
+  await assert.rejects(() => updateTalentProfile(me.id, { regionId: "yoq" }), { code: "invalid" });
+  await assert.rejects(() => updateTalentProfile("yoq", { bio: "salom" }), { code: "not_found" });
+});
+
+test("addMedia creates pending items and validates uploads (Review Focus 2, 4)", async () => {
+  const yt = await addMedia(me.id, "talent", { kind: "video", title: "Konsert", description: "", youtube: YT });
+  assert.equal(yt.moderation, "pending");
+  assert.equal(yt.youtubeId, "dQw4w9WgXcQ");
+  const file = await addMedia(me.id, "talent", { kind: "audio", title: "Yozuv", description: "tavsif", fileName: "a.mp3", sizeBytes: 1000 });
+  assert.equal(file.type, "audio");
+  await assert.rejects(() => addMedia(me.id, "talent", { kind: "video", title: "Bad", description: "", fileName: "a.exe", sizeBytes: 5 }), { code: "invalid" });
+  await assert.rejects(() => addMedia(me.id, "talent", { kind: "video", title: "Bad", description: "", youtube: "javascript:alert(1)" }), { code: "invalid" });
+  await assert.rejects(() => addMedia(me.id, "talent", { kind: "video", title: "x", description: "", youtube: YT }), { code: "invalid" });
+
+  const col = await createCollection(me.id, { title: "Tanlangan", description: "", itemIds: [yt.id, file.id] });
+  assert.deepEqual(col.itemIds, [yt.id, file.id]);
+  const renamed = await updateMedia(yt.id, { title: "Yangi nom", description: "yangi" });
+  assert.equal(renamed.title, "Yangi nom");
+  await deleteMedia(yt.id);
+  const cols = await getCollectionsForOwner(me.id);
+  assert.deepEqual(cols.find((c) => c.id === col.id)!.itemIds, [file.id]);
+  await assert.rejects(() => deleteMedia(yt.id), { code: "not_found" });
+});
+
+test("getPortfolioStats is consistent (Review Focus 4)", async () => {
+  const stats = await getPortfolioStats(me.id);
+  assert.equal(stats.monthly.length, 12);
+  assert.equal(stats.totalViews, stats.items.reduce((n, i) => n + i.views, 0));
+  assert.equal(stats.monthly.reduce((n, m) => n + m.views, 0), stats.totalViews);
+  const empty = await getPortfolioStats("yoq");
+  assert.equal(empty.totalViews, 0);
+  assert.deepEqual(empty.items, []);
+});
+
+test("invitations, notification settings and mark-all-read", async () => {
+  const withOffer = approved.find((t) => t.verified && t.id !== me.id)!;
+  const seeded = (await Promise.all(approved.map((t) => getInvitationsFor(t.id)))).flat();
+  assert.ok(seeded.length >= 3, "mock has seeded invitations");
+  const first = seeded[0];
+  const done = await respondToInvitation(first.id, "accepted");
+  assert.equal(done.status, "accepted");
+  await assert.rejects(() => respondToInvitation("yoq", "declined"), { code: "not_found" });
+  void withOffer;
+
+  const defaults = await getNotificationSettings("user-x");
+  assert.deepEqual(defaults, { internal: true, email: true, sms: true, telegram: true });
+  await saveNotificationSettings("user-x", { ...defaults, sms: false });
+  assert.equal((await getNotificationSettings("user-x")).sms, false);
+
+  const userId = NOTIFICATIONS.find((n) => !n.read)!.userId;
+  const count = await markAllNotificationsRead(userId);
+  assert.ok(count >= 1);
+  assert.equal(await markAllNotificationsRead(userId), 0);
+});
+
+test("createCasting / createVacancy validate input (Review Focus 6)", async () => {
+  const base = { title: "Yangi kasting nomi", description: "Kamida yigirma belgidan iborat tavsif matni.", deadline: "2026-12-30T18:00:00.000Z" };
+  const c = await createCasting("org-01", { ...base, location: "Toshkent", eventDate: "2027-02-01T18:00:00.000Z", requirements: {} });
+  assert.equal(c.status, "open");
+  assert.equal(c.organizationId, "org-01");
+  await assert.rejects(() => createCasting("org-01", { ...base, deadline: "2020-01-01T00:00:00.000Z", location: "T", eventDate: "2027-02-01T18:00:00.000Z" }), { code: "invalid" });
+  await assert.rejects(() => createCasting("org-01", { ...base, title: "", location: "T", eventDate: "2027-02-01T18:00:00.000Z" }), { code: "invalid" });
+  const v = await createVacancy("org-01", { ...base, employment: "full_time", regionId: "tashkent-city", city: "Toshkent", salaryFromUzs: 3000000, salaryToUzs: 5000000 });
+  assert.equal(v.status, "open");
+  await assert.rejects(() => createVacancy("org-01", { ...base, employment: "full_time", regionId: "tashkent-city", city: "Toshkent", salaryFromUzs: 5000000, salaryToUzs: 3000000 }), { code: "invalid" });
+  await assert.rejects(() => createCasting("yoq", { ...base, location: "T", eventDate: "2027-02-01T18:00:00.000Z" }), { code: "not_found" });
+});
+
+test("collective members and events (Review Focus 7)", async () => {
+  const col = ORCHESTRAS[0];
+  const existing = col.members[0].talentId;
+  await assert.rejects(() => addCollectiveMember(col.id, { talentId: existing, section: "Skripka" }), { code: "duplicate" });
+  await assert.rejects(() => addCollectiveMember(col.id, { talentId: "yoq", section: "Skripka" }), { code: "not_found" });
+  const fresh = approved.find((t) => !col.members.some((m) => m.talentId === t.id))!;
+  const withNew = await addCollectiveMember(col.id, { talentId: fresh.id, section: "Skripka" });
+  assert.ok(withNew.members.some((m) => m.talentId === fresh.id));
+  const ev = await addCollectiveEvent(col.id, { title: "Konsert", date: "2026-12-01T18:00:00.000Z", venue: "Zal" });
+  assert.ok(ev.events.some((e) => e.title === "Konsert"));
+  await assert.rejects(() => addCollectiveEvent(col.id, { title: "Konsert", date: "notadate", venue: "Zal" }), { code: "invalid" });
 });
