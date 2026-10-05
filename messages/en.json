@@ -535,5 +535,42 @@
     "noSeats": "No seats left",
     "format": "Format",
     "back": "All classes"
+  },
+  "cabinetPage": {
+    "guard": {
+      "guestTitle": "Sign in to open the cabinet",
+      "guestText": "Sign in to use your personal cabinet.",
+      "login": "Sign in",
+      "forbiddenTitle": "This section is not for your role",
+      "forbiddenText": "Pick a section that matches your role from the menu.",
+      "toAdmin": "Go to the admin panel",
+      "toCabinet": "Cabinet home"
+    },
+    "status": {
+      "submitted": "Submitted",
+      "viewed": "Viewed",
+      "shortlisted": "Shortlisted",
+      "invited": "Invited",
+      "accepted": "Accepted",
+      "rejected": "Rejected"
+    },
+    "dashboard": {
+      "title": "Dashboard",
+      "welcome": "Welcome, {name}",
+      "views": "Views",
+      "applications": "Applications",
+      "newOffers": "New offers",
+      "unread": "Unread messages",
+      "recentApplications": "Recent applications",
+      "noApplications": "You have not applied yet",
+      "noApplicationsText": "Browse castings and vacancies.",
+      "openOpenings": "Open listings",
+      "totalOpenings": "Total listings",
+      "candidates": "Candidates",
+      "newCandidates": "New candidates",
+      "members": "Members",
+      "upcomingEvents": "Upcoming events",
+      "noSubject": "Demo data not found"
+    }
   }
 }

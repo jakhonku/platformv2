@@ -535,5 +535,42 @@
     "noSeats": "Мест нет",
     "format": "Формат",
     "back": "Все занятия"
+  },
+  "cabinetPage": {
+    "guard": {
+      "guestTitle": "Нужно войти в кабинет",
+      "guestText": "Войдите, чтобы пользоваться личным кабинетом.",
+      "login": "Войти",
+      "forbiddenTitle": "Этот раздел недоступен для вашей роли",
+      "forbiddenText": "Выберите в меню раздел, подходящий вашей роли.",
+      "toAdmin": "Перейти в админ-панель",
+      "toCabinet": "Главная кабинета"
+    },
+    "status": {
+      "submitted": "Отправлена",
+      "viewed": "Просмотрена",
+      "shortlisted": "В шорт-листе",
+      "invited": "Приглашён",
+      "accepted": "Принята",
+      "rejected": "Отклонена"
+    },
+    "dashboard": {
+      "title": "Главная",
+      "welcome": "Добро пожаловать, {name}",
+      "views": "Просмотры",
+      "applications": "Заявки",
+      "newOffers": "Новые предложения",
+      "unread": "Непрочитанные",
+      "recentApplications": "Последние заявки",
+      "noApplications": "Вы ещё не подавали заявок",
+      "noApplicationsText": "Посмотрите кастинги и вакансии.",
+      "openOpenings": "Открытые объявления",
+      "totalOpenings": "Всего объявлений",
+      "candidates": "Кандидаты",
+      "newCandidates": "Новые кандидаты",
+      "members": "Участники",
+      "upcomingEvents": "Ближайшие события",
+      "noSubject": "Демо-данные не найдены"
+    }
   }
 }

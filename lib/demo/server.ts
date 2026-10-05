@@ -1,6 +1,7 @@
 import "server-only";
 import { cookies } from "next/headers";
-import { getMediaForOwner, getTalents } from "@/lib/data";
+import { getCollectives, getMediaForOwner, getOrganizations, getTalents } from "@/lib/data";
+import type { DemoSubject } from "./subject";
 import { parseRole, ROLE_COOKIE, talentKindOfRole, type Role } from "./role";
 
 export async function getDemoRole(): Promise<Role> {
@@ -19,4 +20,25 @@ export async function getDemoApplicant(): Promise<DemoApplicant | null> {
   if (!talent) return null;
   const media = await getMediaForOwner(talent.id);
   return { talentId: talent.id, name: talent.fullName, media: media.map((m) => ({ id: m.id, title: m.title })) };
+}
+
+/** Rolga mos birinchi tasdiqlangan mock subyekt: iqtidor, jamoa yoki tashkilot */
+export async function getDemoSubject(): Promise<DemoSubject> {
+  const role = await getDemoRole();
+  const kind = talentKindOfRole(role);
+  if (kind) {
+    const talent = (await getTalents({ kind, verified: true }, 1, 1)).items[0];
+    return talent ? { role, userId: talent.userId, name: talent.fullName, talent } : { role, userId: null, name: "" };
+  }
+  if (role === "collective") {
+    const collective = (await getCollectives({}, 1, 1)).items[0];
+    return collective ? { role, userId: null, name: collective.name, collective } : { role, userId: null, name: "" };
+  }
+  if (role === "organization") {
+    const organization = (await getOrganizations({}, 1, 1)).items[0];
+    return organization
+      ? { role, userId: organization.id.replace(/^org-/, "user-org-"), name: organization.name, organization }
+      : { role, userId: null, name: "" };
+  }
+  return { role, userId: null, name: "" };
 }

@@ -535,5 +535,42 @@
     "noSeats": "Oʻrin qolmagan",
     "format": "Format",
     "back": "Barcha darslar"
+  },
+  "cabinetPage": {
+    "guard": {
+      "guestTitle": "Kabinetga kirish kerak",
+      "guestText": "Shaxsiy kabinetdan foydalanish uchun tizimga kiring.",
+      "login": "Kirish",
+      "forbiddenTitle": "Bu boʻlim sizning rolingiz uchun emas",
+      "forbiddenText": "Menyudan rolingizga mos boʻlimni tanlang.",
+      "toAdmin": "Admin panelga oʻtish",
+      "toCabinet": "Kabinet bosh sahifasi"
+    },
+    "status": {
+      "submitted": "Yuborilgan",
+      "viewed": "Koʻrib chiqildi",
+      "shortlisted": "Tanlab olindi",
+      "invited": "Taklif qilindi",
+      "accepted": "Qabul qilindi",
+      "rejected": "Rad etildi"
+    },
+    "dashboard": {
+      "title": "Bosh sahifa",
+      "welcome": "Xush kelibsiz, {name}",
+      "views": "Koʻrishlar",
+      "applications": "Arizalar",
+      "newOffers": "Yangi takliflar",
+      "unread": "Oʻqilmagan xabarlar",
+      "recentApplications": "Oxirgi arizalar",
+      "noApplications": "Hali ariza topshirmagansiz",
+      "noApplicationsText": "Kastinglar va vakansiyalarni koʻrib chiqing.",
+      "openOpenings": "Ochiq eʼlonlar",
+      "totalOpenings": "Jami eʼlonlar",
+      "candidates": "Nomzodlar",
+      "newCandidates": "Yangi nomzodlar",
+      "members": "Aʼzolar",
+      "upcomingEvents": "Yaqin tadbirlar",
+      "noSubject": "Demo maʼlumot topilmadi"
+    }
   }
 }

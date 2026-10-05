@@ -1,7 +1,8 @@
 import { Search } from "lucide-react";
 import { getTranslations } from "next-intl/server";
 import { Input } from "@/components/ui/input";
-import { getDemoRole } from "@/lib/demo/server";
+import { getNotifications } from "@/lib/data";
+import { getDemoSubject } from "@/lib/demo/server";
 import { isDemoEnabled } from "@/lib/demo/role";
 import { Brand } from "./brand";
 import { DashboardNav } from "./dashboard-nav";
@@ -14,8 +15,11 @@ import { UserMenu } from "./user-menu";
 
 // RTTM dashboard layouti: chap sidebar + yuqori header + kontent
 export async function DashboardShell({ area, children }: { area: NavArea; children: React.ReactNode }) {
-  const role = await getDemoRole();
+  const subject = await getDemoSubject();
+  const role = subject.role;
   const t = await getTranslations();
+  // Kabinet header'idagi qo'ng'iroqcha uchun o'qilmagan xabarlar soni (xato bo'lsa 0)
+  const unread = area === "cabinet" && subject.userId ? await getNotifications(subject.userId).then((n) => n.filter((x) => !x.read).length, () => 0) : 0;
   const home = area === "admin" ? "/admin" : "/cabinet";
 
   return (
@@ -34,9 +38,9 @@ export async function DashboardShell({ area, children }: { area: NavArea; childr
           </div>
           <div className="flex-1" />
           {isDemoEnabled() && <DemoRoleSwitcher current={role} />}
-          <NotificationBell href={area === "admin" ? "/admin" : "/cabinet/notifications"} />
+          <NotificationBell href={area === "admin" ? "/admin" : "/cabinet/notifications"} unread={unread} />
           <LanguageSwitcher />
-          <UserMenu fullName={t("common.demoUser")} roleLabel={t(`roles.${role}`)} profileHref={area === "admin" ? "/admin" : "/cabinet/profile"} />
+          <UserMenu fullName={subject.name || t("common.demoUser")} roleLabel={t(`roles.${role}`)} profileHref={area === "admin" ? "/admin" : "/cabinet/profile"} />
         </header>
         <main className="flex-1 px-3 py-4 sm:px-6 sm:py-6">{children}</main>
       </div>

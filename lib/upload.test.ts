@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import { test } from "node:test";
-import { mediaTypeForUpload, parseYoutubeId, UPLOAD_RULES, validateUpload } from "./upload.ts";
+import { parseYoutubeId, UPLOAD_RULES, validateUpload } from "./upload.ts";
 
 const MB = 1024 * 1024;
 
@@ -28,11 +28,4 @@ test("parseYoutubeId accepts only real YouTube links or bare ids", () => {
   for (const input of ["javascript:alert(1)", "https://youtube.com/x", "", "https://evil.com/watch?v=dQw4w9WgXcQ", "<script>"]) {
     assert.equal(parseYoutubeId(input), null);
   }
-});
-
-test("mediaTypeForUpload", () => {
-  assert.equal(mediaTypeForUpload("video", "a.mp4"), "video");
-  assert.equal(mediaTypeForUpload("audio", "a.mp3"), "audio");
-  assert.equal(mediaTypeForUpload("document", "a.pdf"), "document");
-  assert.equal(mediaTypeForUpload("document", "a.png"), "document");
 });

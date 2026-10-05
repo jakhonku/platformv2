@@ -1,5 +1,3 @@
-import type { MediaType } from "../types/media.ts";
-
 export type UploadKind = "video" | "audio" | "document";
 
 const MB = 1024 * 1024;
@@ -47,8 +45,4 @@ export function parseYoutubeId(input: string): string | null {
     else if (url.pathname.startsWith("/embed/")) id = url.pathname.slice(7).split("/")[0] ?? null;
   }
   return id && ID.test(id) ? id : null;
-}
-
-export function mediaTypeForUpload(kind: UploadKind, _fileName: string): MediaType {
-  return kind;
 }
