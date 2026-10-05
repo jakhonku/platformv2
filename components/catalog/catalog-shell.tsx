@@ -24,6 +24,7 @@ function PanelSkeleton() {
  */
 export function CatalogShell({
   active,
+  tabs,
   title,
   description,
   panel,
@@ -31,7 +32,9 @@ export function CatalogShell({
   toolbar,
   children,
 }: {
-  active: CatalogKey;
+  active?: CatalogKey;
+  /** Berilsa `CatalogTabs` o'rniga ko'rsatiladi */
+  tabs?: React.ReactNode;
   title: string;
   description?: string;
   panel: React.ReactNode;
@@ -42,7 +45,7 @@ export function CatalogShell({
   return (
     <div className="mx-auto flex w-full max-w-7xl flex-col gap-6 px-3 py-8 sm:px-6">
       <CatalogHeader title={title} description={description} />
-      <CatalogTabs active={active} />
+      {tabs ?? (active && <CatalogTabs active={active} />)}
       <div className="grid gap-8 lg:grid-cols-[17rem_minmax(0,1fr)]">
         <aside className="hidden lg:block">
           <Suspense fallback={<PanelSkeleton />}>{panel}</Suspense>
