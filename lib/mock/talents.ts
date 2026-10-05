@@ -82,7 +82,7 @@ const COMPOSER_GENRES = [
 const WORK_TITLES = ["Bahor syuitasi", "Sharq raqslari", "Samarqand tasvirlari", "Qumsoat", "Nur sari", "Vatan kantatasi", "Kechki kuy"];
 
 const MUSICIAN_SUFFIX = ["ijrochisi", "ijrochisi, solist", "ijrochisi, ansambl artisti", "ijrochisi, pedagog"];
-const VOCAL_SUFFIX = ["opera vokalchisi", "kamera vokalchisi", "xor solisti", "estrada vokalchisi"];
+const VOCAL_SUFFIX = ["opera vokalisti", "kamera vokalisti", "xor solisti", "estrada vokalisti"];
 const CONDUCTOR_TITLES = ["Simfonik orkestr dirijyori", "Xor dirijyori", "Kamera orkestri dirijyori"];
 const COMPOSER_TITLES = ["Kompozitor", "Kompozitor va aranjirovkachi", "Kinomusiqa kompozitori"];
 

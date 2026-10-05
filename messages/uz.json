@@ -8,7 +8,7 @@
   "nav": {
     "home": "Bosh sahifa",
     "musicians": "Musiqachilar",
-    "vocalists": "Xoristlar va vokalchilar",
+    "vocalists": "Xoristlar va vokalistlar",
     "conductors": "Dirijyorlar",
     "composers": "Kompozitorlar",
     "orchestras": "Orkestrlar",
@@ -58,7 +58,7 @@
   "roles": {
     "guest": "Mehmon",
     "musician": "Musiqachi",
-    "vocalist": "Vokalchi",
+    "vocalist": "Vokalist",
     "conductor": "Dirijyor",
     "composer": "Kompozitor",
     "collective": "Jamoa",
@@ -266,7 +266,7 @@
     },
     "talentKind": {
       "musician": "Musiqachi",
-      "vocalist": "Vokalchi",
+      "vocalist": "Vokalist",
       "conductor": "Dirijyor",
       "composer": "Kompozitor"
     },
@@ -309,7 +309,7 @@
   "catalog": {
     "title": {
       "musicians": "Musiqachilar",
-      "vocalists": "Xoristlar va vokalchilar",
+      "vocalists": "Xoristlar va vokalistlar",
       "conductors": "Dirijyorlar",
       "composers": "Kompozitorlar va aranjirovkachilar",
       "orchestras": "Orkestrlar",
@@ -318,7 +318,7 @@
     },
     "description": {
       "musicians": "Oʻzbekistondagi musiqachilar katalogi: cholgʻu, hudud va tajriba boʻyicha qidiring.",
-      "vocalists": "Xoristlar va vokalchilar katalogi: ovoz turi, diapazon va hudud boʻyicha qidiring.",
+      "vocalists": "Xoristlar va vokalistlar katalogi: ovoz turi, diapazon va hudud boʻyicha qidiring.",
       "conductors": "Orkestr va xor dirijyorlari katalogi.",
       "composers": "Kompozitorlar va aranjirovkachilar katalogi.",
       "orchestras": "Orkestrlar katalogi: tarkib, repertuar va tadbirlar.",

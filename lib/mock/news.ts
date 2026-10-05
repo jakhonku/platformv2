@@ -5,7 +5,7 @@ import { slugify } from "./names.ts";
 const SEEDS: { title: string; category: string; excerpt: string }[] = [
   { title: "Respublika yosh skripkachilar tanloviga qabul boshlandi", category: "announcements", excerpt: "Tanlovga arizalar 1-noyabrgacha qabul qilinadi." },
   { title: "Samarqand simfonik orkestri yangi mavsumni ochdi", category: "concerts", excerpt: "Mavsum ochilishida Betxoven simfoniyalari yangradi." },
-  { title: "Yosh vokalchi xalqaro tanlovda birinchi oʻrinni egalladi", category: "achievements", excerpt: "Toshkentlik soprano ijrochi Yevropadagi tanlovda gʻolib boʻldi." },
+  { title: "Yosh vokalist xalqaro tanlovda birinchi oʻrinni egalladi", category: "achievements", excerpt: "Toshkentlik soprano ijrochi Yevropadagi tanlovda gʻolib boʻldi." },
   { title: "Dirijyor bilan intervyu: orkestr — bu oila", category: "interviews", excerpt: "Tajribali dirijyor jamoa bilan ishlash sirlarini oʻrtoqlashdi." },
   { title: "Konservatoriyada yangi mahorat darslari seriyasi", category: "education", excerpt: "Skripka va vokal boʻyicha ochiq darslar rejalashtirilgan." },
   { title: "«Sharq ohanglari» festivali dasturi eʼlon qilindi", category: "announcements", excerpt: "Festival Samarqandda besh kun davom etadi." },

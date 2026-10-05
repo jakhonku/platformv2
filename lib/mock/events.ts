@@ -17,7 +17,7 @@ const orgId = (n?: number) => (n ? `org-${String(n).padStart(2, "0")}` : undefin
 
 const COMPETITION_SEEDS: (Seed & { deadline: [number, number, number]; prizeMln: number })[] = [
   { title: "Respublika yosh skripkachilar tanlovi", description: "18 yoshgacha boʻlgan skripkachilar uchun ikki bosqichli respublika tanlovi. Gʻoliblarga pul mukofotlari va konsert ishtiroki taqdim etiladi.", region: "tashkent-city", start: [2026, 11, 20], end: [2026, 11, 23], organizer: 2, deadline: [2026, 11, 1], prizeMln: 30 },
-  { title: "«Oltin ovoz» vokalchilar tanlovi", description: "Akademik va estrada yoʻnalishlari boʻyicha vokalchilar tanlovi. Yakuniy gala-konsert ommaviy tomoshabinlar uchun ochiq.", region: "samarkand", start: [2026, 12, 12], end: [2026, 12, 14], organizer: 3, deadline: [2026, 11, 20], prizeMln: 50 },
+  { title: "«Oltin ovoz» vokalistlar tanlovi", description: "Akademik va estrada yoʻnalishlari boʻyicha vokalistlar tanlovi. Yakuniy gala-konsert ommaviy tomoshabinlar uchun ochiq.", region: "samarkand", start: [2026, 12, 12], end: [2026, 12, 14], organizer: 3, deadline: [2026, 11, 20], prizeMln: 50 },
   { title: "Maqom ijrochilari tanlovi", description: "Shashmaqom va xorazm maqomlari ijrochilari uchun anʼanaviy tanlov. Ijrochilik mahorati va ustoz-shogird anʼanasi baholanadi.", region: "bukhara", start: [2026, 9, 5], end: [2026, 9, 8], organizer: 4, deadline: [2026, 8, 20], prizeMln: 25 },
   { title: "Yosh kompozitorlar tanlovi", description: "35 yoshgacha boʻlgan kompozitorlarning original asarlari tanlovi. Eng yaxshi asarlar simfonik orkestr ijrosida yangraydi.", region: "tashkent-city", start: [2027, 2, 10], end: [2027, 2, 12], organizer: 1, deadline: [2027, 1, 15], prizeMln: 40 },
 ];
