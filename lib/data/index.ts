@@ -15,5 +15,7 @@ export * from "./invitations.ts";
 export * from "./auth.ts";
 export * from "./cabinet.ts";
 export * from "./admin-ops.ts";
+export * from "./review.ts";
+export * from "./import.ts";
 export * from "./admin.ts";
 export * from "./references.ts";

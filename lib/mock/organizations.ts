@@ -44,6 +44,8 @@ export const ORGANIZATIONS: Organization[] = SEEDS.map((s, i) => {
     city: region.cities[0],
     description: `${s.name} — ${KIND_LABEL[s.kind]}. Iqtidorli musiqachilar, xoristlar va jamoalar bilan hamkorlik qiladi, kasting va tanlovlar eʼlon qiladi.`,
     verification: s.verification,
+    stir: String(200000000 + i * 3571 + 111),
+    documents: ["guvohnoma.pdf", "nizom.pdf"],
     contacts: {
       phone: phone(rng.int(0, 9), rng.int(100, 999), rng.int(10, 99), rng.int(10, 99)),
       email: `info@${slug.slice(0, 20)}.example.uz`,

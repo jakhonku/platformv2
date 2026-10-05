@@ -11,7 +11,10 @@ import { clone, matches } from "./text.ts";
 import type { Collective, Organization } from "../../types/collective.ts";
 import type { MediaItem } from "../../types/media.ts";
 import type { TalentProfile } from "../../types/talent.ts";
+import { approvalBlockers, completeness } from "../review.ts";
+import type { ReviewKind } from "../../types/review.ts";
 import { logAudit } from "./audit.ts";
+import { getReviewState } from "./review.ts";
 import type { ModerationItem, ModerationKind, ModerationMeta } from "./views.ts";
 
 export async function getAdminStats(): Promise<AdminStats> {
@@ -63,11 +66,13 @@ const ownerMeta = (userId?: string): ModerationMeta => {
   return user?.identity ? { identity: user.identity.source, identityType: user.identity.type, stir: user.identity.stir, owner: user.fullName } : { owner: user?.fullName };
 };
 
+const reviewInfo = (kind: ReviewKind, payload: TalentProfile | Organization | Collective) => ({ review: getReviewState(kind, payload.id), completeness: completeness(kind, payload) });
+
 const toItem = {
-  profile: (t: TalentProfile): ModerationItem => ({ id: t.id, kind: "profile", title: t.fullName, subtitle: t.specialty, status: t.moderation, submittedAt: t.createdAt, payload: t, meta: ownerMeta(t.userId) }),
+  profile: (t: TalentProfile): ModerationItem => ({ id: t.id, kind: "profile", title: t.fullName, subtitle: t.specialty, status: t.moderation, submittedAt: t.createdAt, payload: t, meta: ownerMeta(t.userId), phone: t.contacts.phone, ...reviewInfo("profile", t) }),
   media: (m: MediaItem): ModerationItem => ({ id: m.id, kind: "media", title: m.title, subtitle: m.type, status: m.moderation, submittedAt: m.createdAt, payload: m }),
-  organization: (o: Organization): ModerationItem => ({ id: o.id, kind: "organization", title: o.name, subtitle: o.kind, status: o.verification, submittedAt: o.createdAt, payload: o, meta: { ...ownerMeta(o.ownerUserId), stir: o.stir ?? ownerMeta(o.ownerUserId).stir, documents: o.documents } }),
-  collective: (c: Collective): ModerationItem => ({ id: c.id, kind: "collective", title: c.name, subtitle: c.type, status: c.moderation, submittedAt: c.foundedYear ? `${c.foundedYear}-01-01T00:00:00.000Z` : new Date().toISOString(), payload: c, meta: { ...ownerMeta(c.ownerUserId), documents: c.documents } }),
+  organization: (o: Organization): ModerationItem => ({ id: o.id, kind: "organization", title: o.name, subtitle: o.kind, status: o.verification, submittedAt: o.createdAt, payload: o, meta: { ...ownerMeta(o.ownerUserId), stir: o.stir ?? ownerMeta(o.ownerUserId).stir, documents: o.documents }, phone: o.contacts.phone, counts: { staff: o.staff?.length ?? 0 }, ...reviewInfo("organization", o) }),
+  collective: (c: Collective): ModerationItem => ({ id: c.id, kind: "collective", title: c.name, subtitle: c.type, status: c.moderation, submittedAt: c.foundedYear ? `${c.foundedYear}-01-01T00:00:00.000Z` : new Date().toISOString(), payload: c, meta: { ...ownerMeta(c.ownerUserId), documents: c.documents }, phone: c.contacts.phone, counts: { members: c.members.length, unregistered: c.unregisteredMembers?.length ?? 0 }, ...reviewInfo("collective", c) }),
 };
 
 function queueFor(kind: ModerationKind): ModerationItem[] {
@@ -81,6 +86,20 @@ function queueFor(kind: ModerationKind): ModerationItem[] {
     case "collective":
       return store.collectives.filter((c) => c.moderation === "pending").map(toItem.collective);
   }
+}
+
+/** Barcha holatdagi yozuvlar (yangi → eskisi): moderatsiya jadvali uchun; tab va filtrlar klientda */
+export async function getModerationList(kind: ModerationKind): Promise<ModerationItem[]> {
+  await simulateLatency();
+  const items =
+    kind === "profile"
+      ? store.talents.map(toItem.profile)
+      : kind === "media"
+        ? store.media.map(toItem.media)
+        : kind === "organization"
+          ? store.organizations.map(toItem.organization)
+          : store.collectives.map(toItem.collective);
+  return clone(items.sort((a, b) => b.submittedAt.localeCompare(a.submittedAt)));
 }
 
 export async function getModerationQueue(kind: ModerationKind): Promise<ModerationItem[]> {
@@ -100,11 +119,18 @@ export async function moderate(
   if (decision !== "approved" && decision !== "rejected") throw new DataError("invalid", "Notoʻgʻri qaror");
   if (decision === "rejected" && (reason?.trim().length ?? 0) < 5) throw new DataError("invalid", "Rad etish sababi kamida 5 belgi boʻlsin");
   const note = decision === "rejected" ? reason!.trim() : undefined;
+  /** Tasdiqlash shartlari: mas'ul, to'liq ma'lumot, hujjatlar va telefon orqali aniqlash (media bundan mustasno) */
+  const assertApprovable = (k: ReviewKind, payload: TalentProfile | Organization | Collective) => {
+    if (decision !== "approved") return;
+    const blockers = approvalBlockers(k, payload, getReviewState(k, payload.id));
+    if (blockers.length > 0) throw new DataError("forbidden", `Tasdiqlash shartlari bajarilmagan: ${blockers.join(", ")}`);
+  };
 
   let item: ModerationItem | undefined;
   if (kind === "profile") {
     const t = store.talents.find((x) => x.id === id);
     if (t) {
+      assertApprovable("profile", t);
       t.moderation = decision;
       t.moderationNote = note;
       // OneID orqali shaxsi tasdiqlangan egaga "verified" belgisi tasdiqlash bilan beriladi
@@ -120,6 +146,7 @@ export async function moderate(
   } else if (kind === "organization") {
     const o = store.organizations.find((x) => x.id === id);
     if (o) {
+      assertApprovable("organization", o);
       o.verification = decision;
       o.moderationNote = note;
       item = toItem.organization(o);
@@ -127,6 +154,7 @@ export async function moderate(
   } else {
     const c = store.collectives.find((x) => x.id === id);
     if (c) {
+      assertApprovable("collective", c);
       c.moderation = decision;
       c.moderationNote = note;
       if (decision === "approved" && c.ownerUserId && store.users.find((u) => u.id === c.ownerUserId)?.identity?.verified) c.verified = true;

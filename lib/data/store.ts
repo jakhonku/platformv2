@@ -25,6 +25,7 @@ import {
 } from "../mock/index.ts";
 import { CATEGORIES, INSTRUMENTS, REGIONS, VOICE_TYPES } from "../constants/index.ts";
 import type { Banner, SystemSettings } from "../../types/admin.ts";
+import type { ReviewState } from "../../types/review.ts";
 import type { Competition, Festival, NewsItem } from "../../types/content.ts";
 import type { Category, Instrument, Region, VoiceType } from "../../types/reference.ts";
 import { clone } from "./text.ts";
@@ -33,10 +34,32 @@ import { clone } from "./text.ts";
  * Mutatsiyalar uchun modul xotirasi. Mock massivlarning nusxasi: asl mock hech qachon o'zgarmaydi.
  * Backend ulanganda shu fayl va lib/data/* ichidagi chaqiruvlar fetch('/api/...') ga almashtiriladi.
  */
+/** Demo uchun ikkita yangi (kutilayotgan) jamoa: biri to'liq, biri ma'lumotlari yetarli emas */
+function pendingCollectiveSeeds(): Collective[] {
+  const base = clone(ORCHESTRAS[0]) as Collective;
+  const make = (n: number, name: string, complete: boolean): Collective => ({
+    ...base,
+    id: `collective-pending-${n}`,
+    slug: `kutilayotgan-jamoa-${n}`,
+    name,
+    members: [],
+    events: [],
+    repertoire: [],
+    verified: false,
+    moderation: "pending",
+    moderationNote: undefined,
+    description: complete ? "Yoshlardan tashkil topgan kamera orkestri: klassik va zamonaviy asarlar ijrosi." : "",
+    city: complete ? "Toshkent" : "",
+    contacts: { phone: complete ? "+998 90 555 12 34" : undefined, email: complete ? "info@example.uz" : undefined },
+    documents: complete ? ["nizom.pdf", "rahbarlik-buyrugi.pdf"] : [],
+  });
+  return [make(1, "Yosh sozandalar kamera orkestri", true), make(2, "Sharq ohanglari ansambli", false)];
+}
+
 export const store = {
   users: clone(USERS) as User[],
   talents: clone(TALENTS) as TalentProfile[],
-  collectives: clone([...ORCHESTRAS, ...CHOIRS]) as Collective[],
+  collectives: [...clone([...ORCHESTRAS, ...CHOIRS]), ...pendingCollectiveSeeds()] as Collective[],
   organizations: clone(ORGANIZATIONS) as Organization[],
   castings: clone(CASTINGS) as Casting[],
   vacancies: clone(VACANCIES) as Vacancy[],
@@ -66,6 +89,15 @@ export const store = {
     regions: clone([...REGIONS]) as Region[],
     categories: clone([...CATEGORIES]) as Category[],
   },
+  // Ko'rib chiqish holati: kalit "<tur>:<id>"; demo uchun bitta tashkilot allaqachon tekshiruvda
+  reviews: {
+    "organization:org-09": {
+      assigneeId: "user-moderator",
+      assignedAt: "2026-10-02T10:00:00.000Z",
+      checklist: { documents: true, phone: false },
+      calls: [{ id: "call-seed-1", at: "2026-10-02T11:30:00.000Z", byId: "user-moderator", outcome: "no_answer", note: "Javob bermadi, ertaga qayta qo'ng'iroq qilinadi." }],
+    },
+  } as Record<string, ReviewState>,
   system: {
     settings: { maintenanceMode: false, allowRegistration: true, moderationRequired: true, supportEmail: "support@talent.uz" } as SystemSettings,
     lastBackupAt: null as string | null,

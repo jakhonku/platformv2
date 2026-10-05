@@ -1,12 +1,14 @@
 // Hosil qiluvchi: `node scripts/gen-actions.mjs` — lib/data/actions.ts va lib/data/client.ts ni qayta yozadi
 import fs from "node:fs";
 const fns = {
-  "./cabinet.ts": ["updateTalentProfile", "addMedia", "updateMedia", "deleteMedia", "createCollection", "deleteCollection", "respondToInvitation", "saveNotificationSettings", "markAllNotificationsRead", "createCasting", "createVacancy", "setOpportunityStatus", "updateCollective", "inviteCollectiveMember", "respondToCollectiveInvite", "addCollectiveMember", "removeCollectiveMember", "addCollectiveEvent", "removeCollectiveEvent"],
+  "./cabinet.ts": ["updateTalentProfile", "addMedia", "updateMedia", "deleteMedia", "createCollection", "deleteCollection", "respondToInvitation", "saveNotificationSettings", "markAllNotificationsRead", "createCasting", "createVacancy", "setOpportunityStatus", "updateCollective", "updateOrganization", "inviteCollectiveMember", "respondToCollectiveInvite", "addCollectiveMember", "removeCollectiveMember", "addCollectiveEvent", "removeCollectiveEvent"],
   "./opportunities.ts": ["applyToCasting", "applyToVacancy", "updateApplicationStatus"],
   "./invitations.ts": ["sendInvitation"],
   "./account.ts": ["markNotificationRead"],
   "./auth.ts": ["login", "registerAccount", "verifyCode", "verifyAndActivate", "oneIdSignIn"],
   "./admin.ts": ["moderate"],
+  "./review.ts": ["startReview", "setReviewChecklist", "logReviewCall"],
+  "./import.ts": ["importCollectiveMembers", "importOrganizationStaff"],
   "./admin-ops.ts": ["setUserStatus", "setUserRoles", "deleteOpening", "saveCompetition", "saveFestival", "deleteEvent", "saveNews", "deleteNews", "saveBanner", "deleteBanner", "saveReference", "deleteReference", "saveSystemSettings", "createBackup"],
 };
 let actions = `"use server";
@@ -37,6 +39,8 @@ import type * as account from "./account.ts";
 import type * as auth from "./auth.ts";
 import type * as admin from "./admin.ts";
 import type * as admin_ops from "./admin-ops.ts";
+import type * as review from "./review.ts";
+import type * as import_ from "./import.ts";
 import * as actions from "./actions.ts";
 
 /** Klient komponentlar uchun: mutatsiyalar Server Action orqali bajariladi, xato \`DataError\` sifatida qaytadi */
@@ -47,7 +51,7 @@ async function unwrap<T>(promise: Promise<actions.ActionResult<T>>): Promise<T> 
 }
 `;
 for (const [mod, names] of Object.entries(fns)) {
-  const ns = mod.replace("./", "").replace(".ts", "").replace(/[^a-zA-Z0-9]/g, "_");
+  const ns = mod.replace("./", "").replace(".ts", "").replace(/[^a-zA-Z0-9]/g, "_").replace(/^import$/, "import_");
   for (const n of names) {
     actions += `export async function ${n}Action(...args: Parameters<typeof ${n}>) {\n  return run(() => ${n}(...args));\n}\n`;
     client += `export const ${n} = (...args: Parameters<typeof ${ns}.${n}>) => unwrap(actions.${n}Action(...args));\n`;

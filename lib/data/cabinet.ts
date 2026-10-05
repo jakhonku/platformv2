@@ -1,5 +1,5 @@
 import { z } from "zod";
-import type { Collective, CollectiveInvite } from "../../types/collective.ts";
+import type { Collective, CollectiveInvite, Organization } from "../../types/collective.ts";
 import type { Invitation } from "../../types/invitation.ts";
 import type { Collection, MediaItem } from "../../types/media.ts";
 import type { Casting, Requirements, Vacancy } from "../../types/opportunity.ts";
@@ -294,10 +294,10 @@ const findCollective = (id: string): Collective => {
   return c;
 };
 
-export async function updateCollective(id: string, p: { description: string; repertoire: string[]; contacts: z.input<typeof contactsSchema> }): Promise<Collective> {
+export async function updateCollective(id: string, p: { description: string; repertoire: string[]; contacts: z.input<typeof contactsSchema>; city?: string; regionId?: string }): Promise<Collective> {
   await simulateLatency();
   const c = findCollective(id);
-  const v = check(z.object({ description: z.string().trim().min(10).max(3000), repertoire: z.array(z.string().trim().min(1).max(120)).max(50), contacts: contactsSchema }), p);
+  const v = check(z.object({ description: z.string().trim().min(10).max(3000), repertoire: z.array(z.string().trim().min(1).max(120)).max(50), contacts: contactsSchema, city: z.string().trim().min(1).max(80).optional(), regionId: region.optional() }), p);
   Object.assign(c, v);
   return clone(c);
 }
@@ -378,4 +378,15 @@ export async function respondToCollectiveInvite(id: string, status: "accepted" |
     if (talent) talent.currentCollectiveId = invite.collectiveId;
   }
   return clone(invite);
+}
+
+/* ----------------------------- Tashkilot profili ----------------------------- */
+
+export async function updateOrganization(id: string, p: { description: string; city: string; regionId: string; contacts: z.input<typeof contactsSchema> }): Promise<Organization> {
+  await simulateLatency();
+  const org = store.organizations.find((o) => o.id === id);
+  if (!org) throw new DataError("not_found", "Tashkilot topilmadi");
+  const v = check(z.object({ description: z.string().trim().min(10).max(3000), city: z.string().trim().min(1).max(80), regionId: region, contacts: contactsSchema }), p);
+  Object.assign(org, v);
+  return clone(org);
 }

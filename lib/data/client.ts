@@ -6,6 +6,8 @@ import type * as account from "./account.ts";
 import type * as auth from "./auth.ts";
 import type * as admin from "./admin.ts";
 import type * as admin_ops from "./admin-ops.ts";
+import type * as review from "./review.ts";
+import type * as import_ from "./import.ts";
 import * as actions from "./actions.ts";
 
 /** Klient komponentlar uchun: mutatsiyalar Server Action orqali bajariladi, xato `DataError` sifatida qaytadi */
@@ -27,6 +29,7 @@ export const createCasting = (...args: Parameters<typeof cabinet.createCasting>)
 export const createVacancy = (...args: Parameters<typeof cabinet.createVacancy>) => unwrap(actions.createVacancyAction(...args));
 export const setOpportunityStatus = (...args: Parameters<typeof cabinet.setOpportunityStatus>) => unwrap(actions.setOpportunityStatusAction(...args));
 export const updateCollective = (...args: Parameters<typeof cabinet.updateCollective>) => unwrap(actions.updateCollectiveAction(...args));
+export const updateOrganization = (...args: Parameters<typeof cabinet.updateOrganization>) => unwrap(actions.updateOrganizationAction(...args));
 export const inviteCollectiveMember = (...args: Parameters<typeof cabinet.inviteCollectiveMember>) => unwrap(actions.inviteCollectiveMemberAction(...args));
 export const respondToCollectiveInvite = (...args: Parameters<typeof cabinet.respondToCollectiveInvite>) => unwrap(actions.respondToCollectiveInviteAction(...args));
 export const addCollectiveMember = (...args: Parameters<typeof cabinet.addCollectiveMember>) => unwrap(actions.addCollectiveMemberAction(...args));
@@ -44,6 +47,11 @@ export const verifyCode = (...args: Parameters<typeof auth.verifyCode>) => unwra
 export const verifyAndActivate = (...args: Parameters<typeof auth.verifyAndActivate>) => unwrap(actions.verifyAndActivateAction(...args));
 export const oneIdSignIn = (...args: Parameters<typeof auth.oneIdSignIn>) => unwrap(actions.oneIdSignInAction(...args));
 export const moderate = (...args: Parameters<typeof admin.moderate>) => unwrap(actions.moderateAction(...args));
+export const startReview = (...args: Parameters<typeof review.startReview>) => unwrap(actions.startReviewAction(...args));
+export const setReviewChecklist = (...args: Parameters<typeof review.setReviewChecklist>) => unwrap(actions.setReviewChecklistAction(...args));
+export const logReviewCall = (...args: Parameters<typeof review.logReviewCall>) => unwrap(actions.logReviewCallAction(...args));
+export const importCollectiveMembers = (...args: Parameters<typeof import_.importCollectiveMembers>) => unwrap(actions.importCollectiveMembersAction(...args));
+export const importOrganizationStaff = (...args: Parameters<typeof import_.importOrganizationStaff>) => unwrap(actions.importOrganizationStaffAction(...args));
 export const setUserStatus = (...args: Parameters<typeof admin_ops.setUserStatus>) => unwrap(actions.setUserStatusAction(...args));
 export const setUserRoles = (...args: Parameters<typeof admin_ops.setUserRoles>) => unwrap(actions.setUserRolesAction(...args));
 export const deleteOpening = (...args: Parameters<typeof admin_ops.deleteOpening>) => unwrap(actions.deleteOpeningAction(...args));

@@ -4,12 +4,14 @@
 // shunda `router.refresh()` dan keyin server sahifalari yangi holatni ko'radi. Natija `ActionResult` ko'rinishida
 // qaytadi (DataError server chegarasida xabarga aylanib ketmasligi uchun).
 import { DataError, type DataErrorCode } from "./errors.ts";
-import { updateTalentProfile, addMedia, updateMedia, deleteMedia, createCollection, deleteCollection, respondToInvitation, saveNotificationSettings, markAllNotificationsRead, createCasting, createVacancy, setOpportunityStatus, updateCollective, inviteCollectiveMember, respondToCollectiveInvite, addCollectiveMember, removeCollectiveMember, addCollectiveEvent, removeCollectiveEvent } from "./cabinet.ts";
+import { updateTalentProfile, addMedia, updateMedia, deleteMedia, createCollection, deleteCollection, respondToInvitation, saveNotificationSettings, markAllNotificationsRead, createCasting, createVacancy, setOpportunityStatus, updateCollective, updateOrganization, inviteCollectiveMember, respondToCollectiveInvite, addCollectiveMember, removeCollectiveMember, addCollectiveEvent, removeCollectiveEvent } from "./cabinet.ts";
 import { applyToCasting, applyToVacancy, updateApplicationStatus } from "./opportunities.ts";
 import { sendInvitation } from "./invitations.ts";
 import { markNotificationRead } from "./account.ts";
 import { login, registerAccount, verifyCode, verifyAndActivate, oneIdSignIn } from "./auth.ts";
 import { moderate } from "./admin.ts";
+import { startReview, setReviewChecklist, logReviewCall } from "./review.ts";
+import { importCollectiveMembers, importOrganizationStaff } from "./import.ts";
 import { setUserStatus, setUserRoles, deleteOpening, saveCompetition, saveFestival, deleteEvent, saveNews, deleteNews, saveBanner, deleteBanner, saveReference, deleteReference, saveSystemSettings, createBackup } from "./admin-ops.ts";
 
 export type ActionResult<T> = { ok: true; data: T } | { ok: false; code: DataErrorCode; message: string };
@@ -61,6 +63,9 @@ export async function setOpportunityStatusAction(...args: Parameters<typeof setO
 export async function updateCollectiveAction(...args: Parameters<typeof updateCollective>) {
   return run(() => updateCollective(...args));
 }
+export async function updateOrganizationAction(...args: Parameters<typeof updateOrganization>) {
+  return run(() => updateOrganization(...args));
+}
 export async function inviteCollectiveMemberAction(...args: Parameters<typeof inviteCollectiveMember>) {
   return run(() => inviteCollectiveMember(...args));
 }
@@ -111,6 +116,21 @@ export async function oneIdSignInAction(...args: Parameters<typeof oneIdSignIn>)
 }
 export async function moderateAction(...args: Parameters<typeof moderate>) {
   return run(() => moderate(...args));
+}
+export async function startReviewAction(...args: Parameters<typeof startReview>) {
+  return run(() => startReview(...args));
+}
+export async function setReviewChecklistAction(...args: Parameters<typeof setReviewChecklist>) {
+  return run(() => setReviewChecklist(...args));
+}
+export async function logReviewCallAction(...args: Parameters<typeof logReviewCall>) {
+  return run(() => logReviewCall(...args));
+}
+export async function importCollectiveMembersAction(...args: Parameters<typeof importCollectiveMembers>) {
+  return run(() => importCollectiveMembers(...args));
+}
+export async function importOrganizationStaffAction(...args: Parameters<typeof importOrganizationStaff>) {
+  return run(() => importOrganizationStaff(...args));
 }
 export async function setUserStatusAction(...args: Parameters<typeof setUserStatus>) {
   return run(() => setUserStatus(...args));

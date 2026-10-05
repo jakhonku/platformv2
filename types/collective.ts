@@ -35,7 +35,13 @@ export type Collective = {
   ownerUserId?: string;
   documents?: string[];
   moderationNote?: string;
+  /** Excel/CSV orqali import qilingan, hali platformada ro`yxatdan o`tmagan a`zolar */
+  unregisteredMembers?: UnregisteredMember[];
 };
+
+export type UnregisteredMember = { id: string; name: string; phone: string; section: string };
+
+export type OrganizationStaff = { id: string; name: string; phone: string; position: string; talentId?: string };
 
 export type OrganizationKind =
   | "philharmonic"
@@ -62,6 +68,7 @@ export type Organization = {
   ownerUserId?: string;
   documents?: string[];
   moderationNote?: string;
+  staff?: OrganizationStaff[];
 };
 
 export type CollectiveInviteStatus = "pending" | "accepted" | "declined";

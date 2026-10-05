@@ -1,5 +1,7 @@
 import assert from "node:assert/strict";
 import { test } from "node:test";
+import { store } from "./store.ts";
+import { parseContact } from "../auth/contact.ts";
 import { APPLICATIONS, CASTINGS, MOCK_NOW, NOTIFICATIONS, ORCHESTRAS, TALENTS, USERS, VACANCIES } from "../mock/index.ts";
 import {
   DataError,
@@ -24,6 +26,13 @@ import {
   getTalents,
   getUsers,
   getVacancies,
+  getModerationList,
+  importCollectiveMembers,
+  importOrganizationStaff,
+  logReviewCall,
+  setReviewChecklist,
+  startReview,
+  updateOrganization,
   getCollectiveDetailById,
   getCollectiveInvitesFor,
   getCollectiveInvitesOf,
@@ -79,6 +88,28 @@ import {
 } from "./index.ts";
 
 process.env.DATA_LATENCY_MS = "0";
+
+/** Testlar uchun: yozuvni to'liqlantirib, tekshiruv shartlarini bajaradi (tasdiqlash mumkin bo'lishi uchun) */
+function approvable(kind: "profile" | "organization" | "collective", id: string) {
+  if (kind === "profile") {
+    const t = store.talents.find((x) => x.id === id)!;
+    Object.assign(t, {
+      specialty: t.specialty || "Mutaxassis",
+      bio: t.bio.length >= 10 ? t.bio : "Qisqa tavsif matni.",
+      city: t.city || "Toshkent",
+      instrumentIds: t.instrumentIds.length ? t.instrumentIds : ["violin"],
+      voiceTypeId: t.voiceTypeId ?? "tenor",
+      contacts: { ...t.contacts, phone: t.contacts.phone ?? "+998 90 000 00 00" },
+    });
+  } else if (kind === "organization") {
+    const o = store.organizations.find((x) => x.id === id)!;
+    Object.assign(o, { description: o.description.length >= 10 ? o.description : "Tashkilot haqida tavsif.", city: o.city || "Toshkent", stir: o.stir ?? "123456789", documents: o.documents?.length ? o.documents : ["guvohnoma.pdf"], contacts: { ...o.contacts, phone: o.contacts.phone ?? "+998 90 000 00 00" } });
+  } else {
+    const c = store.collectives.find((x) => x.id === id)!;
+    Object.assign(c, { description: c.description.length >= 10 ? c.description : "Jamoa haqida tavsif.", city: c.city || "Toshkent", documents: c.documents?.length ? c.documents : ["nizom.pdf"], contacts: { ...c.contacts, phone: c.contacts.phone ?? "+998 90 000 00 00" } });
+  }
+  store.reviews[kind + ":" + id] = { assigneeId: "user-moderator", checklist: { documents: true, phone: true }, calls: [] };
+}
 
 const approved = TALENTS.filter((t) => t.moderation === "approved");
 
@@ -247,6 +278,7 @@ test("moderation queue and decisions", async () => {
   const queue = await getModerationQueue("profile");
   assert.ok(queue.length >= 1);
   const item = queue[0];
+  approvable("profile", item.id);
   const done = await moderate("profile", item.id, "approved");
   assert.equal(done.id, item.id);
   assert.ok(!(await getModerationQueue("profile")).some((q) => q.id === item.id));
@@ -552,6 +584,7 @@ test("oneIdSignIn distinguishes individuals and legal entities (Review Focus 1, 
   assert.equal(again.userId, a.userId);
   const queue = await getModerationQueue("profile");
   assert.ok(queue.some((q) => q.id === subj!.talent!.id && q.meta?.identity === "oneid"));
+  approvable("profile", subj!.talent!.id);
   await moderate("profile", subj!.talent!.id, "approved");
   assert.equal((await getSubjectForUser(a.userId))?.talent?.verified, true);
 
@@ -573,6 +606,7 @@ test("moderation covers collectives and keeps the rejection note (Review Focus 3
   await assert.rejects(() => moderate("collective", collective.id, "rejected"), { code: "invalid" });
   await moderate("collective", collective.id, "rejected", "Hujjat yetarli emas");
   assert.equal((await getCollectiveDetailById(collective.id))?.moderationNote, "Hujjat yetarli emas");
+  approvable("collective", collective.id);
   await moderate("collective", collective.id, "approved");
   const approvedCollective = await getCollectiveDetailById(collective.id);
   assert.equal(approvedCollective?.moderation, "approved");
@@ -584,6 +618,7 @@ test("unverified organizations cannot create openings (Review Focus 2)", async (
   const org = (await getSubjectForUser(res.userId))!.organization!;
   const payload = { title: "Yangi kasting nomi", description: "Kamida yigirma belgidan iborat tavsif matni.", location: "Toshkent", eventDate: "2027-03-01T18:00:00.000Z", deadline: "2026-12-30T18:00:00.000Z" };
   await assert.rejects(() => createCasting(org.id, payload), { code: "forbidden" });
+  approvable("organization", org.id);
   await moderate("organization", org.id, "approved");
   const c = await createCasting(org.id, payload);
   assert.equal(c.organizationId, org.id);
@@ -609,4 +644,69 @@ test("collective membership is two-sided (Review Focus 5)", async () => {
   assert.ok(!(await getCollectiveDetailById(col.id))!.members.some((m) => m.talentId === other.id));
   await assert.rejects(() => respondToCollectiveInvite("yoq", "accepted"), { code: "not_found" });
   await assert.rejects(() => inviteCollectiveMember(col.id, { talentId: "yoq", section: "X" }), { code: "not_found" });
+});
+
+test("approval needs data, an assignee, a call and checked documents (Review Focus 1, 2, 3)", async () => {
+  const res = await registerAccount({ role: "organization", fullName: "Vakil Tort", contact: "org-review@example.uz", password: "password123", entityName: "Tekshiruv Teatri", stir: "135792468", documents: doc });
+  const org = (await getSubjectForUser(res.userId))!.organization!;
+  await assert.rejects(() => moderate("organization", org.id, "approved"), { code: "forbidden" });
+  await assert.rejects(() => setReviewChecklist("organization", org.id, { phone: true }), { code: "forbidden" });
+  await assert.rejects(() => logReviewCall("organization", org.id, { outcome: "reached", note: "ok" }), { code: "invalid" });
+  await assert.rejects(() => startReview("organization", "yoq"), { code: "not_found" });
+
+  const started = await startReview("organization", org.id, "user-moderator");
+  assert.equal(started.assigneeId, "user-moderator");
+  const noAnswer = await logReviewCall("organization", org.id, { outcome: "no_answer", note: "Javob bermadi" }, "user-moderator");
+  assert.equal(noAnswer.checklist.phone, false);
+  const reached = await logReviewCall("organization", org.id, { outcome: "reached", note: "Direktor bilan gaplashildi, maʼlumotlar tasdiqlandi" }, "user-moderator");
+  assert.equal(reached.checklist.phone, true);
+  assert.equal(reached.calls.length, 2);
+  await setReviewChecklist("organization", org.id, { documents: true });
+  await assert.rejects(() => moderate("organization", org.id, "approved"), { code: "forbidden" }); // description/city/phone yetishmaydi
+
+  await updateOrganization(org.id, { description: "Teatr haqida toʻliq tavsif.", city: "Buxoro", regionId: "bukhara", contacts: { phone: "+998 90 111 22 33" } });
+  const item = (await getModerationList("organization")).find((i) => i.id === org.id)!;
+  assert.equal(item.completeness?.percent, 100);
+  assert.equal(item.review?.calls.length, 2);
+  const done = await moderate("organization", org.id, "approved");
+  assert.equal(done.status, "approved");
+
+  const taken = await startReview("organization", org.id, "user-admin");
+  assert.equal(taken.assigneeId, "user-admin");
+});
+
+test("moderation list returns every status with review info", async () => {
+  const list = await getModerationList("collective");
+  assert.ok(list.some((i) => i.status === "approved"));
+  assert.ok(list.some((i) => i.status === "pending" && i.completeness && i.completeness.percent < 100));
+  assert.ok(list.every((i) => i.review && i.completeness));
+  const media = await getModerationList("media");
+  assert.ok(media.length > 0 && media.every((i) => !i.review));
+});
+
+test("Excel import creates invitations for known talents and keeps the rest as unregistered (Review Focus 5)", async () => {
+  const col = ORCHESTRAS[3];
+  const known = approved.find((t) => {
+    const phone = store.users.find((u) => u.id === t.userId)?.phone;
+    return phone && parseContact(phone)?.channel === "phone" && !col.members.some((m) => m.talentId === t.id);
+  })!;
+  const knownPhone = parseContact(store.users.find((u) => u.id === known.userId)!.phone)!.value;
+  const rows = [
+    { name: known.fullName, phone: knownPhone, section: "Skripka" },
+    { name: "Yangi A'zo Birinchi", phone: "+998 97 111 22 33", section: "Alt" },
+  ];
+  const first = await importCollectiveMembers(col.id, rows);
+  assert.deepEqual(first, { matched: 1, unmatched: 1, duplicates: 0 });
+  assert.ok((await getCollectiveInvitesFor(known.id)).some((i) => i.collectiveId === col.id && i.status === "pending"));
+  const detail = await getCollectiveDetailById(col.id);
+  assert.equal(detail?.unregisteredMembers?.length, 1);
+  assert.ok(!detail!.members.some((m) => m.talentId === known.id));
+  const second = await importCollectiveMembers(col.id, rows);
+  assert.deepEqual(second, { matched: 0, unmatched: 0, duplicates: 2 });
+  await assert.rejects(() => importCollectiveMembers(col.id, [{ name: "X", phone: "123", section: "" }]), { code: "invalid" });
+  await assert.rejects(() => importCollectiveMembers("yoq", rows), { code: "not_found" });
+
+  const staff = await importOrganizationStaff("org-01", [...rows, { name: "Xodim Uchinchi", phone: "+998 98 777 66 55", section: "Administrator" }]);
+  assert.deepEqual(staff, { matched: 1, unmatched: 2, duplicates: 0 });
+  assert.deepEqual(await importOrganizationStaff("org-01", rows), { matched: 0, unmatched: 0, duplicates: 2 });
 });
