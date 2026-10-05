@@ -19,33 +19,37 @@ import type { Role } from "@/lib/demo/role";
 export type ApplyTarget = { kind: "casting" | "vacancy"; id: string; title: string };
 export type ApplyApplicant = { talentId: string; name: string; media: { id: string; title: string }[] };
 
-type Values = { message: string; mediaIds: string[] };
+type Values = { message: string };
+
+const MAX_MEDIA = 10;
 
 export function ApplyDialog({ target, applicant, role, closed }: { target: ApplyTarget; applicant: ApplyApplicant | null; role: Role; closed: boolean }) {
   const t = useTranslations("opportunity.apply");
   const [open, setOpen] = useState(false);
   const [applied, setApplied] = useState(false);
+  // Checkbox guruhi RHF'da bitta element bo'lsa massiv emas, qiymat qaytaradi: tanlov alohida holatda saqlanadi
+  const [selected, setSelected] = useState<string[]>([]);
 
   const schema = z.object({
     message: z.string().max(2000, t("errors.message")),
-    mediaIds: z.array(z.string()).max(10, t("errors.media")),
   });
   const {
     register,
     handleSubmit,
     reset,
     formState: { errors, isSubmitting },
-  } = useForm<Values>({ resolver: zodResolver(schema), defaultValues: { message: "", mediaIds: [] } });
+  } = useForm<Values>({ resolver: zodResolver(schema), defaultValues: { message: "" } });
 
   const onSubmit = handleSubmit(async (values) => {
     if (!applicant) return;
-    const payload = { talentId: applicant.talentId, message: values.message.trim(), mediaIds: values.mediaIds };
+    const payload = { talentId: applicant.talentId, message: values.message.trim(), mediaIds: selected };
     try {
       if (target.kind === "casting") await applyToCasting(target.id, payload);
       else await applyToVacancy(target.id, payload);
       toast.success(t("success"));
       setApplied(true);
       reset();
+      setSelected([]);
       setOpen(false);
     } catch (error) {
       // Forma qiymatlari saqlanadi: foydalanuvchi qayta urinib ko'ra oladi
@@ -109,12 +113,18 @@ export function ApplyDialog({ target, applicant, role, closed }: { target: Apply
               ) : (
                 applicant.media.map((m) => (
                   <label key={m.id} className="flex min-w-0 cursor-pointer items-center gap-2 text-sm">
-                    <input type="checkbox" value={m.id} className="size-4 shrink-0 rounded border-input accent-primary" {...register("mediaIds")} />
+                    <input
+                      type="checkbox"
+                      checked={selected.includes(m.id)}
+                      disabled={!selected.includes(m.id) && selected.length >= MAX_MEDIA}
+                      onChange={(e) => setSelected((cur) => (e.target.checked ? [...cur, m.id] : cur.filter((x) => x !== m.id)))}
+                      className="size-4 shrink-0 rounded border-input accent-primary"
+                    />
                     <span className="truncate">{m.title}</span>
                   </label>
                 ))
               )}
-              {errors.mediaIds && <p className="text-xs text-destructive">{errors.mediaIds.message}</p>}
+              {selected.length >= MAX_MEDIA && <p className="text-xs text-muted-foreground">{t("errors.media")}</p>}
             </fieldset>
             <DialogFooter>
               <Button type="button" variant="outline" onClick={() => setOpen(false)}>
