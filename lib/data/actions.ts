@@ -9,6 +9,8 @@ import { applyToCasting, applyToVacancy, updateApplicationStatus } from "./oppor
 import { sendInvitation } from "./invitations.ts";
 import { markNotificationRead } from "./account.ts";
 import { login, registerAccount, verifyCode } from "./auth.ts";
+import { moderate } from "./admin.ts";
+import { setUserStatus, setUserRoles, deleteOpening, saveCompetition, saveFestival, deleteEvent, saveNews, deleteNews, saveBanner, deleteBanner, saveReference, deleteReference, saveSystemSettings, createBackup } from "./admin-ops.ts";
 
 export type ActionResult<T> = { ok: true; data: T } | { ok: false; code: DataErrorCode; message: string };
 
@@ -94,4 +96,49 @@ export async function registerAccountAction(...args: Parameters<typeof registerA
 }
 export async function verifyCodeAction(...args: Parameters<typeof verifyCode>) {
   return run(() => verifyCode(...args));
+}
+export async function moderateAction(...args: Parameters<typeof moderate>) {
+  return run(() => moderate(...args));
+}
+export async function setUserStatusAction(...args: Parameters<typeof setUserStatus>) {
+  return run(() => setUserStatus(...args));
+}
+export async function setUserRolesAction(...args: Parameters<typeof setUserRoles>) {
+  return run(() => setUserRoles(...args));
+}
+export async function deleteOpeningAction(...args: Parameters<typeof deleteOpening>) {
+  return run(() => deleteOpening(...args));
+}
+export async function saveCompetitionAction(...args: Parameters<typeof saveCompetition>) {
+  return run(() => saveCompetition(...args));
+}
+export async function saveFestivalAction(...args: Parameters<typeof saveFestival>) {
+  return run(() => saveFestival(...args));
+}
+export async function deleteEventAction(...args: Parameters<typeof deleteEvent>) {
+  return run(() => deleteEvent(...args));
+}
+export async function saveNewsAction(...args: Parameters<typeof saveNews>) {
+  return run(() => saveNews(...args));
+}
+export async function deleteNewsAction(...args: Parameters<typeof deleteNews>) {
+  return run(() => deleteNews(...args));
+}
+export async function saveBannerAction(...args: Parameters<typeof saveBanner>) {
+  return run(() => saveBanner(...args));
+}
+export async function deleteBannerAction(...args: Parameters<typeof deleteBanner>) {
+  return run(() => deleteBanner(...args));
+}
+export async function saveReferenceAction(...args: Parameters<typeof saveReference>) {
+  return run(() => saveReference(...args));
+}
+export async function deleteReferenceAction(...args: Parameters<typeof deleteReference>) {
+  return run(() => deleteReference(...args));
+}
+export async function saveSystemSettingsAction(...args: Parameters<typeof saveSystemSettings>) {
+  return run(() => saveSystemSettings(...args));
+}
+export async function createBackupAction(...args: Parameters<typeof createBackup>) {
+  return run(() => createBackup(...args));
 }

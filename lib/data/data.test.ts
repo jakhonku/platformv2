@@ -24,6 +24,25 @@ import {
   getTalents,
   getUsers,
   getVacancies,
+  createBackup,
+  deleteEvent,
+  deleteNews,
+  deleteOpening,
+  deleteReference,
+  getAdminStatistics,
+  getBanners,
+  getCompetitionBySlug,
+  getNewsBySlug,
+  getSystemInfo,
+  getSystemSettings,
+  saveBanner,
+  saveCompetition,
+  saveFestival,
+  saveNews,
+  saveReference,
+  saveSystemSettings,
+  setUserRoles,
+  setUserStatus,
   addCollectiveEvent,
   addCollectiveMember,
   addMedia,
@@ -387,4 +406,76 @@ test("collective members and events (Review Focus 7)", async () => {
   const ev = await addCollectiveEvent(col.id, { title: "Konsert", date: "2026-12-01T18:00:00.000Z", venue: "Zal" });
   assert.ok(ev.events.some((e) => e.title === "Konsert"));
   await assert.rejects(() => addCollectiveEvent(col.id, { title: "Konsert", date: "notadate", venue: "Zal" }), { code: "invalid" });
+});
+
+test("setUserStatus blocks users, writes audit and protects the last admin (Review Focus 2, 3)", async () => {
+  const victim = USERS.find((u) => u.roles[0] === "musician" && u.status === "active" && u.id !== "user-admin")!;
+  const before = (await getAuditLog(1, 100)).total;
+  const blocked = await setUserStatus(victim.id, "blocked", "user-admin");
+  assert.equal(blocked.status, "blocked");
+  assert.equal((await getAuditLog(1, 100)).total, before + 1);
+  await assert.rejects(() => setUserStatus("user-admin", "blocked"), { code: "forbidden" });
+  await assert.rejects(() => setUserRoles("user-admin", ["musician"]), { code: "forbidden" });
+  await assert.rejects(() => setUserRoles(victim.id, []), { code: "invalid" });
+  await assert.rejects(() => setUserRoles(victim.id, ["guest"]), { code: "invalid" });
+  await assert.rejects(() => setUserStatus("yoq", "active"), { code: "not_found" });
+  const roles = await setUserRoles(victim.id, ["musician", "composer"]);
+  assert.deepEqual(roles.roles, ["musician", "composer"]);
+});
+
+test("competition and festival CRUD (Review Focus 5)", async () => {
+  const base = { title: "Yangi tanlov nomi", description: "Tanlov haqida batafsil tavsif.", regionId: "bukhara", city: "Buxoro", startDate: "2027-05-01T10:00:00.000Z", endDate: "2027-05-03T10:00:00.000Z", imageUrl: "/placeholders/event.jpg" };
+  const a = await saveCompetition({ ...base, deadline: "2027-04-01T10:00:00.000Z", categoryId: "competition", prizeFundUzs: 1000000 });
+  const b = await saveCompetition({ ...base, deadline: "2027-04-01T10:00:00.000Z", categoryId: "competition" });
+  assert.notEqual(a.slug, b.slug);
+  assert.equal((await getCompetitionBySlug(a.slug))?.id, a.id);
+  const edited = await saveCompetition({ ...base, id: a.id, title: "Yangilangan nom", deadline: "2027-04-01T10:00:00.000Z", categoryId: "competition" });
+  assert.equal(edited.id, a.id);
+  assert.equal(edited.title, "Yangilangan nom");
+  await assert.rejects(() => saveCompetition({ ...base, startDate: "2027-06-01T10:00:00.000Z", deadline: "2027-04-01T10:00:00.000Z", categoryId: "competition" }), { code: "invalid" });
+  await assert.rejects(() => saveCompetition({ ...base, title: "", deadline: "2027-04-01T10:00:00.000Z", categoryId: "competition" }), { code: "invalid" });
+  await assert.rejects(() => saveFestival({ ...base, regionId: "yoq", lineup: [] }), { code: "invalid" });
+  const fest = await saveFestival({ ...base, lineup: ["Orkestr"] });
+  assert.deepEqual(fest.lineup, ["Orkestr"]);
+  await deleteEvent("competition", a.id);
+  assert.equal(await getCompetitionBySlug(a.slug), null);
+  await assert.rejects(() => deleteEvent("festival", "yoq"), { code: "not_found" });
+});
+
+test("news, banners and openings admin", async () => {
+  const n = await saveNews({ title: "Yangi yangilik sarlavhasi", excerpt: "Qisqa mazmun matni.", body: "Yangilikning toʻliq matni kamida yigirma belgi.", categoryId: "concerts", imageUrl: "/placeholders/news.jpg" });
+  assert.equal((await getNewsBySlug(n.slug))?.id, n.id);
+  await deleteNews(n.id);
+  assert.equal(await getNewsBySlug(n.slug), null);
+  const banner = await saveBanner({ title: "Aksiya", link: "/castings", imageUrl: "", active: true });
+  assert.ok((await getBanners()).some((b) => b.id === banner.id));
+  await assert.rejects(() => saveBanner({ title: "Bad", link: "javascript:x", imageUrl: "", active: true }), { code: "invalid" });
+  const c = await createCasting("org-01", { title: "Vaqtinchalik kasting", description: "Kamida yigirma belgidan iborat tavsif.", location: "Toshkent", eventDate: "2027-03-01T18:00:00.000Z", deadline: "2026-12-30T18:00:00.000Z" });
+  await deleteOpening("casting", c.id);
+  await assert.rejects(() => deleteOpening("casting", c.id), { code: "not_found" });
+});
+
+test("reference CRUD (Review Focus 4)", async () => {
+  const item = { name: { uz: "Yangi cholgʻu", ru: "Новый инструмент", en: "New instrument" }, family: "folk" as const };
+  const saved = await saveReference("instrument", item);
+  assert.ok(saved.id);
+  assert.ok((await getReferences()).instruments.some((i) => i.id === saved.id));
+  await assert.rejects(() => saveReference("instrument", { ...item, name: { ...item.name, ru: "" } }), { code: "invalid" });
+  await deleteReference("instrument", saved.id);
+  assert.ok(!(await getReferences()).instruments.some((i) => i.id === saved.id));
+  await assert.rejects(() => deleteReference("instrument", saved.id), { code: "not_found" });
+});
+
+test("system settings, backup and statistics (Review Focus 6, 7)", async () => {
+  const s = await getSystemSettings();
+  await saveSystemSettings({ ...s, maintenanceMode: true, supportEmail: "help@example.uz" });
+  assert.equal((await getSystemSettings()).maintenanceMode, true);
+  await assert.rejects(() => saveSystemSettings({ ...s, supportEmail: "bad" }), { code: "invalid" });
+  const backup = await createBackup();
+  const data = JSON.parse(backup.json);
+  for (const k of ["users", "talents", "collectives", "organizations", "media", "castings", "vacancies", "applications"]) assert.ok(Array.isArray(data[k]), k);
+  assert.ok((await getSystemInfo()).lastBackupAt);
+  const stats = await getAdminStatistics();
+  assert.equal(stats.monthlyViews.length, 12);
+  assert.ok(stats.talentsByKind.length > 0);
 });

@@ -1,6 +1,6 @@
 import type { Category, Instrument, Region, VoiceType } from "../../types/reference.ts";
-import { CATEGORIES, INSTRUMENTS, REGIONS, VOICE_TYPES } from "../constants/index.ts";
 import { simulateLatency } from "./latency.ts";
+import { store } from "./store.ts";
 import { clone } from "./text.ts";
 
 export type References = {
@@ -12,10 +12,5 @@ export type References = {
 
 export async function getReferences(): Promise<References> {
   await simulateLatency();
-  return clone({
-    regions: [...REGIONS],
-    instruments: [...INSTRUMENTS],
-    voiceTypes: [...VOICE_TYPES],
-    categories: [...CATEGORIES],
-  });
+  return clone({ ...store.references });
 }

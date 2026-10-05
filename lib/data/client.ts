@@ -4,6 +4,8 @@ import type * as opportunities from "./opportunities.ts";
 import type * as invitations from "./invitations.ts";
 import type * as account from "./account.ts";
 import type * as auth from "./auth.ts";
+import type * as admin from "./admin.ts";
+import type * as admin_ops from "./admin-ops.ts";
 import * as actions from "./actions.ts";
 
 /** Klient komponentlar uchun: mutatsiyalar Server Action orqali bajariladi, xato `DataError` sifatida qaytadi */
@@ -37,3 +39,18 @@ export const markNotificationRead = (...args: Parameters<typeof account.markNoti
 export const login = (...args: Parameters<typeof auth.login>) => unwrap(actions.loginAction(...args));
 export const registerAccount = (...args: Parameters<typeof auth.registerAccount>) => unwrap(actions.registerAccountAction(...args));
 export const verifyCode = (...args: Parameters<typeof auth.verifyCode>) => unwrap(actions.verifyCodeAction(...args));
+export const moderate = (...args: Parameters<typeof admin.moderate>) => unwrap(actions.moderateAction(...args));
+export const setUserStatus = (...args: Parameters<typeof admin-ops.setUserStatus>) => unwrap(actions.setUserStatusAction(...args));
+export const setUserRoles = (...args: Parameters<typeof admin-ops.setUserRoles>) => unwrap(actions.setUserRolesAction(...args));
+export const deleteOpening = (...args: Parameters<typeof admin-ops.deleteOpening>) => unwrap(actions.deleteOpeningAction(...args));
+export const saveCompetition = (...args: Parameters<typeof admin-ops.saveCompetition>) => unwrap(actions.saveCompetitionAction(...args));
+export const saveFestival = (...args: Parameters<typeof admin-ops.saveFestival>) => unwrap(actions.saveFestivalAction(...args));
+export const deleteEvent = (...args: Parameters<typeof admin-ops.deleteEvent>) => unwrap(actions.deleteEventAction(...args));
+export const saveNews = (...args: Parameters<typeof admin-ops.saveNews>) => unwrap(actions.saveNewsAction(...args));
+export const deleteNews = (...args: Parameters<typeof admin-ops.deleteNews>) => unwrap(actions.deleteNewsAction(...args));
+export const saveBanner = (...args: Parameters<typeof admin-ops.saveBanner>) => unwrap(actions.saveBannerAction(...args));
+export const deleteBanner = (...args: Parameters<typeof admin-ops.deleteBanner>) => unwrap(actions.deleteBannerAction(...args));
+export const saveReference = (...args: Parameters<typeof admin-ops.saveReference>) => unwrap(actions.saveReferenceAction(...args));
+export const deleteReference = (...args: Parameters<typeof admin-ops.deleteReference>) => unwrap(actions.deleteReferenceAction(...args));
+export const saveSystemSettings = (...args: Parameters<typeof admin-ops.saveSystemSettings>) => unwrap(actions.saveSystemSettingsAction(...args));
+export const createBackup = (...args: Parameters<typeof admin-ops.createBackup>) => unwrap(actions.createBackupAction(...args));
