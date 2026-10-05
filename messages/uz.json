@@ -686,7 +686,8 @@
         "range": "Qiymat oraligʻi notoʻgʻri",
         "email": "Email notoʻgʻri",
         "website": "https:// bilan boshlanishi kerak"
-      }
+      },
+      "orgTitle": "Tashkilot profili"
     },
     "portfolio": {
       "title": "Portfolio",
@@ -764,6 +765,66 @@
       "chartTitle": "Oylik koʻrishlar",
       "views": "Koʻrishlar",
       "topItems": "Eng koʻp koʻrilganlar"
+    },
+    "orgProfile": {
+      "contacts": "Aloqa",
+      "publicPage": "Ommaviy sahifani koʻrish"
+    },
+    "openings": {
+      "title": "Kasting va vakansiyalar",
+      "description": "Eʼlonlar yarating va nomzodlarni boshqaring.",
+      "createCasting": "Kasting yaratish",
+      "createVacancy": "Vakansiya yaratish",
+      "formText": "Maʼlumotlar eʼlon qilingach nomzodlarga koʻrinadi.",
+      "emptyTitle": "Hali eʼlonlar yoʻq",
+      "emptyText": "Birinchi kasting yoki vakansiyani yarating.",
+      "kind": {
+        "casting": "Kasting",
+        "vacancy": "Vakansiya"
+      },
+      "applicants": "{count, plural, other {# ta ariza}}",
+      "close": "Yopish",
+      "reopen": "Qayta ochish",
+      "candidates": "Nomzodlar",
+      "statusChanged": "Holat yangilandi",
+      "created": "Eʼlon yaratildi",
+      "fieldTitle": "Sarlavha",
+      "fieldDescription": "Tavsif",
+      "deadline": "Ariza muddati",
+      "location": "Joy",
+      "eventDate": "Tadbir sanasi",
+      "employment": "Bandlik turi",
+      "region": "Hudud",
+      "city": "Shahar",
+      "salaryFrom": "Maosh (dan, soʻm)",
+      "salaryTo": "Maosh (gacha, soʻm)",
+      "requirements": "Talablar",
+      "instrument": "Cholgʻu",
+      "voice": "Ovoz turi",
+      "minExperience": "Minimal tajriba (yil)",
+      "cancel": "Bekor qilish",
+      "submit": "Yaratish",
+      "errors": {
+        "title": "Sarlavha kamida 5 belgi boʻlsin.",
+        "description": "Tavsif kamida 20 belgi boʻlsin.",
+        "deadline": "Muddat bugundan oldin boʻlmasligi kerak.",
+        "casting": "Joy va tadbir sanasini kiriting.",
+        "vacancy": "Shahar va hududni kiriting.",
+        "salary": "Maosh oraligʻi notoʻgʻri.",
+        "generic": "Yaratib boʻlmadi. Maʼlumotlarni tekshiring."
+      }
+    },
+    "candidates": {
+      "title": "Nomzodlar",
+      "description": "Arizalarni koʻring, holatni oʻzgartiring va taklif yuboring.",
+      "opening": "Eʼlon",
+      "emptyTitle": "Bu eʼlonga ariza yoʻq",
+      "emptyText": "Nomzodlar ariza topshirgach shu yerda paydo boʻladi.",
+      "noOpenings": "Eʼlonlar yoʻq",
+      "noOpeningsText": "Avval kasting yoki vakansiya yarating.",
+      "changeStatus": "Holatni oʻzgartirish",
+      "statusChanged": "Holat yangilandi",
+      "error": "Holatni oʻzgartirib boʻlmadi"
     }
   }
 }

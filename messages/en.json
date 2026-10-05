@@ -686,7 +686,8 @@
         "range": "Value out of range",
         "email": "Invalid email",
         "website": "Must start with https://"
-      }
+      },
+      "orgTitle": "Organization profile"
     },
     "portfolio": {
       "title": "Portfolio",
@@ -764,6 +765,66 @@
       "chartTitle": "Monthly views",
       "views": "Views",
       "topItems": "Most viewed"
+    },
+    "orgProfile": {
+      "contacts": "Contacts",
+      "publicPage": "View public page"
+    },
+    "openings": {
+      "title": "Castings and vacancies",
+      "description": "Create listings and manage candidates.",
+      "createCasting": "Create casting",
+      "createVacancy": "Create vacancy",
+      "formText": "The details become visible to candidates once published.",
+      "emptyTitle": "No listings yet",
+      "emptyText": "Create your first casting or vacancy.",
+      "kind": {
+        "casting": "Casting",
+        "vacancy": "Vacancy"
+      },
+      "applicants": "{count, plural, one {# application} other {# applications}}",
+      "close": "Close",
+      "reopen": "Reopen",
+      "candidates": "Candidates",
+      "statusChanged": "Status updated",
+      "created": "Listing created",
+      "fieldTitle": "Title",
+      "fieldDescription": "Description",
+      "deadline": "Application deadline",
+      "location": "Venue",
+      "eventDate": "Event date",
+      "employment": "Employment type",
+      "region": "Region",
+      "city": "City",
+      "salaryFrom": "Salary (from, UZS)",
+      "salaryTo": "Salary (to, UZS)",
+      "requirements": "Requirements",
+      "instrument": "Instrument",
+      "voice": "Voice type",
+      "minExperience": "Minimum experience (years)",
+      "cancel": "Cancel",
+      "submit": "Create",
+      "errors": {
+        "title": "Title must be at least 5 characters.",
+        "description": "Description must be at least 20 characters.",
+        "deadline": "The deadline cannot be in the past.",
+        "casting": "Enter the venue and event date.",
+        "vacancy": "Enter the city and region.",
+        "salary": "Invalid salary range.",
+        "generic": "Could not create. Check the details."
+      }
+    },
+    "candidates": {
+      "title": "Candidates",
+      "description": "Review applications, change status and send invitations.",
+      "opening": "Listing",
+      "emptyTitle": "No applications for this listing",
+      "emptyText": "Candidates will appear here after they apply.",
+      "noOpenings": "No listings",
+      "noOpeningsText": "Create a casting or vacancy first.",
+      "changeStatus": "Change status",
+      "statusChanged": "Status updated",
+      "error": "Could not change the status"
     }
   }
 }
