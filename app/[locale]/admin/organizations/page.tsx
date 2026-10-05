@@ -1,20 +1,5 @@
-import { getTranslations } from "next-intl/server";
-import { AdminGuard } from "@/components/admin/admin-guard";
-import { ModerationQueue } from "@/components/admin/moderation-queue";
-import { PageHeader } from "@/components/cabinet/page-header";
-import { canAccess } from "@/lib/admin-access";
-import { getModerationQueue } from "@/lib/data";
-import { getActorId, getDemoRole } from "@/lib/demo/server";
+import { ModerationPage } from "@/components/admin/moderation-page";
 
-export default async function ModerationPage() {
-  const [t, role, actorId] = await Promise.all([getTranslations("adminPage.moderation"), getDemoRole(), getActorId()]);
-  const items = canAccess(role, "organizations") ? await getModerationQueue("organization") : [];
-  return (
-    <div className="flex flex-col gap-6">
-      <PageHeader title={t("title.organizations")} description={t("description.organizations")} />
-      <AdminGuard role={role} section="organizations">
-        <ModerationQueue kind="organization" items={items} actorId={actorId} />
-      </AdminGuard>
-    </div>
-  );
+export default function Page() {
+  return <ModerationPage kind="organization" section="organizations" />;
 }

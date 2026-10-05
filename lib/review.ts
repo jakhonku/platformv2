@@ -59,3 +59,12 @@ export function approvalBlockers(kind: ReviewKind, payload: Payload, review: Rev
   if (!review.checklist.phone) out.push("phone");
   return out;
 }
+
+export type ReviewTab = "new" | "in_review" | "approved" | "rejected";
+
+/** Jadval tabi: kutilayotgan ariza mas`ul tayinlanmaguncha "Yangi", keyin "Tekshiruvda" */
+export function reviewTab(status: "pending" | "approved" | "rejected", review?: ReviewState): ReviewTab {
+  if (status === "approved") return "approved";
+  if (status === "rejected") return "rejected";
+  return review?.assigneeId ? "in_review" : "new";
+}

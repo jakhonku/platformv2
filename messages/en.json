@@ -1039,10 +1039,10 @@
         "collectives": "Collective approval"
       },
       "description": {
-        "profiles": "Review new and edited profiles.",
+        "profiles": "New profiles are checked first: the responsible admin reviews the data, confirms by phone and approves once the data is complete.",
         "media": "Preview uploaded materials, then approve or reject.",
-        "organizations": "Manage organization verification.",
-        "collectives": "Review new orchestras and choirs against their documents and approve them."
+        "organizations": "Organization documents are reviewed, the representative is called to confirm, and approval follows once the data is complete.",
+        "collectives": "Collective (orchestra, choir) documents are reviewed, the leader is called to confirm, and approval follows once the data is complete."
       },
       "emptyTitle": "The queue is empty",
       "emptyText": "Nothing needs review right now.",
@@ -1286,6 +1286,88 @@
       "errors": {
         "email": "Invalid email.",
         "generic": "The action failed."
+      }
+    },
+    "review": {
+      "error": "The action failed",
+      "completeness": "Data completeness",
+      "complete": "All required data is filled in",
+      "missing": {
+        "specialty": "Specialty",
+        "bio": "About (at least 10 characters)",
+        "city": "City",
+        "region": "Region",
+        "skills": "Instrument / voice type",
+        "contact": "Phone or email",
+        "description": "Description (at least 10 characters)",
+        "phone": "Phone number",
+        "stir": "STIR (9 digits)",
+        "documents": "Supporting document"
+      },
+      "details": "Details",
+      "city": "City",
+      "experience": "Experience (years)",
+      "members": "Members",
+      "unregistered": "not registered",
+      "staff": "Staff (imported)",
+      "bio": "About",
+      "description": "Description",
+      "documentsReviewed": "Documents reviewed and correct",
+      "phoneTitle": "Phone confirmation",
+      "noPhone": "No phone number provided",
+      "phoneVerified": "Confirmed by phone",
+      "phonePending": "Not confirmed by phone yet",
+      "callLog": "Call log",
+      "logCall": "Call result",
+      "callNote": "What was discussed (at least 3 characters)",
+      "saveCall": "Log the call",
+      "callLogged": "Call logged",
+      "outcome": {
+        "reached": "Reached, data confirmed",
+        "no_answer": "No answer",
+        "wrong_number": "Wrong number",
+        "callback": "Asked to call back"
+      },
+      "responsible": "Responsible admin",
+      "assignedTo": "Responsible: {name}",
+      "unassigned": "No one assigned",
+      "start": "Start review",
+      "takeOver": "Assign to me",
+      "started": "Review started",
+      "decision": "Decision",
+      "reasonLine": "Reason: {reason}",
+      "blockersTitle": "Missing for approval",
+      "blockers": {
+        "not_started": "The responsible admin has not started the review",
+        "data": "The data is incomplete",
+        "documents": "Documents not reviewed",
+        "phone": "Not confirmed by phone"
+      },
+      "columns": {
+        "name": "Name",
+        "phone": "Phone",
+        "date": "Submitted",
+        "completeness": "Completeness",
+        "assignee": "Responsible"
+      },
+      "open": "Open",
+      "tabs": {
+        "new": "New",
+        "in_review": "In review",
+        "approved": "Approved",
+        "rejected": "Rejected"
+      },
+      "tabHints": {
+        "new": "Applications nobody has looked at yet. Open one to start the review.",
+        "in_review": "A responsible admin is assigned: documents and phone confirmation in progress.",
+        "approved": "Approved and public records.",
+        "rejected": "Rejected records (with the reason)."
+      },
+      "empty": {
+        "new": "No new applications",
+        "in_review": "Nothing in review",
+        "approved": "Nothing approved yet",
+        "rejected": "Nothing rejected"
       }
     }
   }

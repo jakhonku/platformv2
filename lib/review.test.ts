@@ -47,3 +47,12 @@ test("approvalBlockers list what stops an approval", () => {
   assert.deepEqual(approvalBlockers("profile", talent(), review({ assigneeId: "user-admin" })), ["phone"]);
   assert.deepEqual(approvalBlockers("collective", collective(), review({ assigneeId: "user-admin", checklist: { documents: true, phone: true } })), []);
 });
+
+test("reviewTab separates new, in-review, approved and rejected applications", async () => {
+  const { reviewTab } = await import("./review.ts");
+  assert.equal(reviewTab("pending"), "new");
+  assert.equal(reviewTab("pending", review()), "new");
+  assert.equal(reviewTab("pending", review({ assigneeId: "user-admin" })), "in_review");
+  assert.equal(reviewTab("approved", review({ assigneeId: "user-admin" })), "approved");
+  assert.equal(reviewTab("rejected"), "rejected");
+});

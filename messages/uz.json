@@ -1039,10 +1039,10 @@
         "collectives": "Jamoalarni tasdiqlash"
       },
       "description": {
-        "profiles": "Yangi va tahrirlangan profillarni koʻrib chiqing.",
+        "profiles": "Yangi profillar avval tekshiriladi: masʼul admin maʼlumotlarni koʻrib chiqadi, telefon qilib aniqlaydi va toʻliq boʻlgach tasdiqlaydi.",
         "media": "Yuklangan materiallarni oldindan koʻrib, tasdiqlang yoki rad eting.",
-        "organizations": "Tashkilotlarning tasdiqlanishini boshqaring.",
-        "collectives": "Yangi orkestr va xorlarni hujjatlar bilan tekshirib tasdiqlang."
+        "organizations": "Tashkilotlar hujjatlari koʻrib chiqiladi, vakilga telefon qilib aniqlanadi, maʼlumotlar toʻliq boʻlgach tasdiqlanadi.",
+        "collectives": "Jamoalar (orkestr, xor) hujjatlari koʻrib chiqiladi, rahbarga telefon qilib aniqlanadi, maʼlumotlar toʻliq boʻlgach tasdiqlanadi."
       },
       "emptyTitle": "Navbat boʻsh",
       "emptyText": "Koʻrib chiqilishi kerak boʻlgan yozuvlar yoʻq.",
@@ -1286,6 +1286,88 @@
       "errors": {
         "email": "Email notoʻgʻri.",
         "generic": "Amalni bajarib boʻlmadi."
+      }
+    },
+    "review": {
+      "error": "Amalni bajarib boʻlmadi",
+      "completeness": "Maʼlumotlar toʻliqligi",
+      "complete": "Barcha majburiy maʼlumotlar toʻldirilgan",
+      "missing": {
+        "specialty": "Mutaxassislik",
+        "bio": "Oʻzi haqida (kamida 10 belgi)",
+        "city": "Shahar",
+        "region": "Hudud",
+        "skills": "Cholgʻu / ovoz turi",
+        "contact": "Telefon yoki email",
+        "description": "Tavsif (kamida 10 belgi)",
+        "phone": "Telefon raqami",
+        "stir": "STIR (9 raqam)",
+        "documents": "Tasdiqlovchi hujjat"
+      },
+      "details": "Maʼlumotlar",
+      "city": "Shahar",
+      "experience": "Tajriba (yil)",
+      "members": "Aʼzolar",
+      "unregistered": "roʻyxatdan oʻtmagan",
+      "staff": "Xodimlar (import)",
+      "bio": "Oʻzi haqida",
+      "description": "Tavsif",
+      "documentsReviewed": "Hujjatlar koʻrib chiqildi va toʻg'ri",
+      "phoneTitle": "Telefon orqali aniqlash",
+      "noPhone": "Telefon raqami kiritilmagan",
+      "phoneVerified": "Telefon orqali aniqlangan",
+      "phonePending": "Hali telefon orqali aniqlanmagan",
+      "callLog": "Qoʻngʻiroqlar jurnali",
+      "logCall": "Qoʻngʻiroq natijasi",
+      "callNote": "Nima haqida gaplashildi (kamida 3 belgi)",
+      "saveCall": "Qoʻngʻiroqni qayd etish",
+      "callLogged": "Qoʻngʻiroq qayd etildi",
+      "outcome": {
+        "reached": "Bogʻlanildi, maʼlumotlar tasdiqlandi",
+        "no_answer": "Javob bermadi",
+        "wrong_number": "Notoʻg'ri raqam",
+        "callback": "Qayta qoʻngʻiroq soʻradi"
+      },
+      "responsible": "Masʼul admin",
+      "assignedTo": "Masʼul: {name}",
+      "unassigned": "Masʼul tayinlanmagan",
+      "start": "Tekshiruvni boshlash",
+      "takeOver": "Menga oʻtkazish",
+      "started": "Tekshiruv boshlandi",
+      "decision": "Qaror",
+      "reasonLine": "Sabab: {reason}",
+      "blockersTitle": "Tasdiqlash uchun yetishmaydi",
+      "blockers": {
+        "not_started": "Masʼul admin tekshiruvni boshlamagan",
+        "data": "Maʼlumotlar toʻliq emas",
+        "documents": "Hujjatlar koʻrib chiqilmagan",
+        "phone": "Telefon orqali aniqlanmagan"
+      },
+      "columns": {
+        "name": "Nomi",
+        "phone": "Telefon",
+        "date": "Yuborilgan",
+        "completeness": "Toʻliqlik",
+        "assignee": "Masʼul"
+      },
+      "open": "Ochish",
+      "tabs": {
+        "new": "Yangi",
+        "in_review": "Tekshiruvda",
+        "approved": "Tasdiqlangan",
+        "rejected": "Rad etilgan"
+      },
+      "tabHints": {
+        "new": "Hali hech kim koʻrib chiqmagan arizalar. Tekshiruvni boshlash uchun arizani oching.",
+        "in_review": "Masʼul admin tayinlangan: hujjatlar va telefon orqali aniqlash jarayonida.",
+        "approved": "Tasdiqlangan va ommaga ochiq yozuvlar.",
+        "rejected": "Rad etilgan yozuvlar (sabab bilan)."
+      },
+      "empty": {
+        "new": "Yangi arizalar yoʻq",
+        "in_review": "Tekshiruvdagi arizalar yoʻq",
+        "approved": "Tasdiqlanganlar yoʻq",
+        "rejected": "Rad etilganlar yoʻq"
       }
     }
   }
