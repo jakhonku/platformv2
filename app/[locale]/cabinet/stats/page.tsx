@@ -27,7 +27,7 @@ export default async function StatsPage() {
               <StatCard label={t("totalViews")} value={stats.totalViews} icon={Eye} />
               <StatCard label={t("items")} value={stats.items.length} icon={Eye} />
             </div>
-            <StatsChart monthly={stats.monthly} />
+            <StatsChart monthly={stats.monthly} weekly={stats.weekly} />
             <Card className="gap-3 p-4">
               <h2 className="text-base font-semibold">{t("topItems")}</h2>
               <ol className="flex flex-col gap-2">

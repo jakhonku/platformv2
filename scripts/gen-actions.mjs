@@ -1,22 +1,26 @@
 // Hosil qiluvchi: `node scripts/gen-actions.mjs` — lib/data/actions.ts va lib/data/client.ts ni qayta yozadi
 import fs from "node:fs";
 const fns = {
-  "./cabinet.ts": ["updateTalentProfile", "addMedia", "updateMedia", "deleteMedia", "createCollection", "deleteCollection", "respondToInvitation", "saveNotificationSettings", "markAllNotificationsRead", "createCasting", "createVacancy", "setOpportunityStatus", "updateCollective", "updateOrganization", "inviteCollectiveMember", "respondToCollectiveInvite", "addCollectiveMember", "removeCollectiveMember", "addCollectiveEvent", "removeCollectiveEvent"],
+  "./appeals.ts": ["createAppeal", "addAppealMessage", "replyToAppeal", "setAppealStatus", "markAppealOpened", "returnAppeal"],
+  "./cabinet.ts": ["updateTalentProfile", "addMedia", "updateMedia", "deleteMedia", "createCollection", "deleteCollection", "respondToInvitation", "saveNotificationSettings", "markAllNotificationsRead", "createCasting", "createVacancy", "setOpportunityStatus", "updateCollective", "updateOrganization", "setAvatar", "inviteCollectiveMember", "respondToCollectiveInvite", "addCollectiveMember", "removeCollectiveMember", "addCollectiveEvent", "removeCollectiveEvent"],
   "./opportunities.ts": ["applyToCasting", "applyToVacancy", "updateApplicationStatus"],
   "./invitations.ts": ["sendInvitation"],
   "./account.ts": ["markNotificationRead"],
-  "./auth.ts": ["login", "registerAccount", "verifyCode", "verifyAndActivate", "oneIdSignIn"],
+  "./auth.ts": ["login", "registerAccount", "verifyCode", "verifyAndActivate", "oneIdSignIn", "requestRegistrationCode", "registerMember", "requestLoginCode", "loginWithPhone", "verifyIdentity", "joinCreators"],
   "./admin.ts": ["moderate"],
   "./review.ts": ["startReview", "setReviewChecklist", "logReviewCall"],
   "./import.ts": ["importCollectiveMembers", "importOrganizationStaff"],
   "./admin-ops.ts": ["setUserStatus", "setUserRoles", "deleteOpening", "saveCompetition", "saveFestival", "deleteEvent", "saveNews", "deleteNews", "saveBanner", "deleteBanner", "saveReference", "deleteReference", "saveSystemSettings", "createBackup"],
 };
+// Faqat platforma admini bajaradigan mutatsiyalar (rol cookie'si tekshiriladi)
+const ADMIN_ONLY = new Set(["createCasting", "createVacancy", "setOpportunityStatus", "addCollectiveEvent", "removeCollectiveEvent", "replyToAppeal", "setAppealStatus", "markAppealOpened", "returnAppeal"]);
 let actions = `"use server";
 
 // Mock mutatsiyalar SERVER xotirasida bajariladi: klient komponentlar shu Server Action'lar orqali chaqiradi,
 // shunda \`router.refresh()\` dan keyin server sahifalari yangi holatni ko'radi. Natija \`ActionResult\` ko'rinishida
 // qaytadi (DataError server chegarasida xabarga aylanib ketmasligi uchun).
 import { DataError, type DataErrorCode } from "./errors.ts";
+import { assertAdmin } from "./guards.ts";
 `;
 for (const [mod, names] of Object.entries(fns)) actions += `import { ${names.join(", ")} } from "${mod}";\n`;
 actions += `
@@ -33,6 +37,7 @@ async function run<T>(fn: () => Promise<T>): Promise<ActionResult<T>> {
 `;
 let client = `import { DataError } from "./errors.ts";
 import type * as cabinet from "./cabinet.ts";
+import type * as appeals from "./appeals.ts";
 import type * as opportunities from "./opportunities.ts";
 import type * as invitations from "./invitations.ts";
 import type * as account from "./account.ts";
@@ -53,7 +58,8 @@ async function unwrap<T>(promise: Promise<actions.ActionResult<T>>): Promise<T> 
 for (const [mod, names] of Object.entries(fns)) {
   const ns = mod.replace("./", "").replace(".ts", "").replace(/[^a-zA-Z0-9]/g, "_").replace(/^import$/, "import_");
   for (const n of names) {
-    actions += `export async function ${n}Action(...args: Parameters<typeof ${n}>) {\n  return run(() => ${n}(...args));\n}\n`;
+    const guard = ADMIN_ONLY.has(n) ? "await assertAdmin(); " : "";
+    actions += `export async function ${n}Action(...args: Parameters<typeof ${n}>) {\n  return run(async () => {\n    ${guard}return ${n}(...args);\n  });\n}\n`;
     client += `export const ${n} = (...args: Parameters<typeof ${ns}.${n}>) => unwrap(actions.${n}Action(...args));\n`;
   }
 }

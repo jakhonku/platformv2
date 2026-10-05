@@ -325,11 +325,47 @@ export async function getAdminStatistics(): Promise<AdminStatistics> {
   const statuses = count(["submitted", "viewed", "shortlisted", "invited", "accepted", "rejected"] as const, (k) => store.applications.filter((a) => a.status === k).length);
   const regionCounts = new Map<string, number>();
   for (const t of approved) regionCounts.set(t.regionId, (regionCounts.get(t.regionId) ?? 0) + 1);
-  const { monthlyViews } = await getAdminStats();
+  const { monthlyViews, weeklyViews } = await getAdminStats();
+
+  const year = new Date(MOCK_NOW).getUTCFullYear();
+  const ageOf = (t: { birthYear?: number }) => (t.birthYear ? year - t.birthYear : null);
+  const ageGroup = (age: number | null) => (age === null ? "unknown" : age < 18 ? "under18" : age <= 24 ? "18_24" : age <= 34 ? "25_34" : age <= 44 ? "35_44" : age <= 54 ? "45_54" : "55plus") as AdminStatistics["talentsByAge"][number]["group"];
+  const expGroup = (y: number) => (y <= 2 ? "0_2" : y <= 5 ? "3_5" : y <= 10 ? "6_10" : y <= 20 ? "11_20" : "21plus") as AdminStatistics["talentsByExperience"][number]["group"];
+  const tally = <K extends string>(items: K[], order: readonly K[]) => order.map((k) => ({ key: k, count: items.filter((x) => x === k).length }));
+
+  const instrumentCounts = new Map<string, number>();
+  for (const t of approved) for (const id of t.instrumentIds) instrumentCounts.set(id, (instrumentCounts.get(id) ?? 0) + 1);
+  const voiceCounts = new Map<string, number>();
+  for (const t of approved) if (t.voiceTypeId) voiceCounts.set(t.voiceTypeId, (voiceCounts.get(t.voiceTypeId) ?? 0) + 1);
+  const ages = approved.map(ageOf).filter((x): x is number => x !== null);
+  const orgKinds = new Map<string, number>();
+  for (const o of store.organizations) if (o.verification === "approved") orgKinds.set(o.kind, (orgKinds.get(o.kind) ?? 0) + 1);
+  const people = store.users.filter((u) => !u.roles.includes("admin") && !u.roles.includes("moderator"));
+
   return {
+    talentsByInstrument: [...instrumentCounts.entries()].sort((a, b) => b[1] - a[1]).slice(0, 10).map(([instrumentId, count]) => ({ instrumentId, count })),
+    talentsByVoice: [...voiceCounts.entries()].sort((a, b) => b[1] - a[1]).map(([voiceTypeId, count]) => ({ voiceTypeId, count })),
+    talentsByAge: tally(approved.map((t) => ageGroup(ageOf(t))), ["under18", "18_24", "25_34", "35_44", "45_54", "55plus", "unknown"] as const).filter((x) => x.key !== "unknown" || x.count > 0).map((x) => ({ group: x.key, count: x.count })),
+    talentsByExperience: tally(approved.map((t) => expGroup(t.experienceYears)), ["0_2", "3_5", "6_10", "11_20", "21plus"] as const).map((x) => ({ group: x.key, count: x.count })),
+    talentsByAvailability: tally(approved.map((t) => t.availability), ["available", "open_to_offers", "busy"] as const).map((x) => ({ availability: x.key, count: x.count })),
+    accounts: { verified: people.filter((u) => u.identity?.verified === true).length, unverified: people.filter((u) => u.identity?.verified !== true).length },
+    collectivesByType: tally(store.collectives.filter((c) => c.moderation === "approved").map((c) => c.type), ["orchestra", "choir"] as const).map((x) => ({ type: x.key, count: x.count })),
+    organizationsByKind: [...orgKinds.entries()].sort((a, b) => b[1] - a[1]).map(([kind, count]) => ({ kind, count })),
+    openings: {
+      castingsOpen: store.castings.filter((c) => c.status === "open").length,
+      castingsClosed: store.castings.filter((c) => c.status === "closed").length,
+      vacanciesOpen: store.vacancies.filter((v) => v.status === "open").length,
+      vacanciesClosed: store.vacancies.filter((v) => v.status === "closed").length,
+    },
+    appealsByStatus: tally(store.appeals.map((x) => x.status), ["new", "in_review", "answered", "returned", "closed"] as const).map((x) => ({ status: x.key, count: x.count })),
+    averages: {
+      age: ages.length ? Math.round(ages.reduce((n, x) => n + x, 0) / ages.length) : null,
+      experience: approved.length ? Math.round(approved.reduce((n, t) => n + t.experienceYears, 0) / approved.length) : 0,
+    },
     talentsByKind: kinds.map((x) => ({ kind: x.key, count: x.n })),
     applicationsByStatus: statuses.map((x) => ({ status: x.key, count: x.n })),
-    topRegions: [...regionCounts.entries()].sort((a, b) => b[1] - a[1]).slice(0, 6).map(([regionId, n]) => ({ regionId, count: n })),
+    topRegions: [...regionCounts.entries()].sort((a, b) => b[1] - a[1]).slice(0, 10).map(([regionId, n]) => ({ regionId, count: n })),
     monthlyViews,
+    weeklyViews,
   };
 }

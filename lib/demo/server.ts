@@ -16,9 +16,11 @@ async function getSignedInSubject(role: Role): Promise<DemoSubject | null> {
   const found = await getSubjectForUser(userId);
   if (!found || !found.user.roles.includes(role)) return null;
   const { user, talent, collective, organization } = found;
-  if (talent && talentKindOfRole(role)) return { role, userId: user.id, name: talent.fullName, talent };
-  if (collective && role === "collective") return { role, userId: user.id, name: collective.name, collective };
-  if (organization && role === "organization") return { role, userId: user.id, name: organization.name, organization };
+  const account = { identityVerified: user.identity?.verified === true, phone: user.phone };
+  if (role === "member") return { role, userId: user.id, name: user.fullName, ...account };
+  if (talent && talentKindOfRole(role)) return { role, userId: user.id, name: talent.fullName, ...account, talent };
+  if (collective && role === "collective") return { role, userId: user.id, name: collective.name, ...account, collective };
+  if (organization && role === "organization") return { role, userId: user.id, name: organization.name, ...account, organization };
   return null;
 }
 

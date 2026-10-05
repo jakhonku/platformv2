@@ -5,8 +5,9 @@ import { getNotifications } from "@/lib/data";
 import { getDemoSubject } from "@/lib/demo/server";
 import { isDemoEnabled } from "@/lib/demo/role";
 import { StatusBanner } from "@/components/cabinet/status-banner";
-import { Brand } from "./brand";
-import { DashboardNav } from "./dashboard-nav";
+import { VerifyBanner } from "@/components/cabinet/verify-banner";
+import { publicProfileHref, subjectPhotoUrl } from "@/lib/demo/subject-links";
+import { DashboardSidebar } from "./dashboard-sidebar";
 import { DemoRoleSwitcher } from "./demo-role-switcher";
 import { LanguageSwitcher } from "./language-switcher";
 import { ThemeToggle } from "./theme-toggle";
@@ -26,13 +27,10 @@ export async function DashboardShell({ area, children }: { area: NavArea; childr
 
   return (
     <div className="flex min-h-dvh">
-      <aside className="sticky top-0 hidden h-dvh w-64 shrink-0 flex-col gap-6 border-r bg-sidebar p-4 lg:flex">
-        <Brand href={home} />
-        <DashboardNav area={area} role={role} />
-      </aside>
+      <DashboardSidebar area={area} role={role} home={home} />
 
       <div className="flex min-w-0 flex-1 flex-col">
-        <header className="sticky top-0 z-30 flex h-14 items-center gap-2 border-b bg-background/85 px-3 backdrop-blur sm:px-6">
+        <header className="sticky top-0 z-30 flex h-14 print:hidden items-center gap-2 border-b bg-background/85 px-3 backdrop-blur sm:px-6">
           <MobileNav area={area} role={role} />
           <div className="relative hidden max-w-xs flex-1 md:block">
             <Search className="pointer-events-none absolute top-1/2 left-2.5 size-4 -translate-y-1/2 text-muted-foreground" />
@@ -43,9 +41,17 @@ export async function DashboardShell({ area, children }: { area: NavArea; childr
           <NotificationBell href={area === "admin" ? "/admin" : "/cabinet/notifications"} unread={unread} />
           <ThemeToggle />
           <LanguageSwitcher />
-          <UserMenu fullName={subject.name || t("common.demoUser")} roleLabel={t(`roles.${role}`)} profileHref={area === "admin" ? "/admin" : "/cabinet/profile"} />
+          <UserMenu
+            fullName={subject.name || t("common.demoUser")}
+            roleLabel={subject.identityVerified === undefined ? t(`roles.${role}`) : `${t(`roles.${role}`)} · ${t(subject.identityVerified ? "onboarding.status.verified" : "onboarding.status.unverified")}`}
+            profileHref={area === "admin" ? "/admin" : "/cabinet/profile"}
+            settingsHref={area === "cabinet" ? "/cabinet/settings" : undefined}
+            publicHref={publicProfileHref(subject)}
+            photoUrl={subjectPhotoUrl(subject)}
+          />
         </header>
         <main className="flex-1 px-3 py-4 sm:px-6 sm:py-6">
+          {area === "cabinet" && <VerifyBanner subject={subject} />}
           {area === "cabinet" && <StatusBanner subject={subject} />}
           {children}
         </main>

@@ -4,7 +4,7 @@ import { ROLES } from "./demo/role.ts";
 import { ADMIN_SECTIONS, canAccess } from "./admin-access.ts";
 
 test("admin sees every section", () => {
-  assert.equal(ADMIN_SECTIONS.length, 13);
+  assert.equal(ADMIN_SECTIONS.length, 14);
   for (const s of ADMIN_SECTIONS) assert.equal(canAccess("admin", s), true);
 });
 

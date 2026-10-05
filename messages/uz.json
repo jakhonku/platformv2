@@ -7,6 +7,7 @@
   },
   "nav": {
     "home": "Bosh sahifa",
+    "cabinet": "Kabinet",
     "musicians": "Musiqachilar",
     "vocalists": "Xoristlar va vokalistlar",
     "conductors": "Dirijyorlar",
@@ -27,6 +28,7 @@
   },
   "cabinet": {
     "title": "Shaxsiy kabinet",
+    "appeals": "Murojaatlar",
     "dashboard": "Bosh sahifa",
     "profile": "Profil",
     "portfolio": "Portfolio",
@@ -42,6 +44,7 @@
   },
   "admin": {
     "title": "Administrativ panel",
+    "appeals": "Takliflar va murojaatlar",
     "dashboard": "Boshqaruv paneli",
     "users": "Foydalanuvchilar va rollar",
     "profiles": "Profillar moderatsiyasi",
@@ -58,6 +61,7 @@
   },
   "roles": {
     "guest": "Mehmon",
+    "member": "Foydalanuvchi",
     "musician": "Musiqachi",
     "vocalist": "Vokalist",
     "conductor": "Dirijyor",
@@ -261,6 +265,11 @@
     "logout": "Chiqish",
     "openMenu": "Menyuni ochish",
     "mainNav": "Asosiy navigatsiya",
+    "collapseSidebar": "Yon panelni yopish",
+    "expandSidebar": "Yon panelni ochish",
+    "profileSettings": "Profil sozlamalari",
+    "publicProfile": "Ochiq profilim",
+    "backToSite": "Asosiy sahifaga qaytish",
     "theme": {
       "toDark": "Kechki rejimga oʻtish",
       "toLight": "Kunduzgi rejimga oʻtish"
@@ -273,6 +282,8 @@
     "demoUser": "Demo foydalanuvchi"
   },
   "footer": {
+    "opportunities": "Imkoniyatlar",
+    "platform": "Platforma",
     "rights": "Barcha huquqlar himoyalangan."
   },
   "demo": {
@@ -427,6 +438,7 @@
     "genres": "Janrlar",
     "currentCollective": "Hozirgi jamoa",
     "backToCatalog": "Katalogga qaytish",
+    "badge": "Raqamli nishon",
     "present": "hozirgacha",
     "years": "{from} – {to}",
     "workMeta": "{year}, {genre}",
@@ -560,6 +572,8 @@
       "applied": "Ariza topshirilgan",
       "loginToApply": "Ariza topshirish uchun kiring",
       "talentOnly": "Ariza topshirish faqat iqtidor profillari uchun.",
+      "verifyToApply": "Ariza topshirish uchun hisobingizni OneID orqali tasdiqlang.",
+      "verifyCta": "Tasdiqlash",
       "title": "Ariza topshirish",
       "description": "«{title}» uchun {name} nomidan ariza yuboriladi.",
       "message": "Xabar (ixtiyoriy)",
@@ -706,8 +720,27 @@
       "error": "Amalni bajarib boʻlmadi"
     },
     "settings": {
-      "title": "Bildirishnoma sozlamalari",
-      "description": "Xabarlarni qaysi kanallar orqali olishni tanlang.",
+      "title": "Profil sozlamalari",
+      "description": "Profil rasmi, hisob va bildirishnoma kanallari.",
+      "notificationsTitle": "Bildirishnoma sozlamalari",
+      "notificationsDescription": "Xabarlarni qaysi kanallar orqali olishni tanlang.",
+      "backHome": "Asosiy sahifaga qaytish",
+      "backProfile": "Profilga qaytish",
+      "photo": {
+          "title": "Profil rasmi",
+          "hint": "JPG, PNG yoki WEBP, 8 MB gacha. Rasm markazdan kvadratga qirqiladi.",
+          "upload": "Rasm yuklash",
+          "remove": "Oʻchirish",
+          "save": "Saqlash",
+          "saving": "Saqlanmoqda…",
+          "cancel": "Bekor qilish",
+          "saved": "Rasm yangilandi",
+          "removed": "Standart rasm tiklandi",
+          "error": "Rasmni saqlab boʻlmadi",
+          "errorType": "Faqat JPG, PNG yoki WEBP rasm tanlang",
+          "errorSize": "Rasm hajmi 8 MB dan oshmasligi kerak",
+          "errorRead": "Rasmni oʻqib boʻlmadi"
+        },
       "legend": "Kanallar",
       "save": "Saqlash",
       "saving": "Saqlanmoqda…",
@@ -744,6 +777,10 @@
       "fullName": "Ism va familiya",
       "specialty": "Mutaxassislik",
       "bio": "Oʻzingiz haqingizda",
+      "shortBio": "Qisqa bio (kartochkada koʻrinadi)",
+      "shortBioHint": "Kartochkangizda koʻrinadigan 1–2 jumla. {count}/160",
+      "birthYear": "Tugʻilgan yil",
+      "birthYearHint": "Faqat statistika uchun, ommaga koʻrsatilmaydi.",
       "region": "Hudud",
       "city": "Shahar",
       "instruments": "Cholgʻular (10 tagacha)",
@@ -851,6 +888,14 @@
     },
     "stats": {
       "title": "Portfolio statistikasi",
+      "chartTitleWeekly": "Haftalik koʻrishlar",
+      "periodWeekly": "Haftalik",
+      "periodMonthly": "Oylik",
+      "period": "Davr",
+      "periodTotal": "Davr boʻyicha jami",
+      "vsPrevWeek": "oʻtgan haftaga nisbatan",
+      "vsPrevMonth": "oʻtgan oyga nisbatan",
+      "weekOf": "{date} haftasi",
       "description": "Materiallaringiz koʻrishlari.",
       "emptyTitle": "Hali koʻrishlar yoʻq",
       "emptyText": "Materiallar tasdiqlanib, koʻrila boshlagach statistika paydo boʻladi.",
@@ -884,6 +929,10 @@
     },
     "openings": {
       "title": "Kasting va vakansiyalar",
+      "adminOnlyTitle": "Eʼlonlarni faqat platforma administratori qoʻshadi",
+      "adminOnlyText": "Kasting va vakansiya joylashtirish uchun murojaat yuboring — administrator eʼlonni sizning nomingizdan joylashtiradi. Nomzodlarni shu yerdan koʻraverasiz.",
+      "requestCta": "Eʼlon qoʻshishni soʻrash",
+      "organization": "Tashkilot",
       "description": "Eʼlonlar yarating va nomzodlarni boshqaring.",
       "createCasting": "Kasting yaratish",
       "createVacancy": "Vakansiya yaratish",
@@ -917,6 +966,7 @@
       "cancel": "Bekor qilish",
       "submit": "Yaratish",
       "errors": {
+        "organization": "Tashkilotni tanlang",
         "title": "Sarlavha kamida 5 belgi boʻlsin.",
         "description": "Tavsif kamida 20 belgi boʻlsin.",
         "deadline": "Muddat bugundan oldin boʻlmasligi kerak.",
@@ -940,6 +990,8 @@
     },
     "collective": {
       "title": "Jamoa sahifasi",
+      "requestEvent": "Tadbir qoʻshishni soʻrash",
+      "adminOnlyEvents": "Tadbirlarni faqat platforma administratori qoʻshadi. Tadbir maʼlumotlarini murojaat orqali yuboring.",
       "aboutTitle": "Jamoa haqida",
       "description": "Tavsif",
       "repertoire": "Repertuar",
@@ -1069,6 +1121,24 @@
     }
   },
   "adminPage": {
+    "collectiveEvents": {
+      "title": "Jamoa tadbirlari",
+      "text": "Tadbirni faqat platforma administratori qoʻshadi (jamoalar murojaat orqali soʻraydi).",
+      "collective": "Jamoa",
+      "eventTitle": "Tadbir nomi",
+      "venue": "Joy",
+      "date": "Sana",
+      "add": "Tadbir qoʻshish",
+      "remove": "Tadbirni oʻchirish",
+      "added": "Tadbir qoʻshildi",
+      "removed": "Tadbir oʻchirildi",
+      "errors": {
+        "collective": "Jamoani tanlang",
+        "fields": "Nom va joyni kiriting",
+        "date": "Sanani tanlang",
+        "generic": "Amalni bajarib boʻlmadi"
+      }
+    },
     "table": {
       "search": "Qidirish…",
       "noMatches": "Qidiruv boʻyicha hech narsa topilmadi.",
@@ -1094,6 +1164,7 @@
       "views": "Koʻrishlar (12 oy)",
       "queues": "Moderatsiya navbati",
       "queue": {
+        "appeals": "Yangi murojaatlar",
         "profiles": "Profillar",
         "media": "Media fayllar",
         "organizations": "Tashkilotlar",
@@ -1347,6 +1418,47 @@
       "title": "Statistika",
       "description": "Platforma boʻyicha umumiy tahlil.",
       "noData": "Maʼlumot yoʻq",
+      "total": "jami",
+      "byAvailability": "Mavjudlik holati boʻyicha",
+      "accounts": "Hisoblar: tasdiqlangan va tasdiqlanmagan",
+      "byAge": "Yosh guruhlari boʻyicha",
+      "byExperience": "Tajriba boʻyicha",
+      "byInstrument": "Cholgʻu asboblari boʻyicha (top 10)",
+      "byVoice": "Ovoz turlari boʻyicha",
+      "collectivesByType": "Jamoalar turi boʻyicha",
+      "organizationsByKind": "Tashkilotlar turi boʻyicha",
+      "openings": "Kasting va vakansiyalar",
+      "appeals": "Murojaatlar holati",
+      "verifiedAccounts": "OneID bilan tasdiqlangan",
+      "unverifiedAccounts": "Tasdiqlanmagan",
+      "castingsOpen": "Kasting (ochiq)",
+      "castingsClosed": "Kasting (yopiq)",
+      "vacanciesOpen": "Vakansiya (ochiq)",
+      "vacanciesClosed": "Vakansiya (yopiq)",
+      "kpi": {
+        "talents": "Faol ijodkorlar",
+        "averageAge": "Oʻrtacha yosh",
+        "averageExperience": "Oʻrtacha tajriba",
+        "verified": "Tasdiqlangan hisoblar",
+        "verifiedHint": "{count} ta foydalanuvchi",
+        "years": "yil"
+      },
+      "age": {
+        "under18": "18 gacha",
+        "18_24": "18–24",
+        "25_34": "25–34",
+        "35_44": "35–44",
+        "45_54": "45–54",
+        "55plus": "55+",
+        "unknown": "Koʻrsatilmagan"
+      },
+      "experience": {
+        "0_2": "0–2 yil",
+        "3_5": "3–5 yil",
+        "6_10": "6–10 yil",
+        "11_20": "11–20 yil",
+        "21plus": "20+ yil"
+      },
       "talentsByKind": "Iqtidorlar turi boʻyicha",
       "applicationsByStatus": "Arizalar holati boʻyicha",
       "topRegions": "Eng faol hududlar"
@@ -1463,6 +1575,246 @@
         "in_review": "Tekshiruvdagi arizalar yoʻq",
         "approved": "Tasdiqlanganlar yoʻq",
         "rejected": "Rad etilganlar yoʻq"
+      }
+    }
+  },
+  "onboarding": {
+    "register": {
+      "title": "Roʻyxatdan oʻtish",
+      "text": "F.I.Sh. va telefon raqamingizni kiriting — raqamingizga SMS-kod yuboramiz.",
+      "lastName": "Familiya",
+      "firstName": "Ism",
+      "middleName": "Sharif",
+      "optional": "ixtiyoriy",
+      "phone": "Telefon raqami",
+      "sendCode": "SMS-kod yuborish",
+      "sending": "Yuborilmoqda…",
+      "codeTitle": "Tasdiqlash kodi",
+      "codeText": "{phone} raqamiga 6 xonali kod yuborildi.",
+      "changeNumber": "Maʼlumotlarni oʻzgartirish",
+      "haveAccount": "Hisobingiz bormi?",
+      "login": "Kirish",
+      "entityLink": "Jamoa yoki tashkilot sifatida roʻyxatdan oʻtish",
+      "note": "Roʻyxatdan oʻtgach hisobingiz tasdiqlanmagan boʻladi: platformani kuzatish mumkin. OneID orqali tasdiqlasangiz, toʻliq imkoniyatlar ochiladi.",
+      "errors": {
+        "name": "Kamida 2 ta harf kiriting",
+        "phone": "Telefon raqamini toʻliq kiriting",
+        "duplicate": "Bu raqam bilan hisob mavjud.",
+        "generic": "Xatolik yuz berdi. Qayta urinib koʻring."
+      }
+    },
+    "login": {
+      "title": "Tizimga kirish",
+      "text": "Telefon raqamingizni kiriting — SMS-kod yuboramiz.",
+      "sendCode": "SMS-kod yuborish",
+      "notFound": "Bu raqam bilan hisob topilmadi. Avval roʻyxatdan oʻting.",
+      "noAccount": "Hisobingiz yoʻqmi?",
+      "register": "Roʻyxatdan oʻtish",
+      "demoTitle": "Taqdimot rejimi",
+      "demoText": "Rolni tanlab, parolsiz kiring."
+    },
+    "status": {
+      "verified": "Tasdiqlangan",
+      "unverified": "Tasdiqlanmagan"
+    },
+    "banner": {
+      "title": "Hisobingiz tasdiqlanmagan",
+      "text": "Hozir faqat kuzatish rejimidasiz: katalog, kasting va yangiliklarni koʻrishingiz mumkin. Ariza, taklif va portfolio — OneID orqali tasdiqlangandan soʻng.",
+      "cta": "Tasdiqlash"
+    },
+    "member": {
+      "steps": {
+        "account": {
+          "title": "Hisob yaratildi",
+          "text": "Telefon raqamingiz tasdiqlandi."
+        },
+        "verify": {
+          "title": "OneID orqali tasdiqlang",
+          "text": "Shaxsingizni davlat tizimi orqali tasdiqlang — toʻliq imkoniyatlar ochiladi.",
+          "done": "Shaxs OneID orqali tasdiqlandi"
+        },
+        "join": {
+          "title": "Ijodkorlarga qoʻshiling",
+          "text": "Ijodkor turini tanlang, soʻng toʻliq maʼlumotlaringizni kiriting.",
+          "locked": "Avval OneID orqali tasdiqlang."
+        },
+        "badge": {
+          "title": "Raqamli nishon",
+          "text": "Profil toʻliq toʻldirilgach nishon beriladi: uni PNG koʻrinishida yuklab olib, Instagram yoki LinkedIn’ga qoʻyishingiz mumkin."
+        }
+      }
+    },
+    "verifyDialog": {
+      "cta": "OneID orqali tasdiqlash",
+      "title": "OneID orqali tasdiqlash",
+      "text": "Demo rejimda OneID oʻrniga PINFL kiritiladi.",
+      "pinfl": "PINFL",
+      "pinflHint": "14 xonali shaxsiy identifikatsiya raqami",
+      "submit": "Tasdiqlash",
+      "submitting": "Tekshirilmoqda…",
+      "success": "Shaxsingiz tasdiqlandi",
+      "errors": {
+        "pinfl": "PINFL 14 ta raqamdan iborat boʻlishi kerak",
+        "duplicate": "Bu PINFL boshqa hisobga biriktirilgan",
+        "generic": "Tasdiqlab boʻlmadi. Qayta urinib koʻring."
+      }
+    },
+    "join": {
+      "title": "Ijodkor turini tanlang",
+      "submit": "Ijodkorlarga qoʻshilish",
+      "submitting": "Qoʻshilmoqda…",
+      "success": "Siz ijodkorlarga qoʻshildingiz. Endi toʻliq maʼlumotlaringizni kiriting.",
+      "error": "Qoʻshilib boʻlmadi",
+      "kinds": {
+        "musician": {
+          "title": "Musiqachi",
+          "text": "Cholgʻu ijrochisi"
+        },
+        "vocalist": {
+          "title": "Vokalist",
+          "text": "Xonanda, xorist"
+        },
+        "conductor": {
+          "title": "Dirijyor",
+          "text": "Orkestr va xor rahbari"
+        },
+        "composer": {
+          "title": "Kompozitor",
+          "text": "Asar va aranjirovka muallifi"
+        }
+      }
+    },
+    "badge": {
+      "title": "Raqamli nishon",
+      "text": "Tasdiqlangan ijodkor nishoni — PNG koʻrinishida.",
+      "alt": "{name} — tasdiqlangan ijodkor nishoni",
+      "download": "PNG yuklab olish",
+      "linkedin": "LinkedIn’da ulashish",
+      "instagram": "Instagram hikoya (9:16)",
+      "instagramHint": "Kvadrat PNG — post va LinkedIn uchun, 9:16 variant — Instagram hikoyasi uchun. Yuklab olib, oʻz profilingizga qoʻying.",
+      "copyLink": "Profil havolasi",
+      "copied": "Havola nusxalandi",
+      "copyFailed": "Nusxalab boʻlmadi",
+      "pendingTitle": "Nishon olish uchun profilni toʻldiring",
+      "pendingText": "Barcha maʼlumotlar toʻldirilgach nishon avtomatik beriladi.",
+      "progress": "{percent}% toʻldirilgan",
+      "missing": "Yetishmaydi: {fields}"
+    }
+  },
+  "appeals": {
+    "footerLink": "Xat yozish",
+    "kind": {
+      "suggestion": "Taklif",
+      "appeal": "Murojaat",
+      "opening_request": "Kasting/vakansiya qoʻshish soʻrovi",
+      "event_request": "Tadbir qoʻshish soʻrovi"
+    },
+    "status": {
+      "new": "Navbatda",
+      "in_review": "Koʻrib chiqilmoqda",
+      "answered": "Javob berilgan",
+      "returned": "Qaytarilgan",
+      "closed": "Yopilgan"
+    },
+    "event": {
+      "created": "Xat yuborildi",
+      "opened": "Administrator xatni ochdi",
+      "followup": "Qoʻshimcha xabar yozildi",
+      "answered": "Javob berildi",
+      "returned": "Tuzatish uchun qaytarildi",
+      "resubmitted": "Tuzatilib qayta yuborildi",
+      "closed": "Xat yopildi",
+      "reopened": "Xat qayta ochildi"
+    },
+    "letter": {
+      "number": "Xat raqami",
+      "from": "Kimdan",
+      "to": "Kimga",
+      "toValue": "Platforma administratsiyasi",
+      "date": "Yuborilgan sana",
+      "opened": "Koʻrilgan vaqt",
+      "notOpened": "Hali ochilmagan",
+      "queue": "Navbat",
+      "queueValue": "{n}-oʻrin",
+      "attachments": "Biriktirilgan PDF fayllar",
+      "open": "Ochish",
+      "download": "Yuklab olish",
+      "history": "Harakatlar tarixi",
+      "correspondence": "Yozishma",
+      "returnedTitle": "Xat tuzatish uchun qaytarildi",
+      "returnedText": "Sabab: {reason}",
+      "print": "Chop etish / PDF",
+      "back": "Xatlar roʻyxatiga qaytish",
+      "noText": "(matnsiz xat — PDF biriktirilgan)"
+    },
+    "pdf": {
+      "hint": "Faqat PDF, har biri 3 MB gacha, 3 tagacha fayl.",
+      "choose": "PDF biriktirish",
+      "drop": "yoki faylni shu yerga tashlang",
+      "remove": "Olib tashlash",
+      "errors": {
+        "type": "Faqat PDF fayl qabul qilinadi",
+        "size": "Fayl hajmi 3 MB dan oshmasligi kerak",
+        "count": "Eng koʻpi bilan 3 ta fayl biriktiriladi",
+        "read": "Faylni oʻqib boʻlmadi"
+      }
+    },
+    "user": {
+      "title": "Xatlar va murojaatlar",
+      "description": "Platforma administratsiyasiga xat yozing yoki PDF xat yuboring. Xat raqam oladi, navbatga qoʻyiladi va javob shu yerda koʻrinadi.",
+      "new": "Xat yozish",
+      "formText": "Xat matnini yozing yoki tayyor PDF xatni biriktiring (ikkalasi ham mumkin).",
+      "kind": "Turi",
+      "subject": "Mavzu",
+      "message": "Xat matni",
+      "messageHint": "Matn yozing yoki PDF biriktiring.",
+      "submit": "Yuborish",
+      "sending": "Yuborilmoqda…",
+      "cancel": "Bekor qilish",
+      "sent": "Xat №{number} yuborildi. Navbatdagi oʻrningiz: {position}",
+      "emptyTitle": "Hozircha xat yoʻq",
+      "emptyText": "Savol yoki taklifingiz boʻlsa, «Xat yozish» tugmasini bosing.",
+      "queueBadge": "Navbat: {n}",
+      "followUp": "Qoʻshimcha xabar",
+      "send": "Yuborish",
+      "sentFollowUp": "Xabar yuborildi",
+      "resend": "Tuzatib qayta yuborish",
+      "resent": "Xat tuzatilib qayta yuborildi",
+      "resendHint": "Xat qaytarilgan: sababni oʻqing, matnni tuzating yoki yangi PDF biriktirib qayta yuboring.",
+      "closedNote": "Xat yopilgan. Yangi savol boʻlsa, yangi xat yuboring.",
+      "adminOnlyHint": "Eʼlon va tadbirlarni faqat platforma administratori joylashtiradi: maʼlumotlarni toʻliq yozing.",
+      "errors": {
+        "subject": "Mavzu kamida 5 ta belgidan iborat boʻlsin",
+        "content": "Xat matnini yozing (kamida 10 belgi) yoki PDF biriktiring",
+        "generic": "Yuborib boʻlmadi. Qayta urinib koʻring."
+      }
+    },
+    "admin": {
+      "title": "Xatlar va murojaatlar",
+      "description": "Foydalanuvchilarning xatlarini navbat boʻyicha oching, javob bering, qaytaring yoki yoping.",
+      "all": "Barchasi",
+      "list": "Xatlar roʻyxati",
+      "search": "Raqam, mavzu yoki ism boʻyicha qidirish",
+      "emptyTitle": "Xat yoʻq",
+      "emptyText": "Bu boʻlimda hozircha xat yoʻq.",
+      "replyLabel": "Javob matni",
+      "send": "Javob yuborish",
+      "sendClose": "Javob berib yopish",
+      "return": "Qaytarish",
+      "returnReason": "Qaytarish sababi",
+      "returnHint": "Yuboruvchi sababni koʻradi, xatni tuzatib qayta yuboradi.",
+      "returnConfirm": "Xatni qaytarish",
+      "close": "Yopish",
+      "reopen": "Qayta ochish",
+      "sent": "Javob yuborildi",
+      "sentClosed": "Javob yuborildi va xat yopildi",
+      "returned": "Xat qaytarildi",
+      "closed": "Xat yopildi",
+      "reopened": "Xat qayta ochildi",
+      "error": "Amalni bajarib boʻlmadi",
+      "errors": {
+        "reply": "Javob matnini yozing (kamida 10 belgi) yoki PDF biriktiring",
+        "reason": "Sabab kamida 10 ta belgidan iborat boʻlsin"
       }
     }
   }

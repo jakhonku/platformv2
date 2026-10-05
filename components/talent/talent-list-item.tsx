@@ -9,6 +9,7 @@ import { talent as talentRoute } from "@/lib/routes";
 import type { LocaleCode } from "@/types/common";
 import type { TalentProfile } from "@/types/talent";
 import { AvailabilityBadge } from "./availability-badge";
+import { cardBio } from "./talent-card";
 import { VerifiedBadge } from "./verified-badge";
 
 /** Ro'yxat ko'rinishidagi gorizontal qator (katalogda `view=list`) */
@@ -35,6 +36,7 @@ export function TalentListItem({ talent, collectiveName }: { talent: TalentProfi
             {talent.verified && <VerifiedBadge />}
           </div>
           <p className="line-clamp-1 text-sm text-muted-foreground">{talent.specialty}</p>
+          {cardBio(talent) && <p className="mt-1 line-clamp-1 text-sm text-foreground/70">{cardBio(talent)}</p>}
           <div className="mt-1 flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-muted-foreground">
             <span className="inline-flex items-center gap-1">
               <MapPin className="size-3.5 shrink-0" aria-hidden />

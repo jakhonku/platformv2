@@ -1,49 +1,36 @@
 "use client";
 
-import { useState } from "react";
 import { Users } from "@/components/icons";
+import { MessageSquare } from "@/components/icons";
 import { useTranslations } from "next-intl";
-import { toast } from "sonner";
 import { DeadlineLabel } from "@/components/casting/deadline-label";
 import { EmptyState } from "@/components/layout/empty-state";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { StatusBadge } from "@/components/ui/status-badge";
-import { Link, useRouter } from "@/i18n/navigation";
-import { setOpportunityStatus } from "@/lib/data/client";
+import { Link } from "@/i18n/navigation";
 import type { CastingItem, VacancyItem } from "@/lib/data";
 import { casting as castingRoute, vacancy as vacancyRoute } from "@/lib/routes";
-import { OpeningForm, type OpeningOptions } from "./opening-form";
 
 type Row = { kind: "casting" | "vacancy"; item: CastingItem | VacancyItem };
 
-export function OpeningsManager({ orgId, castings, vacancies, options }: { orgId: string; castings: CastingItem[]; vacancies: VacancyItem[]; options: OpeningOptions }) {
+/** Tashkilot e'lonlari (faqat ko'rish): kasting va vakansiyalarni faqat platforma admini qo'shadi va boshqaradi */
+export function OpeningsManager({ castings, vacancies }: { orgId: string; castings: CastingItem[]; vacancies: VacancyItem[]; options?: unknown }) {
   const t = useTranslations("cabinetPage.openings");
   const tl = useTranslations("labels.status");
-  const router = useRouter();
-  const [pending, setPending] = useState<string | null>(null);
 
   const rows: Row[] = [...castings.map((item) => ({ kind: "casting" as const, item })), ...vacancies.map((item) => ({ kind: "vacancy" as const, item }))].sort((a, b) => b.item.createdAt.localeCompare(a.item.createdAt));
 
-  async function toggle(row: Row) {
-    if (pending) return;
-    setPending(row.item.id);
-    try {
-      await setOpportunityStatus(row.kind, row.item.id, row.item.status === "open" ? "closed" : "open");
-      toast.success(t("statusChanged"));
-      router.refresh();
-    } catch {
-      toast.error(t("errors.generic"));
-    } finally {
-      setPending(null);
-    }
-  }
-
   return (
     <div className="flex flex-col gap-4">
-      <div className="flex flex-wrap gap-2">
-        <OpeningForm kind="casting" orgId={orgId} options={options} />
-        <OpeningForm kind="vacancy" orgId={orgId} options={options} />
+      <div className="flex flex-col gap-3 rounded-2xl border bg-muted/40 p-4 sm:flex-row sm:items-center sm:justify-between">
+        <div className="flex min-w-0 flex-col gap-0.5">
+          <p className="text-sm font-medium">{t("adminOnlyTitle")}</p>
+          <p className="text-sm text-muted-foreground">{t("adminOnlyText")}</p>
+        </div>
+        <Button nativeButton={false} className="h-10 w-fit rounded-full px-5" render={<Link href="/cabinet/appeals?new=opening_request" />}>
+          <MessageSquare aria-hidden /> {t("requestCta")}
+        </Button>
       </div>
       {rows.length === 0 ? (
         <EmptyState title={t("emptyTitle")} text={t("emptyText")} />
@@ -65,9 +52,6 @@ export function OpeningsManager({ orgId, castings, vacancies, options }: { orgId
                   </p>
                   <DeadlineLabel deadline={r.item.deadline} closed={closed} />
                   <div className="mt-auto flex flex-wrap gap-2 pt-1">
-                    <Button size="sm" variant="outline" disabled={pending === r.item.id} onClick={() => toggle(r)}>
-                      {closed ? t("reopen") : t("close")}
-                    </Button>
                     <Button size="sm" variant="ghost" nativeButton={false} render={<Link href={`/cabinet/candidates?opening=${r.item.id}`} />}>
                       <Users aria-hidden />
                       {t("candidates")}

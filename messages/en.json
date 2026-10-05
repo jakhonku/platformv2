@@ -7,6 +7,7 @@
   },
   "nav": {
     "home": "Home",
+    "cabinet": "Cabinet",
     "musicians": "Musicians",
     "vocalists": "Choristers & vocalists",
     "conductors": "Conductors",
@@ -27,6 +28,7 @@
   },
   "cabinet": {
     "title": "Personal cabinet",
+    "appeals": "Appeals",
     "dashboard": "Dashboard",
     "profile": "Profile",
     "portfolio": "Portfolio",
@@ -42,6 +44,7 @@
   },
   "admin": {
     "title": "Admin panel",
+    "appeals": "Suggestions and appeals",
     "dashboard": "Dashboard",
     "users": "Users & roles",
     "profiles": "Profile moderation",
@@ -58,6 +61,7 @@
   },
   "roles": {
     "guest": "Guest",
+    "member": "Member",
     "musician": "Musician",
     "vocalist": "Vocalist",
     "conductor": "Conductor",
@@ -261,6 +265,11 @@
     "logout": "Sign out",
     "openMenu": "Open menu",
     "mainNav": "Main navigation",
+    "collapseSidebar": "Collapse sidebar",
+    "expandSidebar": "Expand sidebar",
+    "profileSettings": "Profile settings",
+    "publicProfile": "My public profile",
+    "backToSite": "Back to home",
     "theme": {
       "toDark": "Switch to night mode",
       "toLight": "Switch to day mode"
@@ -273,6 +282,8 @@
     "demoUser": "Demo user"
   },
   "footer": {
+    "opportunities": "Opportunities",
+    "platform": "Platform",
     "rights": "All rights reserved."
   },
   "demo": {
@@ -427,6 +438,7 @@
     "genres": "Genres",
     "currentCollective": "Current ensemble",
     "backToCatalog": "Back to catalog",
+    "badge": "Digital badge",
     "present": "present",
     "years": "{from} – {to}",
     "workMeta": "{year}, {genre}",
@@ -560,6 +572,8 @@
       "applied": "Application sent",
       "loginToApply": "Sign in to apply",
       "talentOnly": "Only talent profiles can apply.",
+      "verifyToApply": "Verify your account with OneID to apply.",
+      "verifyCta": "Verify",
       "title": "Apply",
       "description": "An application for “{title}” will be sent as {name}.",
       "message": "Message (optional)",
@@ -706,8 +720,27 @@
       "error": "The action failed"
     },
     "settings": {
-      "title": "Notification settings",
-      "description": "Choose how you receive messages.",
+      "title": "Profile settings",
+      "description": "Profile photo, account and notification channels.",
+      "notificationsTitle": "Notification settings",
+      "notificationsDescription": "Choose how you receive messages.",
+      "backHome": "Back to home",
+      "backProfile": "Back to profile",
+      "photo": {
+          "title": "Profile photo",
+          "hint": "JPG, PNG or WEBP, up to 8 MB. The photo is cropped to a centered square.",
+          "upload": "Upload photo",
+          "remove": "Remove",
+          "save": "Save",
+          "saving": "Saving…",
+          "cancel": "Cancel",
+          "saved": "Photo updated",
+          "removed": "Default photo restored",
+          "error": "Could not save the photo",
+          "errorType": "Choose a JPG, PNG or WEBP image",
+          "errorSize": "The photo must be under 8 MB",
+          "errorRead": "Could not read the image"
+        },
       "legend": "Channels",
       "save": "Save",
       "saving": "Saving…",
@@ -744,6 +777,10 @@
       "fullName": "Full name",
       "specialty": "Specialty",
       "bio": "About you",
+      "shortBio": "Short bio (shown on your card)",
+      "shortBioHint": "1–2 sentences shown on your card. {count}/160",
+      "birthYear": "Year of birth",
+      "birthYearHint": "Used for statistics only; not shown publicly.",
       "region": "Region",
       "city": "City",
       "instruments": "Instruments (up to 10)",
@@ -851,6 +888,14 @@
     },
     "stats": {
       "title": "Portfolio statistics",
+      "chartTitleWeekly": "Weekly views",
+      "periodWeekly": "Weekly",
+      "periodMonthly": "Monthly",
+      "period": "Period",
+      "periodTotal": "Total for the period",
+      "vsPrevWeek": "vs last week",
+      "vsPrevMonth": "vs last month",
+      "weekOf": "Week of {date}",
       "description": "Views of your materials.",
       "emptyTitle": "No views yet",
       "emptyText": "Statistics appear once materials are approved and viewed.",
@@ -884,6 +929,10 @@
     },
     "openings": {
       "title": "Castings and vacancies",
+      "adminOnlyTitle": "Only the platform administrator posts listings",
+      "adminOnlyText": "To publish a casting or vacancy, send a request — the administrator posts it on your behalf. You still see candidates here.",
+      "requestCta": "Request a listing",
+      "organization": "Organization",
       "description": "Create listings and manage candidates.",
       "createCasting": "Create casting",
       "createVacancy": "Create vacancy",
@@ -917,6 +966,7 @@
       "cancel": "Cancel",
       "submit": "Create",
       "errors": {
+        "organization": "Choose an organization",
         "title": "Title must be at least 5 characters.",
         "description": "Description must be at least 20 characters.",
         "deadline": "The deadline cannot be in the past.",
@@ -940,6 +990,8 @@
     },
     "collective": {
       "title": "Collective page",
+      "requestEvent": "Request an event",
+      "adminOnlyEvents": "Only the platform administrator adds events. Send the event details through an appeal.",
       "aboutTitle": "About the collective",
       "description": "Description",
       "repertoire": "Repertoire",
@@ -1069,6 +1121,24 @@
     }
   },
   "adminPage": {
+    "collectiveEvents": {
+      "title": "Collective events",
+      "text": "Only the platform administrator adds events (collectives request them through an appeal).",
+      "collective": "Collective",
+      "eventTitle": "Event title",
+      "venue": "Venue",
+      "date": "Date",
+      "add": "Add event",
+      "remove": "Remove event",
+      "added": "Event added",
+      "removed": "Event removed",
+      "errors": {
+        "collective": "Choose a collective",
+        "fields": "Enter a title and venue",
+        "date": "Choose a date",
+        "generic": "Could not complete the action"
+      }
+    },
     "table": {
       "search": "Search…",
       "noMatches": "Nothing matches your search.",
@@ -1094,6 +1164,7 @@
       "views": "Views (12 months)",
       "queues": "Moderation queue",
       "queue": {
+        "appeals": "New appeals",
         "profiles": "Profiles",
         "media": "Media files",
         "organizations": "Organizations",
@@ -1347,6 +1418,47 @@
       "title": "Statistics",
       "description": "Overall platform analytics.",
       "noData": "No data",
+      "total": "total",
+      "byAvailability": "By availability",
+      "accounts": "Accounts: verified and unverified",
+      "byAge": "By age group",
+      "byExperience": "By experience",
+      "byInstrument": "By instrument (top 10)",
+      "byVoice": "By voice type",
+      "collectivesByType": "Collectives by type",
+      "organizationsByKind": "Organizations by type",
+      "openings": "Castings and vacancies",
+      "appeals": "Appeals status",
+      "verifiedAccounts": "Verified with OneID",
+      "unverifiedAccounts": "Unverified",
+      "castingsOpen": "Castings (open)",
+      "castingsClosed": "Castings (closed)",
+      "vacanciesOpen": "Vacancies (open)",
+      "vacanciesClosed": "Vacancies (closed)",
+      "kpi": {
+        "talents": "Active creators",
+        "averageAge": "Average age",
+        "averageExperience": "Average experience",
+        "verified": "Verified accounts",
+        "verifiedHint": "{count} users",
+        "years": "years"
+      },
+      "age": {
+        "under18": "under 18",
+        "18_24": "18–24",
+        "25_34": "25–34",
+        "35_44": "35–44",
+        "45_54": "45–54",
+        "55plus": "55+",
+        "unknown": "Not specified"
+      },
+      "experience": {
+        "0_2": "0–2 yrs",
+        "3_5": "3–5 yrs",
+        "6_10": "6–10 yrs",
+        "11_20": "11–20 yrs",
+        "21plus": "20+ yrs"
+      },
       "talentsByKind": "Talents by type",
       "applicationsByStatus": "Applications by status",
       "topRegions": "Most active regions"
@@ -1463,6 +1575,246 @@
         "in_review": "Nothing in review",
         "approved": "Nothing approved yet",
         "rejected": "Nothing rejected"
+      }
+    }
+  },
+  "onboarding": {
+    "register": {
+      "title": "Sign up",
+      "text": "Enter your full name and phone number — we will send an SMS code.",
+      "lastName": "Last name",
+      "firstName": "First name",
+      "middleName": "Patronymic",
+      "optional": "optional",
+      "phone": "Phone number",
+      "sendCode": "Send SMS code",
+      "sending": "Sending…",
+      "codeTitle": "Verification code",
+      "codeText": "A 6-digit code was sent to {phone}.",
+      "changeNumber": "Edit details",
+      "haveAccount": "Already have an account?",
+      "login": "Sign in",
+      "entityLink": "Sign up as a collective or organization",
+      "note": "After signing up your account is unverified: you can browse the platform. Verify with OneID to unlock everything.",
+      "errors": {
+        "name": "Enter at least 2 letters",
+        "phone": "Enter the full phone number",
+        "duplicate": "An account with this number already exists.",
+        "generic": "Something went wrong. Please try again."
+      }
+    },
+    "login": {
+      "title": "Sign in",
+      "text": "Enter your phone number — we will send an SMS code.",
+      "sendCode": "Send SMS code",
+      "notFound": "No account found for this number. Sign up first.",
+      "noAccount": "No account yet?",
+      "register": "Sign up",
+      "demoTitle": "Presentation mode",
+      "demoText": "Pick a role and enter without a password."
+    },
+    "status": {
+      "verified": "Verified",
+      "unverified": "Unverified"
+    },
+    "banner": {
+      "title": "Your account is not verified",
+      "text": "You are in view-only mode: browse catalogs, castings and news. Applying, invitations and a portfolio unlock after OneID verification.",
+      "cta": "Verify"
+    },
+    "member": {
+      "steps": {
+        "account": {
+          "title": "Account created",
+          "text": "Your phone number is confirmed."
+        },
+        "verify": {
+          "title": "Verify with OneID",
+          "text": "Confirm your identity through the state system to unlock full access.",
+          "done": "Identity verified with OneID"
+        },
+        "join": {
+          "title": "Join the creators",
+          "text": "Choose your creator type, then fill in your full details.",
+          "locked": "Verify with OneID first."
+        },
+        "badge": {
+          "title": "Digital badge",
+          "text": "Once your profile is complete you receive a badge: download it as a PNG and post it on Instagram or LinkedIn."
+        }
+      }
+    },
+    "verifyDialog": {
+      "cta": "Verify with OneID",
+      "title": "Verify with OneID",
+      "text": "In demo mode a PINFL is entered instead of OneID.",
+      "pinfl": "PINFL",
+      "pinflHint": "14-digit personal identification number",
+      "submit": "Verify",
+      "submitting": "Checking…",
+      "success": "Identity verified",
+      "errors": {
+        "pinfl": "PINFL must be 14 digits",
+        "duplicate": "This PINFL is linked to another account",
+        "generic": "Could not verify. Please try again."
+      }
+    },
+    "join": {
+      "title": "Choose your creator type",
+      "submit": "Join creators",
+      "submitting": "Joining…",
+      "success": "You joined the creators. Now fill in your full details.",
+      "error": "Could not join",
+      "kinds": {
+        "musician": {
+          "title": "Musician",
+          "text": "Instrument performer"
+        },
+        "vocalist": {
+          "title": "Vocalist",
+          "text": "Singer, choir member"
+        },
+        "conductor": {
+          "title": "Conductor",
+          "text": "Orchestra and choir leader"
+        },
+        "composer": {
+          "title": "Composer",
+          "text": "Author of works and arrangements"
+        }
+      }
+    },
+    "badge": {
+      "title": "Digital badge",
+      "text": "Verified creator badge as a PNG.",
+      "alt": "{name} — verified creator badge",
+      "download": "Download PNG",
+      "linkedin": "Share on LinkedIn",
+      "instagram": "Instagram story (9:16)",
+      "instagramHint": "Square PNG for posts and LinkedIn, the 9:16 version for Instagram stories. Download and post it to your profile.",
+      "copyLink": "Profile link",
+      "copied": "Link copied",
+      "copyFailed": "Could not copy",
+      "pendingTitle": "Complete your profile to get the badge",
+      "pendingText": "The badge is issued automatically once all details are filled in.",
+      "progress": "{percent}% complete",
+      "missing": "Missing: {fields}"
+    }
+  },
+  "appeals": {
+    "footerLink": "Write a letter",
+    "kind": {
+      "suggestion": "Suggestion",
+      "appeal": "Appeal",
+      "opening_request": "Casting/vacancy listing request",
+      "event_request": "Event listing request"
+    },
+    "status": {
+      "new": "In queue",
+      "in_review": "Under review",
+      "answered": "Answered",
+      "returned": "Returned",
+      "closed": "Closed"
+    },
+    "event": {
+      "created": "Letter sent",
+      "opened": "Administrator opened the letter",
+      "followup": "Follow-up added",
+      "answered": "Reply sent",
+      "returned": "Returned for correction",
+      "resubmitted": "Corrected and resubmitted",
+      "closed": "Letter closed",
+      "reopened": "Letter reopened"
+    },
+    "letter": {
+      "number": "Letter number",
+      "from": "From",
+      "to": "To",
+      "toValue": "Platform administration",
+      "date": "Date sent",
+      "opened": "Viewed at",
+      "notOpened": "Not opened yet",
+      "queue": "Queue",
+      "queueValue": "position {n}",
+      "attachments": "Attached PDF files",
+      "open": "Open",
+      "download": "Download",
+      "history": "Activity history",
+      "correspondence": "Correspondence",
+      "returnedTitle": "The letter was returned for correction",
+      "returnedText": "Reason: {reason}",
+      "print": "Print / PDF",
+      "back": "Back to letters",
+      "noText": "(letter without text — PDF attached)"
+    },
+    "pdf": {
+      "hint": "PDF only, up to 3 MB each, up to 3 files.",
+      "choose": "Attach PDF",
+      "drop": "or drop a file here",
+      "remove": "Remove",
+      "errors": {
+        "type": "Only PDF files are accepted",
+        "size": "File size must not exceed 3 MB",
+        "count": "You can attach up to 3 files",
+        "read": "Could not read the file"
+      }
+    },
+    "user": {
+      "title": "Letters and appeals",
+      "description": "Write to the platform administration or send a ready PDF letter. It gets a number, joins the queue, and the reply appears here.",
+      "new": "Write a letter",
+      "formText": "Type the letter or attach a ready PDF letter (or both).",
+      "kind": "Type",
+      "subject": "Subject",
+      "message": "Letter text",
+      "messageHint": "Type the text or attach a PDF.",
+      "submit": "Send",
+      "sending": "Sending…",
+      "cancel": "Cancel",
+      "sent": "Letter No. {number} sent. Your position in the queue: {position}",
+      "emptyTitle": "No letters yet",
+      "emptyText": "Have a question or suggestion? Press “Write a letter”.",
+      "queueBadge": "Queue: {n}",
+      "followUp": "Follow-up message",
+      "send": "Send",
+      "sentFollowUp": "Message sent",
+      "resend": "Correct and resubmit",
+      "resent": "Letter corrected and resubmitted",
+      "resendHint": "The letter was returned: read the reason, fix the text or attach a new PDF and send it again.",
+      "closedNote": "This letter is closed. Send a new letter for a new question.",
+      "adminOnlyHint": "Only the platform administrator posts listings and events: include all the details.",
+      "errors": {
+        "subject": "Subject must be at least 5 characters",
+        "content": "Write the letter (at least 10 characters) or attach a PDF",
+        "generic": "Could not send. Please try again."
+      }
+    },
+    "admin": {
+      "title": "Letters and appeals",
+      "description": "Open user letters in queue order, reply, return or close them.",
+      "all": "All",
+      "list": "Letters list",
+      "search": "Search by number, subject or name",
+      "emptyTitle": "No letters",
+      "emptyText": "There are no letters in this section yet.",
+      "replyLabel": "Reply text",
+      "send": "Send reply",
+      "sendClose": "Reply and close",
+      "return": "Return",
+      "returnReason": "Reason for returning",
+      "returnHint": "The sender sees the reason, fixes the letter and resubmits it.",
+      "returnConfirm": "Return the letter",
+      "close": "Close",
+      "reopen": "Reopen",
+      "sent": "Reply sent",
+      "sentClosed": "Reply sent and letter closed",
+      "returned": "Letter returned",
+      "closed": "Letter closed",
+      "reopened": "Letter reopened",
+      "error": "Could not complete the action",
+      "errors": {
+        "reply": "Write a reply (at least 10 characters) or attach a PDF",
+        "reason": "Reason must be at least 10 characters"
       }
     }
   }

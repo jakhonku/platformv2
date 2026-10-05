@@ -8,3 +8,4 @@ export type * from "./content.ts";
 export type * from "./media.ts";
 export type * from "./system.ts";
 export { ROLE_LIST } from "./user.ts";
+export type * from "./appeal.ts";

@@ -1,5 +1,5 @@
 import { notFound } from "next/navigation";
-import { getTranslations } from "next-intl/server";
+import { getLocale, getTranslations } from "next-intl/server";
 import { SectionBoundary } from "@/components/home/section-boundary";
 import { CardSkeletons } from "@/components/layout/card-skeletons";
 import { ContactList } from "@/components/layout/contact-list";
@@ -8,9 +8,11 @@ import { Badge } from "@/components/ui/badge";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Link } from "@/i18n/navigation";
 import { getCollectionsForOwner, getCollectiveById, getMediaForOwner } from "@/lib/data";
-import { collective as collectiveRoute } from "@/lib/routes";
+import { collective as collectiveRoute, talent as talentRoute } from "@/lib/routes";
 import type { MediaItem } from "@/types/media";
 import type { ComposerProfile, ConductorProfile, TalentKind, TalentProfile } from "@/types/talent";
+import { hasBadge } from "@/lib/badge";
+import { BadgeCard } from "./badge-card";
 import { CollectionsList } from "./collections-section";
 import { ComposerWorks } from "./composer-works";
 import { ConductorEnsembles } from "./conductor-ensembles";
@@ -38,7 +40,7 @@ async function CurrentCollective({ collectiveId }: { collectiveId: string }) {
 
 export async function TalentProfilePage({ kind, params }: { kind: TalentKind; params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  const [talent, t] = await Promise.all([loadTalent(slug), getTranslations("profile")]);
+  const [talent, t, locale] = await Promise.all([loadTalent(slug), getTranslations("profile"), getLocale()]);
   // Boshqa rolning slugi shu bo'limda ochilmaydi (masalan dirijyor slugi /musicians/ ostida)
   if (!talent || talent.kind !== kind) notFound();
 
@@ -96,6 +98,11 @@ export async function TalentProfilePage({ kind, params }: { kind: TalentKind; pa
         </div>
 
         <aside className="flex min-w-0 flex-col gap-6 glass rounded-3xl p-5 sm:p-6 lg:sticky lg:top-24 lg:self-start">
+          {hasBadge(talent) && (
+            <InfoBlock id="badge" title={t("badge")}>
+              <BadgeCard slug={talent.slug} name={talent.fullName} profilePath={`/${locale}${talentRoute(talent.kind, talent.slug)}`} />
+            </InfoBlock>
+          )}
           {talent.currentCollectiveId && (
             <InfoBlock id="current-collective" title={t("currentCollective")}>
               <SectionBoundary fallback={<Skeleton className="h-5 w-40" />}>

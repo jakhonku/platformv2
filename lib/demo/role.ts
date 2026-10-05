@@ -1,5 +1,6 @@
 export const ROLES = [
   "guest",
+  "member",
   "musician",
   "vocalist",
   "conductor",

@@ -1,8 +1,8 @@
 "use client";
 
-import { LogOut, UserRound } from "@/components/icons";
+import { ArrowLeft, Globe, LogOut, Settings, UserRound } from "@/components/icons";
 import { useTranslations } from "next-intl";
-import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -29,10 +29,18 @@ export function UserMenu({
   fullName,
   roleLabel,
   profileHref,
+  settingsHref,
+  publicHref,
+  photoUrl,
 }: {
   fullName: string;
   roleLabel: string;
   profileHref: string;
+  /** Shaxsiy profil sozlamalari sahifasi (rasm, bildirishnomalar) */
+  settingsHref?: string;
+  /** Ommaviy profil sahifasi (bo'lsa) */
+  publicHref?: string | null;
+  photoUrl?: string;
 }) {
   const t = useTranslations();
   const router = useRouter();
@@ -42,6 +50,7 @@ export function UserMenu({
         render={<Button variant="ghost" size="icon" className="rounded-full" aria-label={t("common.userMenu")} />}
       >
         <Avatar className="size-8">
+          {photoUrl && <AvatarImage src={photoUrl} alt="" />}
           <AvatarFallback>{initials(fullName) || "?"}</AvatarFallback>
         </Avatar>
       </DropdownMenuTrigger>
@@ -56,6 +65,20 @@ export function UserMenu({
         <DropdownMenuItem render={<Link href={profileHref} />}>
           <UserRound /> {t("cabinet.profile")}
         </DropdownMenuItem>
+        {settingsHref && (
+          <DropdownMenuItem render={<Link href={settingsHref} />}>
+            <Settings /> {t("common.profileSettings")}
+          </DropdownMenuItem>
+        )}
+        {publicHref && (
+          <DropdownMenuItem render={<Link href={publicHref} />}>
+            <Globe /> {t("common.publicProfile")}
+          </DropdownMenuItem>
+        )}
+        <DropdownMenuItem render={<Link href="/" />}>
+          <ArrowLeft /> {t("common.backToSite")}
+        </DropdownMenuItem>
+        <DropdownMenuSeparator />
         <DropdownMenuItem
           onClick={async () => {
             await signOut();

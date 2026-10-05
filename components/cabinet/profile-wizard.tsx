@@ -4,7 +4,7 @@ import { useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Plus, Trash2 } from "@/components/icons";
 import { useTranslations } from "next-intl";
-import { useFieldArray, useForm, type FieldPath } from "react-hook-form";
+import { useFieldArray, useForm, useWatch, type FieldPath } from "react-hook-form";
 import { toast } from "sonner";
 import { z } from "zod";
 import { FormField } from "@/components/auth/form-field";
@@ -24,6 +24,8 @@ type Values = {
   fullName: string;
   specialty: string;
   bio: string;
+  shortBio: string;
+  birthYear?: number;
   regionId: string;
   city: string;
   instrumentIds: string[];
@@ -40,7 +42,7 @@ type Values = {
 };
 
 const STEPS: FieldPath<Values>[][] = [
-  ["fullName", "specialty", "bio", "regionId", "city"],
+  ["fullName", "specialty", "shortBio", "bio", "birthYear", "regionId", "city"],
   ["instrumentIds", "voiceTypeId", "experienceYears", "availability", "repertoire"],
   ["education", "experience"],
   ["phone", "email", "telegram", "website"],
@@ -60,7 +62,9 @@ export function ProfileWizard({ talent, regions, instruments, voiceTypes }: { ta
   const schema = z.object({
     fullName: z.string().trim().min(2, req).max(80, t("errors.tooLong")),
     specialty: z.string().trim().min(2, req).max(120, t("errors.tooLong")),
+    shortBio: z.string().trim().max(160, t("errors.tooLong")),
     bio: z.string().max(2000, t("errors.tooLong")),
+    birthYear: z.preprocess((v) => (v === "" || v === undefined || Number.isNaN(v) ? undefined : v), z.number({ error: t("errors.range") }).int(t("errors.range")).min(1940, t("errors.range")).max(new Date().getFullYear() - 10, t("errors.range")).optional()),
     regionId: z.string().refine((v) => REGIONS.some((r) => r.id === v), req),
     city: z.string().trim().min(1, req).max(80, t("errors.tooLong")),
     instrumentIds: z.array(z.string()).max(10, t("errors.tooMany")),
@@ -89,7 +93,9 @@ export function ProfileWizard({ talent, regions, instruments, voiceTypes }: { ta
     defaultValues: {
       fullName: talent.fullName,
       specialty: talent.specialty,
+      shortBio: talent.shortBio ?? "",
       bio: talent.bio,
+      birthYear: talent.birthYear,
       regionId: talent.regionId,
       city: talent.city,
       instrumentIds: talent.instrumentIds,
@@ -105,6 +111,7 @@ export function ProfileWizard({ talent, regions, instruments, voiceTypes }: { ta
       website: talent.contacts.website ?? "",
     },
   });
+  const shortBioValue = useWatch({ control, name: "shortBio" });
   const education = useFieldArray({ control, name: "education" });
   const experience = useFieldArray({ control, name: "experience" });
 
@@ -126,7 +133,9 @@ export function ProfileWizard({ talent, regions, instruments, voiceTypes }: { ta
       await updateTalentProfile(talent.id, {
         fullName: v.fullName,
         specialty: v.specialty,
+        shortBio: clean(v.shortBio),
         bio: v.bio,
+        birthYear: v.birthYear,
         regionId: v.regionId,
         city: v.city,
         instrumentIds: v.instrumentIds,
@@ -176,9 +185,17 @@ export function ProfileWizard({ talent, regions, instruments, voiceTypes }: { ta
       <div className={cn("flex flex-col gap-4", step !== 0 && "hidden")}>
         {field("p-name", "fullName", t("fullName"), input("p-name", "fullName"))}
         {field("p-specialty", "specialty", t("specialty"), input("p-specialty", "specialty"))}
+        {field(
+          "p-short",
+          "shortBio",
+          t("shortBio"),
+          <Textarea id="p-short" rows={3} maxLength={160} aria-invalid={!!err("shortBio")} {...register("shortBio")} />,
+          t("shortBioHint", { count: (shortBioValue ?? "").length }),
+        )}
         {field("p-bio", "bio", t("bio"), <Textarea id="p-bio" rows={6} aria-invalid={!!err("bio")} {...register("bio")} />)}
         {field("p-region", "regionId", t("region"), <NativeSelect id="p-region" {...register("regionId")}>{regions.map((o) => <option key={o.value} value={o.value}>{o.label}</option>)}</NativeSelect>)}
         {field("p-city", "city", t("city"), input("p-city", "city"))}
+        {field("p-birth", "birthYear", t("birthYear"), input("p-birth", "birthYear", { type: "number", inputMode: "numeric", min: 1940, max: new Date().getFullYear() - 10 }), t("birthYearHint"))}
       </div>
 
       <div className={cn("flex flex-col gap-4", step !== 1 && "hidden")}>

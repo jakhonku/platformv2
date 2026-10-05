@@ -1,5 +1,6 @@
 import { DataError } from "./errors.ts";
 import type * as cabinet from "./cabinet.ts";
+import type * as appeals from "./appeals.ts";
 import type * as opportunities from "./opportunities.ts";
 import type * as invitations from "./invitations.ts";
 import type * as account from "./account.ts";
@@ -16,6 +17,12 @@ async function unwrap<T>(promise: Promise<actions.ActionResult<T>>): Promise<T> 
   if (!result.ok) throw new DataError(result.code, result.message);
   return result.data;
 }
+export const createAppeal = (...args: Parameters<typeof appeals.createAppeal>) => unwrap(actions.createAppealAction(...args));
+export const addAppealMessage = (...args: Parameters<typeof appeals.addAppealMessage>) => unwrap(actions.addAppealMessageAction(...args));
+export const replyToAppeal = (...args: Parameters<typeof appeals.replyToAppeal>) => unwrap(actions.replyToAppealAction(...args));
+export const setAppealStatus = (...args: Parameters<typeof appeals.setAppealStatus>) => unwrap(actions.setAppealStatusAction(...args));
+export const markAppealOpened = (...args: Parameters<typeof appeals.markAppealOpened>) => unwrap(actions.markAppealOpenedAction(...args));
+export const returnAppeal = (...args: Parameters<typeof appeals.returnAppeal>) => unwrap(actions.returnAppealAction(...args));
 export const updateTalentProfile = (...args: Parameters<typeof cabinet.updateTalentProfile>) => unwrap(actions.updateTalentProfileAction(...args));
 export const addMedia = (...args: Parameters<typeof cabinet.addMedia>) => unwrap(actions.addMediaAction(...args));
 export const updateMedia = (...args: Parameters<typeof cabinet.updateMedia>) => unwrap(actions.updateMediaAction(...args));
@@ -30,6 +37,7 @@ export const createVacancy = (...args: Parameters<typeof cabinet.createVacancy>)
 export const setOpportunityStatus = (...args: Parameters<typeof cabinet.setOpportunityStatus>) => unwrap(actions.setOpportunityStatusAction(...args));
 export const updateCollective = (...args: Parameters<typeof cabinet.updateCollective>) => unwrap(actions.updateCollectiveAction(...args));
 export const updateOrganization = (...args: Parameters<typeof cabinet.updateOrganization>) => unwrap(actions.updateOrganizationAction(...args));
+export const setAvatar = (...args: Parameters<typeof cabinet.setAvatar>) => unwrap(actions.setAvatarAction(...args));
 export const inviteCollectiveMember = (...args: Parameters<typeof cabinet.inviteCollectiveMember>) => unwrap(actions.inviteCollectiveMemberAction(...args));
 export const respondToCollectiveInvite = (...args: Parameters<typeof cabinet.respondToCollectiveInvite>) => unwrap(actions.respondToCollectiveInviteAction(...args));
 export const addCollectiveMember = (...args: Parameters<typeof cabinet.addCollectiveMember>) => unwrap(actions.addCollectiveMemberAction(...args));
@@ -46,6 +54,12 @@ export const registerAccount = (...args: Parameters<typeof auth.registerAccount>
 export const verifyCode = (...args: Parameters<typeof auth.verifyCode>) => unwrap(actions.verifyCodeAction(...args));
 export const verifyAndActivate = (...args: Parameters<typeof auth.verifyAndActivate>) => unwrap(actions.verifyAndActivateAction(...args));
 export const oneIdSignIn = (...args: Parameters<typeof auth.oneIdSignIn>) => unwrap(actions.oneIdSignInAction(...args));
+export const requestRegistrationCode = (...args: Parameters<typeof auth.requestRegistrationCode>) => unwrap(actions.requestRegistrationCodeAction(...args));
+export const registerMember = (...args: Parameters<typeof auth.registerMember>) => unwrap(actions.registerMemberAction(...args));
+export const requestLoginCode = (...args: Parameters<typeof auth.requestLoginCode>) => unwrap(actions.requestLoginCodeAction(...args));
+export const loginWithPhone = (...args: Parameters<typeof auth.loginWithPhone>) => unwrap(actions.loginWithPhoneAction(...args));
+export const verifyIdentity = (...args: Parameters<typeof auth.verifyIdentity>) => unwrap(actions.verifyIdentityAction(...args));
+export const joinCreators = (...args: Parameters<typeof auth.joinCreators>) => unwrap(actions.joinCreatorsAction(...args));
 export const moderate = (...args: Parameters<typeof admin.moderate>) => unwrap(actions.moderateAction(...args));
 export const startReview = (...args: Parameters<typeof review.startReview>) => unwrap(actions.startReviewAction(...args));
 export const setReviewChecklist = (...args: Parameters<typeof review.setReviewChecklist>) => unwrap(actions.setReviewChecklistAction(...args));

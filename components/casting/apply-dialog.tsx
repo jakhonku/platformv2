@@ -74,6 +74,13 @@ export function ApplyDialog({ target, applicant, role, closed }: { target: Apply
       <Button nativeButton={false} render={<Link href="/login" />}>
         {t("loginToApply")}
       </Button>
+    ) : role === "member" ? (
+      <div className="flex flex-col items-start gap-2">
+        <p className="text-sm text-muted-foreground">{t("verifyToApply")}</p>
+        <Button nativeButton={false} variant="outline" render={<Link href="/cabinet" />}>
+          {t("verifyCta")}
+        </Button>
+      </div>
     ) : (
       <p className="text-sm text-muted-foreground">{t("talentOnly")}</p>
     );

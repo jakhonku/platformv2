@@ -24,12 +24,13 @@ const EMPLOYMENT = ["full_time", "part_time", "contract"] as const;
 const toIsoEnd = (day: string) => `${day}T18:00:00.000Z`;
 
 /** Kasting yoki vakansiya yaratish dialogi */
-export function OpeningForm({ kind, orgId, options }: { kind: "casting" | "vacancy"; orgId: string; options: OpeningOptions }) {
+export function OpeningForm({ kind, orgId, options, organizations }: { kind: "casting" | "vacancy"; orgId?: string; options: OpeningOptions; organizations?: Option[] }) {
   const t = useTranslations("cabinetPage.openings");
   const tl = useTranslations("labels");
   const router = useRouter();
   const [open, setOpen] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [org, setOrg] = useState(orgId ?? organizations?.[0]?.value ?? "");
   const [v, setV] = useState({
     title: "",
     description: "",
@@ -51,6 +52,7 @@ export function OpeningForm({ kind, orgId, options }: { kind: "casting" | "vacan
 
   const onSubmit = useSingleSubmit(async (e) => {
     e.preventDefault();
+    if (!org) return setError(t("errors.organization"));
     if (v.title.trim().length < 5) return setError(t("errors.title"));
     if (v.description.trim().length < 20) return setError(t("errors.description"));
     if (!v.deadline || v.deadline < today) return setError(t("errors.deadline"));
@@ -68,9 +70,9 @@ export function OpeningForm({ kind, orgId, options }: { kind: "casting" | "vacan
     };
     try {
       if (kind === "casting") {
-        await createCasting(orgId, { title: v.title, description: v.description, location: v.location, eventDate: toIsoEnd(v.eventDate), deadline: toIsoEnd(v.deadline), requirements });
+        await createCasting(org, { title: v.title, description: v.description, location: v.location, eventDate: toIsoEnd(v.eventDate), deadline: toIsoEnd(v.deadline), requirements });
       } else {
-        await createVacancy(orgId, { title: v.title, description: v.description, employment: v.employment, regionId: v.regionId, city: v.city, salaryFromUzs: from, salaryToUzs: to, deadline: toIsoEnd(v.deadline), requirements });
+        await createVacancy(org, { title: v.title, description: v.description, employment: v.employment, regionId: v.regionId, city: v.city, salaryFromUzs: from, salaryToUzs: to, deadline: toIsoEnd(v.deadline), requirements });
       }
       toast.success(t("created"));
       setOpen(false);
@@ -100,6 +102,7 @@ export function OpeningForm({ kind, orgId, options }: { kind: "casting" | "vacan
             <DialogDescription>{t("formText")}</DialogDescription>
           </DialogHeader>
           <form onSubmit={onSubmit} noValidate className="flex flex-col gap-4">
+            {organizations && field(`${kind}-org`, t("organization"), <NativeSelect id={`${kind}-org`} value={org} onChange={(e) => (setOrg(e.target.value), setError(null))}>{organizations.map((o) => <option key={o.value} value={o.value}>{o.label}</option>)}</NativeSelect>)}
             {field(`${kind}-title`, t("fieldTitle"), <Input id={`${kind}-title`} className="h-10" value={v.title} maxLength={150} onChange={(e) => set("title", e.target.value)} />)}
             {field(`${kind}-desc`, t("fieldDescription"), <Textarea id={`${kind}-desc`} rows={4} value={v.description} maxLength={5000} onChange={(e) => set("description", e.target.value)} />)}
             {field(`${kind}-deadline`, t("deadline"), <Input id={`${kind}-deadline`} className="h-10" type="date" min={today} value={v.deadline} onChange={(e) => set("deadline", e.target.value)} />)}

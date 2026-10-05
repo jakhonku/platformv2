@@ -6,7 +6,9 @@ import type { Casting, Requirements, Vacancy } from "../../types/opportunity.ts"
 import type { NotificationChannel } from "../../types/system.ts";
 import type { TalentProfile } from "../../types/talent.ts";
 import { REGIONS } from "../constants/index.ts";
+import { completeness } from "../review.ts";
 import { MOCK_NOW } from "../mock/now.ts";
+import { lastQuarter, weeklySeries } from "./series.ts";
 import { createRng } from "../mock/random.ts";
 import { parseYoutubeId, validateUpload, type UploadKind } from "../upload.ts";
 import { DataError } from "./errors.ts";
@@ -43,6 +45,8 @@ const profilePatchSchema = z
     fullName: z.string().trim().min(2).max(80),
     specialty: z.string().trim().min(2).max(120),
     bio: z.string().max(2000),
+    shortBio: z.string().trim().max(160).optional(),
+    birthYear: z.number().int().min(1940).max(new Date().getFullYear() - 10).optional(),
     regionId: region,
     city: z.string().trim().min(1).max(80),
     instrumentIds: z.array(z.string()).max(10),
@@ -59,11 +63,23 @@ const profilePatchSchema = z
 
 export type TalentProfilePatch = z.input<typeof profilePatchSchema>;
 
+/** OneID orqali tasdiqlangan foydalanuvchining profili to'liq bo'lsa: moderatsiyasiz tasdiqlanadi va nishon beriladi */
+function issueBadgeIfReady(talent: TalentProfile): void {
+  if (talent.moderation === "approved" && talent.verified) return;
+  const user = store.users.find((u) => u.id === talent.userId);
+  if (user?.identity?.verified !== true || user.identity.source !== "oneid") return;
+  if (completeness("profile", talent).percent < 100) return;
+  talent.moderation = "approved";
+  talent.verified = true;
+  talent.badgeIssuedAt ??= new Date().toISOString();
+}
+
 export async function updateTalentProfile(talentId: string, patch: TalentProfilePatch): Promise<TalentProfile> {
   await simulateLatency();
   const talent = store.talents.find((t) => t.id === talentId);
   if (!talent) throw new DataError("not_found", "Profil topilmadi");
   Object.assign(talent, check(profilePatchSchema, patch));
+  issueBadgeIfReady(talent);
   return clone(talent);
 }
 
@@ -138,6 +154,7 @@ export type PortfolioStats = {
   totalViews: number;
   items: { id: string; title: string; views: number }[];
   monthly: { month: string; views: number }[];
+  weekly: { week: string; views: number }[];
 };
 
 /** Oylik taqsimot deterministik: jami ko'rishlar 12 oyga ownerId'ga bog'liq og'irliklar bilan bo'linadi */
@@ -161,7 +178,7 @@ export async function getPortfolioStats(ownerId: string): Promise<PortfolioStats
     return { month: d.toISOString().slice(0, 7), views: Math.floor((totalViews * w) / weightSum) };
   });
   monthly[11].views += totalViews - monthly.reduce((n, m) => n + m.views, 0);
-  return { totalViews, items, monthly };
+  return { totalViews, items, monthly, weekly: weeklySeries(lastQuarter(monthly), seed + 1) };
 }
 
 /* ------------------------- Takliflar va bildirishnomalar ------------------------- */
@@ -389,4 +406,33 @@ export async function updateOrganization(id: string, p: { description: string; c
   const v = check(z.object({ description: z.string().trim().min(10).max(3000), city: z.string().trim().min(1).max(80), regionId: region, contacts: contactsSchema }), p);
   Object.assign(org, v);
   return clone(org);
+}
+
+/* ------------------------------ Profil rasmi (avatar) ------------------------------ */
+
+export type AvatarOwner = { type: "talent" | "collective" | "organization"; id: string };
+
+const AVATAR_DATA_URL = /^data:image\/(?:jpeg|png|webp);base64,[A-Za-z0-9+/=]+$/;
+/** Klient 512×512 JPEG'ga kichraytiradi (odatda ~100 KB); server chegarasi ataylab yuqoriroq */
+export const MAX_AVATAR_CHARS = 600_000;
+
+const placeholderFor = (id: string, prefix: "avatar" | "logo", count: number) =>
+  `/placeholders/${prefix}-${([...id].reduce((sum, ch) => sum + ch.charCodeAt(0), 0) % count) + 1}.svg`;
+
+/** Foydalanuvchi o'z profil rasmini (iqtidor/jamoa/tashkilot) almashtiradi; `null` — standart rasmga qaytaradi */
+export async function setAvatar(owner: AvatarOwner, imageUrl: string | null): Promise<{ url: string }> {
+  await simulateLatency();
+  const o = check(z.object({ type: z.enum(["talent", "collective", "organization"]), id: z.string().min(1).max(80) }), owner);
+  if (imageUrl !== null && (imageUrl.length > MAX_AVATAR_CHARS || !AVATAR_DATA_URL.test(imageUrl))) throw invalid("Rasm formati yoki hajmi notoʻgʻri");
+
+  if (o.type === "talent") {
+    const talent = store.talents.find((t) => t.id === o.id);
+    if (!talent) throw new DataError("not_found", "Profil topilmadi");
+    talent.photoUrl = imageUrl ?? placeholderFor(o.id, "avatar", 8);
+    return { url: talent.photoUrl };
+  }
+  const target = o.type === "collective" ? store.collectives.find((c) => c.id === o.id) : store.organizations.find((x) => x.id === o.id);
+  if (!target) throw new DataError("not_found", o.type === "collective" ? "Jamoa topilmadi" : "Tashkilot topilmadi");
+  target.logoUrl = imageUrl ?? placeholderFor(o.id, "logo", 6);
+  return { url: target.logoUrl };
 }

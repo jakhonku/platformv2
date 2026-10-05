@@ -15,7 +15,7 @@ export default function AuthLayout({ children }: { children: React.ReactNode }) 
         </div>
       </header>
       <main className="flex flex-1 items-center justify-center px-3 py-8">
-        <div className="glass-strong w-full max-w-md rounded-[2rem] p-6 sm:p-9">{children}</div>
+        <div className="glass-strong w-full max-w-lg rounded-[2rem] p-6 sm:p-9">{children}</div>
       </main>
     </div>
   );

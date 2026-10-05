@@ -13,12 +13,13 @@ import { deleteOpening, setOpportunityStatus } from "@/lib/data/client";
 import { formatDate } from "@/lib/format";
 import { casting as castingRoute, vacancy as vacancyRoute } from "@/lib/routes";
 import type { LocaleCode } from "@/types/common";
+import { OpeningForm, type OpeningOptions } from "@/components/cabinet/opening-form";
 import { ConfirmDialog } from "./confirm-dialog";
 import { DataTable } from "./data-table";
 
 export type OpeningRow = { key: string; kind: "casting" | "vacancy"; id: string; title: string; organizationName: string; status: "open" | "closed"; deadline: string; applicantsCount: number };
 
-export function OpeningsAdmin({ rows, actorId }: { rows: OpeningRow[]; actorId: string }) {
+export function OpeningsAdmin({ rows, actorId, organizations, options }: { rows: OpeningRow[]; actorId: string; organizations: { value: string; label: string }[]; options: OpeningOptions }) {
   const t = useTranslations("adminPage.openings");
   const tl = useTranslations("labels.status");
   const locale = useLocale() as LocaleCode;
@@ -74,6 +75,12 @@ export function OpeningsAdmin({ rows, actorId }: { rows: OpeningRow[]; actorId: 
 
   return (
     <>
+      {organizations.length > 0 && (
+        <div className="mb-4 flex flex-wrap gap-2">
+          <OpeningForm kind="casting" options={options} organizations={organizations} />
+          <OpeningForm kind="vacancy" options={options} organizations={organizations} />
+        </div>
+      )}
       <DataTable
         data={rows}
         columns={columns}

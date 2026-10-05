@@ -2,6 +2,7 @@ import type { Paginated } from "../../types/common.ts";
 import type { AdminStats, AuditLogEntry } from "../../types/system.ts";
 import type { User } from "../../types/user.ts";
 import { createRng } from "../mock/random.ts";
+import { lastQuarter, weeklySeries } from "./series.ts";
 import { DataError } from "./errors.ts";
 import { parse, userFiltersSchema, type UserFilters } from "./filters.ts";
 import { simulateLatency } from "./latency.ts";
@@ -36,7 +37,9 @@ export async function getAdminStats(): Promise<AdminStats> {
       store.media.filter((m) => m.moderation === "pending").length +
       store.organizations.filter((o) => o.verification === "pending").length +
       store.collectives.filter((c) => c.moderation === "pending").length,
+    newAppeals: store.appeals.filter((a) => a.status === "new").length,
     monthlyViews,
+    weeklyViews: weeklySeries(lastQuarter(monthlyViews), 2027),
   };
 }
 

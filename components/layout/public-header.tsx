@@ -1,6 +1,7 @@
 import { getTranslations } from "next-intl/server";
 import { Button } from "@/components/ui/button";
 import { Link } from "@/i18n/navigation";
+import { homeFor } from "@/lib/auth/flow";
 import { getDemoRole } from "@/lib/demo/server";
 import { isDemoEnabled } from "@/lib/demo/role";
 import { Brand } from "./brand";
@@ -34,15 +35,23 @@ export async function PublicHeader() {
         {isDemoEnabled() && <DemoRoleSwitcher current={role} />}
         <ThemeToggle />
         <LanguageSwitcher />
-        <Button nativeButton={false} size="sm" variant="ghost" className="hidden h-8 rounded-full px-3.5 sm:inline-flex" render={<Link href="/login" />}>
-          {t("nav.login")}
-        </Button>
-        <Button nativeButton={false} size="sm" className="hidden h-8 rounded-full px-4 sm:inline-flex" render={<Link href="/register" />}>
-          {t("nav.register")}
-        </Button>
-        <Button nativeButton={false} size="sm" className="h-8 rounded-full px-4 sm:hidden" render={<Link href="/login" />}>
-          {t("nav.login")}
-        </Button>
+        {role === "guest" ? (
+          <>
+            <Button nativeButton={false} size="sm" variant="ghost" className="hidden h-8 rounded-full px-3.5 sm:inline-flex" render={<Link href="/login" />}>
+              {t("nav.login")}
+            </Button>
+            <Button nativeButton={false} size="sm" className="hidden h-8 rounded-full px-4 sm:inline-flex" render={<Link href="/register" />}>
+              {t("nav.register")}
+            </Button>
+            <Button nativeButton={false} size="sm" className="h-8 rounded-full px-4 sm:hidden" render={<Link href="/login" />}>
+              {t("nav.login")}
+            </Button>
+          </>
+        ) : (
+          <Button nativeButton={false} size="sm" className="h-8 rounded-full px-4" render={<Link href={homeFor(role)} />}>
+            {t("nav.cabinet")}
+          </Button>
+        )}
       </div>
     </header>
   );

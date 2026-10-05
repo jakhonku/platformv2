@@ -15,6 +15,8 @@ export type UserIdentity = {
   source: "oneid" | "manual";
   /** OneID orqali shaxsi (PINFL/STIR) davlat tizimida tasdiqlangan */
   verified: boolean;
+  /** OneID orqali tasdiqlangan vaqt */
+  verifiedAt?: IsoDate;
 };
 
 export type User = {

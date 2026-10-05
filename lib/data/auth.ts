@@ -1,7 +1,7 @@
 import type { Collective, Organization, OrganizationKind } from "../../types/collective.ts";
 import type { TalentProfile } from "../../types/talent.ts";
 import type { User, UserIdentity } from "../../types/user.ts";
-import { DEMO_OTP, parseContact } from "../auth/contact.ts";
+import { DEMO_OTP, localPhone, parseContact } from "../auth/contact.ts";
 import { needsTwoFactor, REGISTERABLE_ROLES } from "../auth/flow.ts";
 import type { Role } from "../demo/role.ts";
 import { slugify } from "../mock/names.ts";
@@ -240,4 +240,100 @@ export async function getSubjectForUser(userId: string): Promise<{ user: User; t
   const organization = store.organizations.find((o) => o.ownerUserId === userId || o.id.replace(/^org-/, "user-org-") === userId);
   const collective = store.collectives.find((c) => c.ownerUserId === userId);
   return clone({ user, ...(talent ? { talent } : {}), ...(collective ? { collective } : {}), ...(organization ? { organization } : {}) });
+}
+
+/* ------------------- Telefon orqali ro'yxatdan o'tish (1-bosqich) va tasdiqlash ------------------- */
+
+const NAME_PART = /^[\p{L}][\p{L}\p{M}'ʻʼ’`-]*(?: [\p{L}][\p{L}\p{M}'ʻʼ’`-]*)*$/u;
+const namePart = (v: string, required: boolean): string => {
+  const t = v.trim().replace(/\s+/g, " ");
+  if (!t && !required) return "";
+  if (t.length < 2 || t.length > 40 || !NAME_PART.test(t)) throw invalid("Ism, familiya yoki sharif notoʻgʻri");
+  return t;
+};
+
+function phoneOf(input: string): string {
+  const contact = parseContact(input);
+  if (!contact || contact.channel !== "phone" || !localPhone(input)) throw invalid("Telefon raqami notoʻgʻri");
+  return contact.value;
+}
+
+/** Mock SMS yuborish: raqam to'g'riligi va bandligini tekshiradi (kod har doim DEMO_OTP) */
+export async function requestRegistrationCode(p: { phone: string }): Promise<{ phone: string }> {
+  await simulateLatency();
+  const phone = phoneOf(p.phone);
+  if (findUser({ channel: "phone", value: phone })) throw new DataError("duplicate", "Bu raqam bilan hisob mavjud");
+  return { phone };
+}
+
+/**
+ * Kodni tasdiqlab hisob yaratadi: FISH + telefon. Hisob "tasdiqlanmagan" (identity.verified=false),
+ * roli `member`: faqat kuzatish; OneID orqali tasdiqlanganda to'liq imkoniyatlar ochiladi.
+ */
+export async function registerMember(p: { lastName: string; firstName: string; middleName?: string; phone: string; code: string }): Promise<{ userId: string }> {
+  await simulateLatency();
+  if (p.code !== DEMO_OTP) throw new DataError("invalid", "Kod notoʻgʻri");
+  const fullName = [namePart(p.lastName, true), namePart(p.firstName, true), namePart(p.middleName ?? "", false)].filter(Boolean).join(" ");
+  const phone = phoneOf(p.phone);
+  if (findUser({ channel: "phone", value: phone })) throw new DataError("duplicate", "Bu raqam bilan hisob mavjud");
+  const user: User = {
+    id: `user-new-${String(store.users.length + 1).padStart(3, "0")}`,
+    fullName,
+    phone,
+    email: "",
+    roles: ["member"],
+    status: "active",
+    createdAt: new Date().toISOString(),
+    identity: { type: "individual", source: "manual", verified: false },
+  };
+  store.users.push(user);
+  return { userId: user.id };
+}
+
+/** Mock SMS (kirish uchun): raqam ro'yxatdan o'tgan bo'lishi kerak */
+export async function requestLoginCode(p: { phone: string }): Promise<{ phone: string }> {
+  await simulateLatency();
+  const phone = phoneOf(p.phone);
+  const user = findUser({ channel: "phone", value: phone });
+  if (!user) throw new DataError("not_found", "Bu raqam bilan hisob topilmadi");
+  if (user.status === "blocked") throw new DataError("forbidden", "Hisob bloklangan");
+  return { phone };
+}
+
+export async function loginWithPhone(p: { phone: string; code: string }): Promise<{ userId: string; role: Role; twoFactor: boolean }> {
+  await simulateLatency();
+  if (p.code !== DEMO_OTP) throw new DataError("invalid", "Kod notoʻgʻri");
+  const user = findUser({ channel: "phone", value: phoneOf(p.phone) });
+  if (!user) throw new DataError("not_found", "Bu raqam bilan hisob topilmadi");
+  if (user.status === "blocked") throw new DataError("forbidden", "Hisob bloklangan");
+  const role = user.roles[0] ?? "guest";
+  return { userId: user.id, role, twoFactor: needsTwoFactor(role) };
+}
+
+/** OneID (mock) orqali shaxsni tasdiqlash: PINFL 14 raqam; bitta PINFL faqat bitta hisobga biriktiriladi */
+export async function verifyIdentity(userId: string, pinfl: string): Promise<{ verified: true }> {
+  await simulateLatency();
+  if (!/^\d{14}$/.test(pinfl)) throw invalid("PINFL 14 raqamdan iborat boʻlsin");
+  const user = store.users.find((u) => u.id === userId);
+  if (!user) throw new DataError("not_found", "Foydalanuvchi topilmadi");
+  if (store.users.some((u) => u.id !== userId && u.identity?.pinfl === pinfl)) throw new DataError("duplicate", "Bu PINFL boshqa hisobga biriktirilgan");
+  user.identity = { type: "individual", pinfl, source: "oneid", verified: true, verifiedAt: new Date().toISOString() };
+  if (user.status === "pending") user.status = "active";
+  return { verified: true };
+}
+
+/**
+ * Tasdiqlangan foydalanuvchi ijodkorlarga qo'shiladi: tanlangan tur bo'yicha bo'sh profil yaratiladi (rol `member` → iqtidor roli).
+ * Profil to'liq to'ldirilgach (updateTalentProfile) moderatsiyasiz tasdiqlanadi va raqamli nishon beriladi.
+ */
+export async function joinCreators(userId: string, kind: "musician" | "vocalist" | "conductor" | "composer"): Promise<{ role: Role }> {
+  await simulateLatency();
+  if (!isTalentRole(kind)) throw invalid("Ijodkor turi notoʻgʻri");
+  const user = store.users.find((u) => u.id === userId);
+  if (!user) throw new DataError("not_found", "Foydalanuvchi topilmadi");
+  if (user.identity?.verified !== true) throw new DataError("forbidden", "Avval OneID orqali tasdiqlang");
+  if (!user.roles.includes("member")) throw new DataError("duplicate", "Siz allaqachon ijodkorsiz");
+  createRecords(user, kind, {}, user.phone ? { phone: user.phone } : {}, false);
+  user.roles = [kind];
+  return { role: kind };
 }

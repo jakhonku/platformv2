@@ -31,5 +31,7 @@ export type AdminStats = {
   castingsOpen: number;
   applications: number;
   pendingModeration: number;
+  newAppeals: number;
   monthlyViews: { month: string; views: number }[];
+  weeklyViews: { week: string; views: number }[];
 };

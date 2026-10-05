@@ -33,6 +33,25 @@ import {
   setReviewChecklist,
   startReview,
   updateOrganization,
+  setAvatar,
+  createAppeal,
+  getMyAppeals,
+  addAppealMessage,
+  getAppeals,
+  replyToAppeal,
+  setAppealStatus,
+  countNewAppeals,
+  markAppealOpened,
+  returnAppeal,
+  getAppealById,
+  getAppealFile,
+  registerMember,
+  requestRegistrationCode,
+  requestLoginCode,
+  loginWithPhone,
+  verifyIdentity,
+  joinCreators,
+  updateTalentProfile,
   getCollectiveDetailById,
   getCollectiveInvitesFor,
   getCollectiveInvitesOf,
@@ -75,7 +94,6 @@ import {
   respondToInvitation,
   saveNotificationSettings,
   updateMedia,
-  updateTalentProfile,
   login,
   registerAccount,
   verifyCode,
@@ -295,6 +313,9 @@ test("notifications, stats, users, audit log, references", async () => {
 
   const stats = await getAdminStats();
   assert.equal(stats.monthlyViews.length, 12);
+  assert.equal(stats.weeklyViews.length, 12);
+  assert.equal(stats.weeklyViews.reduce((n, w) => n + w.views, 0), stats.monthlyViews.slice(-3).reduce((n, m) => n + m.views, 0));
+  assert.ok(stats.weeklyViews.every((w) => new Date(`${w.week}T00:00:00Z`).getUTCDay() === 1)); // dushanba
   assert.ok(stats.users > 40 && stats.castingsOpen >= 6);
 
   const admins = await getUsers({ role: "admin" });
@@ -518,6 +539,11 @@ test("system settings, backup and statistics (Review Focus 6, 7)", async () => {
   const stats = await getAdminStatistics();
   assert.equal(stats.monthlyViews.length, 12);
   assert.ok(stats.talentsByKind.length > 0);
+  assert.ok(stats.talentsByInstrument.length > 0 && stats.talentsByInstrument.length <= 10);
+  assert.equal(stats.talentsByAge.reduce((n, x) => n + x.count, 0), stats.talentsByKind.reduce((n, x) => n + x.count, 0));
+  assert.equal(stats.talentsByExperience.reduce((n, x) => n + x.count, 0), stats.talentsByKind.reduce((n, x) => n + x.count, 0));
+  assert.ok(stats.averages.age !== null && stats.averages.age >= 20 && stats.averages.age <= 70);
+  assert.ok(stats.accounts.verified + stats.accounts.unverified > 0);
 });
 
 test("rejecting requires a reason of at least 5 characters (Review Focus 2)", async () => {
@@ -709,4 +735,112 @@ test("Excel import creates invitations for known talents and keeps the rest as u
   const staff = await importOrganizationStaff("org-01", [...rows, { name: "Xodim Uchinchi", phone: "+998 98 777 66 55", section: "Administrator" }]);
   assert.deepEqual(staff, { matched: 1, unmatched: 2, duplicates: 0 });
   assert.deepEqual(await importOrganizationStaff("org-01", rows), { matched: 0, unmatched: 0, duplicates: 2 });
+});
+
+test("setAvatar: own photo for talent/organization, reset and validation", async () => {
+  const talent = store.talents[0];
+  const png = "data:image/png;base64,iVBORw0KGgo=";
+  const set = await setAvatar({ type: "talent", id: talent.id }, png);
+  assert.equal(set.url, png);
+  assert.equal(store.talents[0].photoUrl, png);
+  const reset = await setAvatar({ type: "talent", id: talent.id }, null);
+  assert.match(reset.url, /^\/placeholders\/avatar-\d\.svg$/);
+
+  const org = store.organizations[0];
+  assert.equal((await setAvatar({ type: "organization", id: org.id }, png)).url, png);
+  assert.match((await setAvatar({ type: "organization", id: org.id }, null)).url, /^\/placeholders\/logo-\d\.svg$/);
+
+  await assert.rejects(() => setAvatar({ type: "talent", id: talent.id }, "https://evil.example/x.png"), { code: "invalid" });
+  await assert.rejects(() => setAvatar({ type: "talent", id: talent.id }, "data:image/svg+xml;base64,PHN2Zz4="), { code: "invalid" });
+  await assert.rejects(() => setAvatar({ type: "talent", id: "nope" }, png), { code: "not_found" });
+});
+
+test("phone onboarding: register -> unverified member -> OneID -> join creators -> complete profile issues badge", async () => {
+  const phone = "+998 91 555 01 02";
+  await requestRegistrationCode({ phone });
+  await assert.rejects(() => registerMember({ lastName: "Karimov", firstName: "Aziz", phone, code: "000000" }), { code: "invalid" });
+  await assert.rejects(() => registerMember({ lastName: "K", firstName: "Aziz", phone, code: "123456" }), { code: "invalid" });
+  const { userId } = await registerMember({ lastName: "Karimov", firstName: "Aziz", middleName: "Bahodir oʻgʻli", phone, code: "123456" });
+  const user = store.users.find((u) => u.id === userId)!;
+  assert.equal(user.fullName, "Karimov Aziz Bahodir oʻgʻli");
+  assert.deepEqual(user.roles, ["member"]);
+  assert.equal(user.identity?.verified, false);
+  await assert.rejects(() => requestRegistrationCode({ phone }), { code: "duplicate" });
+
+  assert.equal((await loginWithPhone({ phone, code: "123456" })).userId, userId);
+  await assert.rejects(() => requestLoginCode({ phone: "+998 90 000 00 00" }), { code: "not_found" });
+
+  await assert.rejects(() => joinCreators(userId, "musician"), { code: "forbidden" }); // OneID'siz imkoni yo'q
+  await assert.rejects(() => verifyIdentity(userId, "123"), { code: "invalid" });
+  await verifyIdentity(userId, "31201900123456");
+  assert.equal(user.identity?.verified, true);
+  assert.equal((await joinCreators(userId, "musician")).role, "musician");
+  assert.deepEqual(user.roles, ["musician"]);
+  await assert.rejects(() => joinCreators(userId, "vocalist"), { code: "duplicate" });
+
+  const talent = store.talents.find((t) => t.userId === userId)!;
+  assert.equal(talent.moderation, "pending");
+  await updateTalentProfile(talent.id, { specialty: "Skripkachi", bio: "Toshkentlik skripkachi, solist.", city: "Toshkent" });
+  assert.equal(talent.moderation, "pending"); // asboblar va kontakt bor, lekin ko'nikma (cholg'u) yo'q
+  await updateTalentProfile(talent.id, { instrumentIds: ["violin"] });
+  assert.equal(talent.moderation, "approved");
+  assert.equal(talent.verified, true);
+  assert.ok(talent.badgeIssuedAt);
+
+  const other = await registerMember({ lastName: "Rahimov", firstName: "Sardor", phone: "+998 93 555 03 04", code: "123456" });
+  await assert.rejects(() => verifyIdentity(other.userId, "31201900123456"), { code: "duplicate" });
+});
+
+test("letters: number, PDF attachments, queue, open, return, resubmit, reply and close", async () => {
+  const user = store.users.find((u) => u.roles.includes("musician"))!;
+  const pdf = (name: string) => ({ name, size: 1200, dataUrl: "data:application/pdf;base64,JVBERi0xLjQK" });
+  await assert.rejects(() => createAppeal(user.id, { kind: "appeal", subject: "Mavzu sarlavhasi", message: "qisqa" }), { code: "invalid" }); // matn ham, PDF ham yo'q
+  await assert.rejects(() => createAppeal(user.id, { kind: "appeal", subject: "Mavzu sarlavhasi", files: [{ name: "x.exe", size: 100, dataUrl: "data:application/pdf;base64,AAAA" }] }), { code: "invalid" });
+  await assert.rejects(() => createAppeal(user.id, { kind: "appeal", subject: "Mavzu sarlavhasi", files: [{ name: "x.pdf", size: 100, dataUrl: "data:text/html;base64,AAAA" }] }), { code: "invalid" });
+  await assert.rejects(() => createAppeal("user-yoq", { kind: "appeal", subject: "Mavzu sarlavhasi", message: "Murojaat matni yetarli uzunlikda" }), { code: "not_found" });
+
+  const before = await countNewAppeals();
+  const a = await createAppeal(user.id, { kind: "opening_request", subject: "Yangi kasting eʼlon qilish", files: [pdf("xat.pdf")] }); // faqat PDF xat
+  assert.match(a.number, /^XT-\d{4}-\d{6}$/);
+  assert.equal(a.status, "new");
+  assert.equal(a.queuePosition, before + 1);
+  assert.equal(a.messages[0].attachments[0].name, "xat.pdf");
+  assert.equal("data" in (a.messages[0].attachments[0] as object), false); // fayl mazmuni ro'yxatda yuborilmaydi
+  assert.equal(a.events[0].type, "created");
+  assert.ok((await getMyAppeals(user.id)).some((x) => x.id === a.id));
+  assert.equal((await getAppeals("new"))[0].status, "new"); // navbat: eng eskisi birinchi
+  const file = await getAppealFile(a.id, a.messages[0].attachments[0].id);
+  assert.equal(file?.userId, user.id);
+  assert.match(file?.data ?? "", /^data:application\/pdf;base64,/);
+
+  const opened = await markAppealOpened(a.id, "user-admin");
+  assert.equal(opened.status, "in_review");
+  assert.ok(opened.openedAt);
+  assert.equal(opened.events.at(-1)?.type, "opened");
+
+  await assert.rejects(() => returnAppeal(a.id, "user-admin", "qisqa"), { code: "invalid" });
+  const returned = await returnAppeal(a.id, "user-admin", "PDF xatda imzo va sana yoʻq, tuzatib yuboring");
+  assert.equal(returned.status, "returned");
+  assert.match(returned.returnReason ?? "", /imzo/);
+
+  await assert.rejects(() => addAppealMessage("boshqa-user", a.id, { text: "Boshqa odam yozishga urinadi" }), { code: "forbidden" });
+  await assert.rejects(() => addAppealMessage(user.id, a.id, { text: "qisqa" }), { code: "invalid" });
+  const resent = await addAppealMessage(user.id, a.id, { text: "Tuzatilgan xat biriktirildi, qayta koʻrib chiqing.", files: [pdf("xat-v2.pdf")] });
+  assert.equal(resent.status, "new");
+  assert.equal(resent.returnReason, undefined);
+  assert.equal(resent.events.at(-1)?.type, "resubmitted");
+  assert.equal(resent.queuePosition, (await countNewAppeals()));
+
+  const notifBefore = store.notifications.filter((n) => n.userId === user.id).length;
+  const answered = await replyToAppeal(a.id, "user-admin", { text: "Eʼlon joylashtirildi, rahmat!" });
+  assert.equal(answered.status, "answered");
+  assert.equal(answered.messages.at(-1)?.from, "admin");
+  assert.equal(store.notifications.filter((n) => n.userId === user.id).length, notifBefore + 1);
+
+  const closed = await replyToAppeal(a.id, "user-admin", { text: "Savolingizga javob berildi." }, true);
+  assert.equal(closed.status, "closed");
+  await assert.rejects(() => addAppealMessage(user.id, a.id, { text: "Yopilgan xatga yozish" }), { code: "forbidden" });
+  await assert.rejects(() => returnAppeal(a.id, "user-admin", "Yopilgan xatni qaytarish mumkin emas"), { code: "forbidden" });
+  assert.equal((await setAppealStatus(a.id, "in_review", "user-admin")).events.at(-1)?.type, "reopened");
+  assert.equal((await getAppealById(a.id))?.number, a.number);
 });

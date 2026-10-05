@@ -48,7 +48,10 @@ export {
   IoLockClosedOutline as Lock,
   IoLockOpenOutline as LockOpen,
   IoLogOutOutline as LogOut,
+  IoAttachOutline as Paperclip,
+  IoPrintOutline as Printer,
   IoMailOutline as Mail,
+  IoChatbubbleEllipsesOutline as MessageSquare,
   IoLocationOutline as MapPin,
   IoMenuOutline as Menu,
   IoMicOutline as Mic,
@@ -102,6 +105,7 @@ import type { IconType } from "react-icons";
 import {
   IoBriefcase,
   IoBusiness,
+  IoChatbubbleEllipses,
   IoClipboard,
   IoCreate,
   IoHome,
@@ -127,6 +131,7 @@ import {
 import {
   IoBriefcaseOutline,
   IoBusinessOutline,
+  IoChatbubbleEllipsesOutline,
   IoClipboardOutline,
   IoCreateOutline,
   IoHomeOutline,
@@ -164,6 +169,7 @@ export {
 const OUTLINE_TO_FILL = new Map<IconType, IconType>([
   [IoBriefcaseOutline, IoBriefcase],
   [IoBusinessOutline, IoBusiness],
+  [IoChatbubbleEllipsesOutline, IoChatbubbleEllipses],
   [IoClipboardOutline, IoClipboard],
   [IoCreateOutline, IoCreate],
   [IoHomeOutline, IoHome],

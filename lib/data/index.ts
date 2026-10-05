@@ -13,6 +13,7 @@ export * from "./media.ts";
 export * from "./account.ts";
 export * from "./invitations.ts";
 export * from "./auth.ts";
+export * from "./appeals.ts";
 export * from "./cabinet.ts";
 export * from "./admin-ops.ts";
 export * from "./review.ts";

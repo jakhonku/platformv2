@@ -26,6 +26,10 @@ export type TalentProfile = {
   /** Qisqa mutaxassislik sarlavhasi, masalan "Skripkachi, solist" */
   specialty: string;
   bio: string;
+  /** Kartochkada ko'rinadigan qisqa tavsif (foydalanuvchi o'zi yozadi, 160 belgigacha) */
+  shortBio?: string;
+  /** Tug'ilgan yil (statistika uchun yosh guruhlari) */
+  birthYear?: number;
   regionId: string;
   city: string;
   instrumentIds: string[];
@@ -43,6 +47,8 @@ export type TalentProfile = {
   contacts: Contacts;
   createdAt: IsoDate;
   moderationNote?: string;
+  /** Raqamli nishon berilgan vaqt (OneID tasdiqlangan + profil to'liq) */
+  badgeIssuedAt?: IsoDate;
 };
 
 export type ComposedWork = {

@@ -6,7 +6,7 @@ import { EmptyState } from "@/components/layout/empty-state";
 import { getNotifications } from "@/lib/data";
 import { getDemoSubject } from "@/lib/demo/server";
 
-const ROLES = ["musician", "vocalist", "conductor", "composer", "collective", "organization"] as const;
+const ROLES = ["member", "musician", "vocalist", "conductor", "composer", "collective", "organization"] as const;
 
 export default async function NotificationsPage() {
   const [t, subject] = await Promise.all([getTranslations("cabinetPage.notifications"), getDemoSubject()]);

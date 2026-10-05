@@ -9,6 +9,7 @@ import {
   Image as ImageIcon,
   LayoutDashboard,
   Mail,
+  MessageSquare,
   Newspaper,
   ScrollText,
   Settings,
@@ -42,7 +43,8 @@ const adminItem = (key: string, icon: Icon, path = key, exact = false): NavItem 
 
 function cabinetNavFor(role: Role): NavItem[] {
   const home = cabinetItem("dashboard", LayoutDashboard, "", true);
-  const common = [cabinetItem("notifications", Bell), cabinetItem("settings", Settings)];
+  const common = [cabinetItem("notifications", Bell), cabinetItem("appeals", MessageSquare), cabinetItem("settings", Settings)];
+  if (role === "member") return [home, ...common];
   if (TALENT_ROLES.includes(role)) {
     return [
       home,
@@ -90,6 +92,7 @@ function adminNavFor(role: Role): NavItem[] {
     return [
       home,
       adminItem("users", Users),
+      adminItem("appeals", MessageSquare),
       ...moderation,
       adminItem("competitions", Trophy),
       adminItem("news", Newspaper),

@@ -20,6 +20,7 @@ export default async function AdminPage() {
     getAuditLog(1, 5),
   ]);
   const queues = [
+    { key: "appeals" as const, count: stats.newAppeals, href: "/admin/appeals" },
     { key: "profiles" as const, count: profiles.length, href: "/admin/profiles" },
     { key: "media" as const, count: media.length, href: "/admin/media" },
     { key: "organizations" as const, count: orgs.length, href: "/admin/organizations" },
@@ -40,7 +41,7 @@ export default async function AdminPage() {
         <StatCard label={t("views")} value={stats.monthlyViews.reduce((n, m) => n + m.views, 0)} icon={Eye} />
       </div>
       <div className="grid gap-4 lg:grid-cols-[minmax(0,2fr)_minmax(0,1fr)]">
-        <StatsChart monthly={stats.monthlyViews} />
+        <StatsChart monthly={stats.monthlyViews} weekly={stats.weeklyViews} />
         <Card className="gap-3 p-4">
           <h2 className="text-base font-semibold">{t("queues")}</h2>
           <ul className="flex flex-col gap-2">

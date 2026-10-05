@@ -182,6 +182,7 @@ function build(kind: TalentKind, i: number): TalentProfile | ConductorProfile | 
       yearTo: k === 0 ? undefined : CURRENT_YEAR - experienceYears + k * 3 + 2,
     })),
     experienceYears,
+    birthYear: CURRENT_YEAR - (21 + experienceYears + ((i * 7 + 3) % 14)),
     currentCollectiveId,
     repertoire: rng.shuffle(REPERTOIRE[kind]).slice(0, rng.int(3, 5)),
     availability: rng.pick(["available", "available", "available", "open_to_offers", "open_to_offers", "busy"] as const),

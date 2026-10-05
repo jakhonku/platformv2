@@ -2,6 +2,7 @@ import { Bell, Briefcase, CalendarDays, ClipboardList, Eye, Mail, Users } from "
 import { getTranslations } from "next-intl/server";
 import { ApplicationStatusBadge } from "@/components/cabinet/application-status";
 import { CabinetGuard } from "@/components/cabinet/cabinet-guard";
+import { MemberHome } from "@/components/cabinet/member-home";
 import { PageHeader } from "@/components/cabinet/page-header";
 import { StatCard } from "@/components/cabinet/stat-card";
 import { EmptyState } from "@/components/layout/empty-state";
@@ -12,7 +13,7 @@ import { getDemoSubject } from "@/lib/demo/server";
 import type { DemoSubject } from "@/lib/demo/subject";
 import { casting as castingRoute, vacancy as vacancyRoute } from "@/lib/routes";
 
-const DASHBOARD_ROLES = ["musician", "vocalist", "conductor", "composer", "collective", "organization"] as const;
+const DASHBOARD_ROLES = ["member", "musician", "vocalist", "conductor", "composer", "collective", "organization"] as const;
 
 async function TalentDashboard({ subject }: { subject: DemoSubject }) {
   const t = await getTranslations("cabinetPage.dashboard");
@@ -101,7 +102,9 @@ export default async function CabinetPage() {
     <div className="flex flex-col gap-6">
       <PageHeader title={t("title")} description={subject.name ? t("welcome", { name: subject.name }) : undefined} />
       <CabinetGuard subject={subject} allow={DASHBOARD_ROLES}>
-        {!hasSubject ? (
+        {subject.role === "member" ? (
+          subject.userId ? <MemberHome subject={subject} /> : <EmptyState title={t("noSubject")} />
+        ) : !hasSubject ? (
           <EmptyState title={t("noSubject")} />
         ) : subject.talent ? (
           <TalentDashboard subject={subject} />

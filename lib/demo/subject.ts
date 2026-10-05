@@ -8,6 +8,9 @@ export type DemoSubject = {
   /** Bildirishnomalar uchun mock foydalanuvchi id; jamoa uchun yo'q */
   userId: string | null;
   name: string;
+  /** Shaxsi OneID orqali tasdiqlangan (kirgan foydalanuvchi uchun) */
+  identityVerified?: boolean;
+  phone?: string;
   talent?: TalentProfile;
   collective?: Collective;
   organization?: Organization;
