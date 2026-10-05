@@ -11,17 +11,19 @@ import { getDemoRole } from "@/lib/demo/server";
 
 export default async function AdminPage() {
   const [t, role] = await Promise.all([getTranslations("adminPage.dashboard"), getDemoRole()]);
-  const [stats, profiles, media, orgs, audit] = await Promise.all([
+  const [stats, profiles, media, orgs, collectives, audit] = await Promise.all([
     getAdminStats(),
     getModerationQueue("profile"),
     getModerationQueue("media"),
     getModerationQueue("organization"),
+    getModerationQueue("collective"),
     getAuditLog(1, 5),
   ]);
   const queues = [
     { key: "profiles" as const, count: profiles.length, href: "/admin/profiles" },
     { key: "media" as const, count: media.length, href: "/admin/media" },
     { key: "organizations" as const, count: orgs.length, href: "/admin/organizations" },
+    { key: "collectives" as const, count: collectives.length, href: "/admin/collectives" },
   ];
 
   return (

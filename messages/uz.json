@@ -52,7 +52,8 @@
     "references": "Spravochniklar",
     "auditLog": "Harakatlar jurnali",
     "statistics": "Statistika",
-    "system": "Tizim sozlamalari"
+    "system": "Tizim sozlamalari",
+    "collectives": "Jamoalarni tasdiqlash"
   },
   "roles": {
     "guest": "Mehmon",
@@ -964,7 +965,8 @@
       "queue": {
         "profiles": "Profillar",
         "media": "Media fayllar",
-        "organizations": "Tashkilotlar"
+        "organizations": "Tashkilotlar",
+        "collectives": "Jamoalar"
       },
       "recentActivity": "Oxirgi harakatlar"
     },
@@ -997,12 +999,14 @@
       "title": {
         "profiles": "Profillar moderatsiyasi",
         "media": "Media moderatsiyasi",
-        "organizations": "Tashkilotlarni tasdiqlash"
+        "organizations": "Tashkilotlarni tasdiqlash",
+        "collectives": "Jamoalarni tasdiqlash"
       },
       "description": {
         "profiles": "Yangi va tahrirlangan profillarni koʻrib chiqing.",
         "media": "Yuklangan materiallarni oldindan koʻrib, tasdiqlang yoki rad eting.",
-        "organizations": "Tashkilotlarning tasdiqlanishini boshqaring."
+        "organizations": "Tashkilotlarning tasdiqlanishini boshqaring.",
+        "collectives": "Yangi orkestr va xorlarni hujjatlar bilan tekshirib tasdiqlang."
       },
       "emptyTitle": "Navbat boʻsh",
       "emptyText": "Koʻrib chiqilishi kerak boʻlgan yozuvlar yoʻq.",
@@ -1016,7 +1020,22 @@
       "rejectedToast": "Rad etildi",
       "error": "Amalni bajarib boʻlmadi",
       "openProfile": "Profilni ochish",
-      "experience": "{count, plural, other {# yillik tajriba}}"
+      "experience": "{count, plural, other {# yillik tajriba}}",
+      "collectiveType": {
+        "orchestra": "Orkestr",
+        "choir": "Xor"
+      },
+      "meta": {
+        "owner": "Egasi",
+        "identity": "Shaxs aniqlanishi",
+        "oneid": "OneID (davlat tizimi)",
+        "manual": "Qoʻlda (tasdiqlanmagan)",
+        "individual": "jismoniy shaxs",
+        "legal": "yuridik shaxs",
+        "stir": "STIR",
+        "documents": "Hujjatlar",
+        "noDocuments": "Hujjat yuklanmagan"
+      }
     },
     "common": {
       "cancel": "Bekor qilish",

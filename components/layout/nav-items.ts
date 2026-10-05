@@ -81,6 +81,7 @@ function adminNavFor(role: Role): NavItem[] {
     adminItem("profiles", ShieldCheck),
     adminItem("media", ImageIcon),
     adminItem("organizations", Building2),
+    adminItem("collectives", UsersRound),
     adminItem("castings", Briefcase),
   ];
   if (role === "moderator") return [home, ...moderation];

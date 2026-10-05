@@ -15,13 +15,36 @@ import { moderate } from "@/lib/data/client";
 import type { ModerationItem, ModerationKind } from "@/lib/data";
 import { formatDate } from "@/lib/format";
 import { talent as talentRoute } from "@/lib/routes";
-import type { Organization } from "@/types/collective";
+import type { Collective, Organization } from "@/types/collective";
 import type { LocaleCode } from "@/types/common";
 import type { MediaItem } from "@/types/media";
 import type { TalentProfile } from "@/types/talent";
 import { MediaPreview } from "./media-preview";
 
 const MIN_REASON = 5;
+
+/** Moderator uchun: shaxs qanday aniqlangan (OneID yoki qo`lda), STIR va yuklangan hujjatlar */
+function Meta({ item }: { item: ModerationItem }) {
+  const t = useTranslations("adminPage.moderation.meta");
+  const m = item.meta;
+  if (!m) return null;
+  const rows: [string, React.ReactNode][] = [];
+  if (m.owner) rows.push([t("owner"), m.owner]);
+  if (m.identity) rows.push([t("identity"), `${t(m.identity)}${m.identityType ? ` · ${t(m.identityType)}` : ""}`]);
+  if (m.stir) rows.push([t("stir"), m.stir]);
+  if (item.kind === "organization" || item.kind === "collective") rows.push([t("documents"), m.documents && m.documents.length > 0 ? m.documents.join(", ") : t("noDocuments")]);
+  if (rows.length === 0) return null;
+  return (
+    <dl className="grid gap-x-3 gap-y-1 rounded-lg bg-muted/60 p-2 text-xs sm:grid-cols-[auto_1fr]">
+      {rows.map(([label, value]) => (
+        <div key={label} className="contents">
+          <dt className="text-muted-foreground">{label}</dt>
+          <dd className="min-w-0 break-words font-medium">{value}</dd>
+        </div>
+      ))}
+    </dl>
+  );
+}
 
 function Payload({ item }: { item: ModerationItem }) {
   const t = useTranslations("adminPage.moderation");
@@ -37,6 +60,16 @@ function Payload({ item }: { item: ModerationItem }) {
         <Link href={talentRoute(p.kind, p.slug)} className="w-fit text-xs font-medium text-primary hover:underline">
           {t("openProfile")}
         </Link>
+      </div>
+    );
+  }
+  if (item.kind === "collective") {
+    const c = item.payload as Collective;
+    return (
+      <div className="flex flex-col gap-1 text-sm">
+        <p className="text-muted-foreground">{t(`collectiveType.${c.type}`)} · {c.members.length}</p>
+        <p className="line-clamp-4 break-words">{c.description || "—"}</p>
+        <p className="break-all text-xs text-muted-foreground">{[c.contacts.email, c.contacts.phone].filter(Boolean).join(" · ")}</p>
       </div>
     );
   }
@@ -90,6 +123,7 @@ export function ModerationQueue({ kind, items, actorId }: { kind: ModerationKind
                   {item.subtitle} · {formatDate(item.submittedAt, locale)}
                 </p>
               </div>
+              <Meta item={item} />
               <Payload item={item} />
               <div className="mt-auto flex flex-wrap gap-2 pt-1">
                 <Button size="sm" disabled={busy} onClick={() => decide(item, "approved")}>

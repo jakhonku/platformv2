@@ -52,7 +52,8 @@
     "references": "Reference data",
     "auditLog": "Audit log",
     "statistics": "Statistics",
-    "system": "System settings"
+    "system": "System settings",
+    "collectives": "Collective approval"
   },
   "roles": {
     "guest": "Guest",
@@ -964,7 +965,8 @@
       "queue": {
         "profiles": "Profiles",
         "media": "Media files",
-        "organizations": "Organizations"
+        "organizations": "Organizations",
+        "collectives": "Collectives"
       },
       "recentActivity": "Recent activity"
     },
@@ -997,12 +999,14 @@
       "title": {
         "profiles": "Profile moderation",
         "media": "Media moderation",
-        "organizations": "Organization approval"
+        "organizations": "Organization approval",
+        "collectives": "Collective approval"
       },
       "description": {
         "profiles": "Review new and edited profiles.",
         "media": "Preview uploaded materials, then approve or reject.",
-        "organizations": "Manage organization verification."
+        "organizations": "Manage organization verification.",
+        "collectives": "Review new orchestras and choirs against their documents and approve them."
       },
       "emptyTitle": "The queue is empty",
       "emptyText": "Nothing needs review right now.",
@@ -1016,7 +1020,22 @@
       "rejectedToast": "Rejected",
       "error": "The action failed",
       "openProfile": "Open profile",
-      "experience": "{count, plural, one {# year of experience} other {# years of experience}}"
+      "experience": "{count, plural, one {# year of experience} other {# years of experience}}",
+      "collectiveType": {
+        "orchestra": "Orchestra",
+        "choir": "Choir"
+      },
+      "meta": {
+        "owner": "Owner",
+        "identity": "Identification",
+        "oneid": "OneID (state system)",
+        "manual": "Manual (unverified)",
+        "individual": "individual",
+        "legal": "legal entity",
+        "stir": "STIR",
+        "documents": "Documents",
+        "noDocuments": "No documents uploaded"
+      }
     },
     "common": {
       "cancel": "Cancel",
