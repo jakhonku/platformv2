@@ -21,3 +21,10 @@ export function parseRole(value: string | undefined): Role {
 export function isDemoEnabled(env: { NODE_ENV?: string; NEXT_PUBLIC_DEMO?: string } = process.env): boolean {
   return env.NODE_ENV !== "production" || env.NEXT_PUBLIC_DEMO === "1";
 }
+
+const TALENT_KINDS: readonly string[] = ["musician", "vocalist", "conductor", "composer"];
+
+/** Demo rol iqtidor roli bo'lsa, mos iqtidor turini qaytaradi (arizachi shu turdan tanlanadi) */
+export function talentKindOfRole(role: Role): "musician" | "vocalist" | "conductor" | "composer" | null {
+  return TALENT_KINDS.includes(role) ? (role as "musician" | "vocalist" | "conductor" | "composer") : null;
+}

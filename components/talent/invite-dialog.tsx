@@ -1,12 +1,13 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Send } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { z } from "zod";
+import { useSingleSubmit } from "@/components/layout/use-single-submit";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
@@ -19,8 +20,6 @@ type Values = { senderName: string; contact: string; message: string };
 export function InviteDialog({ talentId, talentName }: { talentId: string; talentName: string }) {
   const t = useTranslations("invite");
   const [open, setOpen] = useState(false);
-  // Sinxron guard: isSubmitting render'dan keyin yangilanadi, tez ikki bosish ikkinchi yuborishni o'tkazib yubormasligi uchun
-  const sending = useRef(false);
 
   const schema = z.object({
     senderName: z.string().trim().min(2, t("errors.senderName")).max(80, t("errors.senderName")),
@@ -46,16 +45,7 @@ export function InviteDialog({ talentId, talentName }: { talentId: string; talen
     }
   });
 
-  const onFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    if (sending.current) {
-      e.preventDefault();
-      return;
-    }
-    sending.current = true;
-    void onSubmit(e).finally(() => {
-      sending.current = false;
-    });
-  };
+  const onFormSubmit = useSingleSubmit(onSubmit);
 
   return (
     <>

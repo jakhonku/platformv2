@@ -5,11 +5,11 @@ import { StatusBadge } from "@/components/ui/status-badge";
 import { Link } from "@/i18n/navigation";
 import { formatMoneyUzs } from "@/lib/format";
 import { vacancy as vacancyRoute } from "@/lib/routes";
-import type { VacancyItem } from "@/lib/data";
+import type { Vacancy } from "@/types/opportunity";
 import type { LocaleCode } from "@/types/common";
 import { DeadlineLabel } from "./deadline-label";
 
-export function VacancyCard({ vacancy }: { vacancy: VacancyItem }) {
+export function VacancyCard({ vacancy }: { vacancy: Vacancy & { organizationName?: string; applicantsCount?: number } }) {
   const t = useTranslations();
   const locale = useLocale() as LocaleCode;
   const closed = vacancy.status === "closed";
@@ -22,7 +22,7 @@ export function VacancyCard({ vacancy }: { vacancy: VacancyItem }) {
           <h3 className="line-clamp-2 text-sm font-semibold">{vacancy.title}</h3>
           <StatusBadge tone={closed ? "red" : "green"}>{t(`labels.status.${vacancy.status}`)}</StatusBadge>
         </div>
-        <p className="truncate text-sm text-muted-foreground">{vacancy.organizationName}</p>
+        {vacancy.organizationName && <p className="truncate text-sm text-muted-foreground">{vacancy.organizationName}</p>}
         <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-muted-foreground">
           <span className="inline-flex items-center gap-1.5">
             <MapPin className="size-3.5 shrink-0" aria-hidden />
