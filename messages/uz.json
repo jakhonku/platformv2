@@ -37,7 +37,8 @@
     "settings": "Sozlamalar",
     "manageCastings": "Kasting va vakansiyalar",
     "candidates": "Nomzodlar",
-    "collective": "Jamoa sahifasi"
+    "collective": "Jamoa sahifasi",
+    "staff": "Xodimlar"
   },
   "admin": {
     "title": "Administrativ panel",
@@ -853,7 +854,25 @@
     },
     "orgProfile": {
       "contacts": "Aloqa",
-      "publicPage": "Ommaviy sahifani koʻrish"
+      "publicPage": "Ommaviy sahifani koʻrish",
+      "editTitle": "Maʼlumotlarni tahrirlash",
+      "description": "Tavsif",
+      "region": "Hudud",
+      "city": "Shahar",
+      "contact": {
+        "phone": "Telefon",
+        "email": "Email",
+        "telegram": "Telegram",
+        "website": "Veb-sayt"
+      },
+      "save": "Saqlash",
+      "saved": "Maʼlumotlar saqlandi",
+      "errors": {
+        "description": "Tavsif kamida 10 belgi boʻlsin.",
+        "city": "Shaharni kiriting.",
+        "website": "Veb-sayt https:// bilan boshlansin.",
+        "generic": "Saqlab boʻlmadi."
+      }
     },
     "openings": {
       "title": "Kasting va vakansiyalar",
@@ -953,7 +972,8 @@
         "duplicate": "Bu iqtidor allaqachon aʼzo yoki unga taklif yuborilgan.",
         "eventFields": "Nom va joyni kiriting (kamida 2 belgi).",
         "eventDate": "Sanani tanlang.",
-        "generic": "Amalni bajarib boʻlmadi."
+        "generic": "Amalni bajarib boʻlmadi.",
+        "city": "Shaharni kiriting."
       },
       "inviteMember": "Taklif yuborish",
       "inviteSent": "Taklif yuborildi. Iqtidor qabul qilgach aʼzo boʻladi",
@@ -963,14 +983,81 @@
         "pending": "Kutilmoqda",
         "accepted": "Qabul qilindi",
         "declined": "Rad etildi"
-      }
+      },
+      "region": "Hudud",
+      "city": "Shahar",
+      "unregisteredTitle": "Roʻyxatdan oʻtmagan aʼzolar ({count})"
     },
     "banner": {
       "pendingTitle": "Moderator tasdigʻi kutilmoqda",
       "pendingText": "Yozuvingiz ommaga koʻrinmaydi va tashkilotlar kasting yarata olmaydi. Tasdiqlangach avtomatik ochiladi.",
       "rejectedTitle": "Yozuv rad etildi",
       "rejectedText": "Maʼlumotlarni toʻgʻrilab, qoʻllab-quvvatlashga murojaat qiling.",
-      "reason": "Sabab: {reason}"
+      "reason": "Sabab: {reason}",
+      "missing": "Toʻldirilishi kerak: {fields}."
+    },
+    "staff": {
+      "title": "Xodimlar",
+      "description": "Tashkilot xodimlarini Excel orqali import qiling.",
+      "listTitle": "Xodimlar roʻyxati ({count})",
+      "empty": "Xodimlar hali qoʻshilmagan"
+    },
+    "import": {
+      "title": "Excel orqali ommaviy import",
+      "descriptionCollective": "Jamoa aʼzolarini fayldan yuklang. Platformada telefon raqami boʻyicha topilganlarga taklif yuboriladi, qolganlari roʻyxatdan oʻtmagan aʼzo sifatida saqlanadi.",
+      "descriptionOrganization": "Xodimlarni fayldan yuklang. Platformada telefon raqami boʻyicha topilganlar profiliga bogʻlanadi.",
+      "columnsHint": "Ustunlar: F.I.Sh., Telefon, Partiya/Lavozim. .xlsx yoki .csv, koʻpi bilan {max} qator.",
+      "downloadTemplate": "Shablonni yuklab olish",
+      "chooseFile": "Fayl tanlash",
+      "drop": "Faylni shu yerga tashlang",
+      "reading": "Fayl oʻqilmoqda…",
+      "errors": {
+        "size": "Fayl hajmi {size} dan oshmasligi kerak.",
+        "format": "Faqat .xlsx yoki .csv fayllar qabul qilinadi.",
+        "empty": "Faylda maʼlumot topilmadi.",
+        "read": "Faylni oʻqib boʻlmadi. Formatni tekshiring.",
+        "generic": "Import qilib boʻlmadi."
+      },
+      "summary": {
+        "total": "Jami qator: {count}",
+        "valid": "Toʻgʻri: {count}",
+        "errors": "Xato: {count}"
+      },
+      "tooMany": "Qatorlar soni {max} dan oshib ketgan. Faylni boʻlib yuklang.",
+      "more": "… yana {count} ta qator",
+      "columns": {
+        "name": "F.I.Sh.",
+        "phone": "Telefon",
+        "section": "Partiya / lavozim"
+      },
+      "errorsTitle": "Xato qatorlar ({count})",
+      "errorLine": "{line}-qator: {reason}",
+      "reasons": {
+        "name": "ism notoʻgʻri",
+        "phone": "telefon notoʻgʻri",
+        "duplicate": "takroriy telefon"
+      },
+      "confirm": "Importni tasdiqlash ({count} ta)",
+      "importing": "Import qilinmoqda…",
+      "cancel": "Bekor qilish",
+      "imported": "Import yakunlandi",
+      "resultTitle": "Import natijasi",
+      "resultCollective": "{matched} ta iqtidorga taklif yuborildi, {unmatched} ta yangi aʼzo roʻyxatga olindi, {duplicates} ta takror oʻtkazib yuborildi.",
+      "resultOrganization": "{matched} ta xodim profilga bogʻlandi, {unmatched} ta yangi xodim qoʻshildi, {duplicates} ta takror oʻtkazib yuborildi.",
+      "template": {
+        "headerCollective": "F.I.Sh.;Telefon;Partiya",
+        "headerOrganization": "F.I.Sh.;Telefon;Lavozim",
+        "row1": "Aliyev Vali;90 123 45 67;Birinchi skripkalar",
+        "row2": "Karimova Nilufar;+998 91 234 56 78;Soprano"
+      },
+      "list": {
+        "name": "F.I.Sh.",
+        "phone": "Telefon",
+        "status": "Holat",
+        "position": "Lavozim",
+        "linked": "Profilga bogʻlangan",
+        "notRegistered": "Roʻyxatdan oʻtmagan"
+      }
     }
   },
   "adminPage": {

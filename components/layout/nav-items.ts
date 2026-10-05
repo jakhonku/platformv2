@@ -69,6 +69,7 @@ function cabinetNavFor(role: Role): NavItem[] {
       cabinetItem("profile", Building2),
       cabinetItem("manageCastings", Briefcase, "castings"),
       cabinetItem("candidates", Users),
+      cabinetItem("staff", UsersRound),
       ...common,
     ];
   }

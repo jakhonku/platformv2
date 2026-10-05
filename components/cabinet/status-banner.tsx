@@ -1,6 +1,7 @@
 import { Clock, XCircle } from "@/components/icons";
 import { getTranslations } from "next-intl/server";
 import type { DemoSubject } from "@/lib/demo/subject";
+import { completeness } from "@/lib/review";
 
 /** Yozuv moderator tomonidan tasdiqlanmaguncha (yoki rad etilgan bo`lsa) kabinet tepasida ko`rinadi */
 export async function StatusBanner({ subject }: { subject: DemoSubject }) {
@@ -14,6 +15,8 @@ export async function StatusBanner({ subject }: { subject: DemoSubject }) {
   if (!entity || entity.status === "approved") return null;
 
   const t = await getTranslations("cabinetPage.banner");
+  const tm = await getTranslations("adminPage.review.missing");
+  const missing = subject.talent ? completeness("profile", subject.talent).missing : subject.collective ? completeness("collective", subject.collective).missing : subject.organization ? completeness("organization", subject.organization).missing : [];
   const rejected = entity.status === "rejected";
   const Icon = rejected ? XCircle : Clock;
   return (
@@ -23,6 +26,7 @@ export async function StatusBanner({ subject }: { subject: DemoSubject }) {
         <p className="font-medium">{t(rejected ? "rejectedTitle" : "pendingTitle")}</p>
         <p>{t(rejected ? "rejectedText" : "pendingText")}</p>
         {rejected && entity.note && <p className="break-words">{t("reason", { reason: entity.note })}</p>}
+        {!rejected && missing.length > 0 && <p className="break-words">{t("missing", { fields: missing.map((m) => tm(m)).join(", ") })}</p>}
       </div>
     </div>
   );

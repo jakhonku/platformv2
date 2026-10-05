@@ -37,7 +37,8 @@
     "settings": "Settings",
     "manageCastings": "Castings & vacancies",
     "candidates": "Candidates",
-    "collective": "Collective page"
+    "collective": "Collective page",
+    "staff": "Staff"
   },
   "admin": {
     "title": "Admin panel",
@@ -853,7 +854,25 @@
     },
     "orgProfile": {
       "contacts": "Contacts",
-      "publicPage": "View public page"
+      "publicPage": "View public page",
+      "editTitle": "Edit details",
+      "description": "Description",
+      "region": "Region",
+      "city": "City",
+      "contact": {
+        "phone": "Phone",
+        "email": "Email",
+        "telegram": "Telegram",
+        "website": "Website"
+      },
+      "save": "Save",
+      "saved": "Details saved",
+      "errors": {
+        "description": "The description must be at least 10 characters.",
+        "city": "Enter the city.",
+        "website": "The website must start with https://.",
+        "generic": "Could not save."
+      }
     },
     "openings": {
       "title": "Castings and vacancies",
@@ -953,7 +972,8 @@
         "duplicate": "This talent is already a member or has a pending invitation.",
         "eventFields": "Enter a title and venue (at least 2 characters).",
         "eventDate": "Pick a date.",
-        "generic": "The action failed."
+        "generic": "The action failed.",
+        "city": "Enter the city."
       },
       "inviteMember": "Send invitation",
       "inviteSent": "Invitation sent. The talent joins once they accept",
@@ -963,14 +983,81 @@
         "pending": "Pending",
         "accepted": "Accepted",
         "declined": "Declined"
-      }
+      },
+      "region": "Region",
+      "city": "City",
+      "unregisteredTitle": "Members not yet registered ({count})"
     },
     "banner": {
       "pendingTitle": "Waiting for moderator approval",
       "pendingText": "Your record is not visible publicly and organizations cannot create castings. Everything opens automatically once approved.",
       "rejectedTitle": "Record rejected",
       "rejectedText": "Fix the details and contact support.",
-      "reason": "Reason: {reason}"
+      "reason": "Reason: {reason}",
+      "missing": "Still to fill in: {fields}."
+    },
+    "staff": {
+      "title": "Staff",
+      "description": "Import your organization's staff from Excel.",
+      "listTitle": "Staff list ({count})",
+      "empty": "No staff added yet"
+    },
+    "import": {
+      "title": "Bulk import from Excel",
+      "descriptionCollective": "Upload collective members from a file. People found on the platform by phone get an invitation; the rest are saved as unregistered members.",
+      "descriptionOrganization": "Upload staff from a file. People found on the platform by phone are linked to their profile.",
+      "columnsHint": "Columns: Full name, Phone, Section/Position. .xlsx or .csv, up to {max} rows.",
+      "downloadTemplate": "Download template",
+      "chooseFile": "Choose file",
+      "drop": "Drop a file here",
+      "reading": "Reading the file…",
+      "errors": {
+        "size": "The file must not exceed {size}.",
+        "format": "Only .xlsx or .csv files are accepted.",
+        "empty": "No data found in the file.",
+        "read": "Could not read the file. Check its format.",
+        "generic": "The import failed."
+      },
+      "summary": {
+        "total": "Total rows: {count}",
+        "valid": "Valid: {count}",
+        "errors": "Errors: {count}"
+      },
+      "tooMany": "More than {max} rows. Upload the file in parts.",
+      "more": "… {count} more rows",
+      "columns": {
+        "name": "Full name",
+        "phone": "Phone",
+        "section": "Section / position"
+      },
+      "errorsTitle": "Rows with errors ({count})",
+      "errorLine": "Row {line}: {reason}",
+      "reasons": {
+        "name": "invalid name",
+        "phone": "invalid phone",
+        "duplicate": "duplicate phone"
+      },
+      "confirm": "Confirm import ({count})",
+      "importing": "Importing…",
+      "cancel": "Cancel",
+      "imported": "Import finished",
+      "resultTitle": "Import result",
+      "resultCollective": "Invitations sent: {matched}, new members added: {unmatched}, duplicates skipped: {duplicates}.",
+      "resultOrganization": "Linked to a profile: {matched}, new staff added: {unmatched}, duplicates skipped: {duplicates}.",
+      "template": {
+        "headerCollective": "Full name;Phone;Section",
+        "headerOrganization": "Full name;Phone;Position",
+        "row1": "Aliyev Vali;90 123 45 67;First violins",
+        "row2": "Karimova Nilufar;+998 91 234 56 78;Soprano"
+      },
+      "list": {
+        "name": "Full name",
+        "phone": "Phone",
+        "status": "Status",
+        "position": "Position",
+        "linked": "Linked to a profile",
+        "notRegistered": "Not registered"
+      }
     }
   },
   "adminPage": {
