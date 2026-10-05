@@ -1076,6 +1076,98 @@
         "link": "Havola / yoki https:// bilan boshlansin.",
         "generic": "Saqlab boʻlmadi."
       }
+    },
+    "references": {
+      "title": "Spravochniklar",
+      "description": "Cholgʻular, ovoz turlari, hududlar va turkumlarni boshqaring.",
+      "kinds": {
+        "instrument": "Cholgʻular",
+        "voiceType": "Ovoz turlari",
+        "region": "Hududlar",
+        "category": "Turkumlar"
+      },
+      "extra": {
+        "instrument": "Oila",
+        "voiceType": "Diapazon",
+        "region": "Shaharlar soni",
+        "category": "Turi"
+      },
+      "nameColumn": "Nomi",
+      "add": "Qoʻshish",
+      "edit": "Tahrirlash",
+      "delete": "Oʻchirish",
+      "empty": "Yozuvlar yoʻq",
+      "createTitle": "Yangi yozuv",
+      "editTitle": "Yozuvni tahrirlash",
+      "name": "Nomi ({lang})",
+      "family": "Oila",
+      "low": "Quyi nota (masalan C3)",
+      "high": "Yuqori nota (masalan C5)",
+      "cities": "Shaharlar (har biri yangi qatordan)",
+      "categoryKind": "Turkum turi",
+      "cancel": "Bekor qilish",
+      "save": "Saqlash",
+      "saved": "Saqlandi",
+      "deleted": "Oʻchirildi",
+      "deleteTitle": "Yozuvni oʻchirish",
+      "deleteText": "«{name}» oʻchiriladi. Ishlatilayotgan joylarda identifikator koʻrsatiladi.",
+      "errors": {
+        "names": "Uchala tilda nom kiriting.",
+        "range": "Notalar formati notoʻgʻri (masalan C4, F#3).",
+        "generic": "Amalni bajarib boʻlmadi."
+      }
+    },
+    "audit": {
+      "title": "Harakatlar jurnali",
+      "description": "Admin va moderatorlarning barcha harakatlari.",
+      "when": "Vaqt",
+      "actor": "Kim",
+      "action": "Harakat",
+      "entity": "Obyekt",
+      "details": "Izoh",
+      "filter": "Harakat boʻyicha filtr",
+      "all": "Hammasi",
+      "empty": "Yozuvlar yoʻq"
+    },
+    "statistics": {
+      "title": "Statistika",
+      "description": "Platforma boʻyicha umumiy tahlil.",
+      "noData": "Maʼlumot yoʻq",
+      "talentsByKind": "Iqtidorlar turi boʻyicha",
+      "applicationsByStatus": "Arizalar holati boʻyicha",
+      "topRegions": "Eng faol hududlar"
+    },
+    "system": {
+      "title": "Tizim sozlamalari",
+      "description": "Platforma sozlamalari va zaxira nusxa.",
+      "settingsTitle": "Sozlamalar",
+      "toggles": {
+        "maintenanceMode": "Texnik ishlar rejimi",
+        "allowRegistration": "Roʻyxatdan oʻtishga ruxsat",
+        "moderationRequired": "Moderatsiya majburiy"
+      },
+      "toggleHints": {
+        "maintenanceMode": "Yoqilsa, sayt vaqtincha yopiq deb koʻrsatiladi",
+        "allowRegistration": "Oʻchirilsa, yangi foydalanuvchilar roʻyxatdan oʻta olmaydi",
+        "moderationRequired": "Yangi profil va materiallar tasdiqlangandan keyin koʻrinadi"
+      },
+      "supportEmail": "Qoʻllab-quvvatlash emaili",
+      "save": "Saqlash",
+      "saved": "Sozlamalar saqlandi",
+      "backupTitle": "Zaxira nusxa",
+      "version": "Versiya",
+      "users": "Foydalanuvchilar",
+      "talents": "Iqtidorlar",
+      "media": "Materiallar",
+      "lastBackup": "Oxirgi nusxa",
+      "never": "Hali yaratilmagan",
+      "backupText": "Nusxa JSON fayl sifatida yuklab olinadi.",
+      "backup": "Zaxira nusxa yaratish",
+      "backupDone": "Zaxira nusxa yaratildi",
+      "errors": {
+        "email": "Email notoʻgʻri.",
+        "generic": "Amalni bajarib boʻlmadi."
+      }
     }
   }
 }

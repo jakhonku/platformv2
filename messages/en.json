@@ -1076,6 +1076,98 @@
         "link": "The link must start with / or https://.",
         "generic": "Could not save."
       }
+    },
+    "references": {
+      "title": "References",
+      "description": "Manage instruments, voice types, regions and categories.",
+      "kinds": {
+        "instrument": "Instruments",
+        "voiceType": "Voice types",
+        "region": "Regions",
+        "category": "Categories"
+      },
+      "extra": {
+        "instrument": "Family",
+        "voiceType": "Range",
+        "region": "Cities",
+        "category": "Kind"
+      },
+      "nameColumn": "Name",
+      "add": "Add",
+      "edit": "Edit",
+      "delete": "Delete",
+      "empty": "No records",
+      "createTitle": "New record",
+      "editTitle": "Edit record",
+      "name": "Name ({lang})",
+      "family": "Family",
+      "low": "Lowest note (e.g. C3)",
+      "high": "Highest note (e.g. C5)",
+      "cities": "Cities (one per line)",
+      "categoryKind": "Category kind",
+      "cancel": "Cancel",
+      "save": "Save",
+      "saved": "Saved",
+      "deleted": "Deleted",
+      "deleteTitle": "Delete record",
+      "deleteText": "“{name}” will be deleted. Where it is used, the identifier is shown instead.",
+      "errors": {
+        "names": "Enter the name in all three languages.",
+        "range": "Invalid note format (e.g. C4, F#3).",
+        "generic": "The action failed."
+      }
+    },
+    "audit": {
+      "title": "Audit log",
+      "description": "All actions by admins and moderators.",
+      "when": "When",
+      "actor": "Who",
+      "action": "Action",
+      "entity": "Object",
+      "details": "Details",
+      "filter": "Filter by action",
+      "all": "All",
+      "empty": "No entries"
+    },
+    "statistics": {
+      "title": "Statistics",
+      "description": "Overall platform analytics.",
+      "noData": "No data",
+      "talentsByKind": "Talents by type",
+      "applicationsByStatus": "Applications by status",
+      "topRegions": "Most active regions"
+    },
+    "system": {
+      "title": "System settings",
+      "description": "Platform settings and backup.",
+      "settingsTitle": "Settings",
+      "toggles": {
+        "maintenanceMode": "Maintenance mode",
+        "allowRegistration": "Allow registration",
+        "moderationRequired": "Moderation required"
+      },
+      "toggleHints": {
+        "maintenanceMode": "When on, the site is shown as temporarily closed",
+        "allowRegistration": "When off, new users cannot register",
+        "moderationRequired": "New profiles and materials appear after approval"
+      },
+      "supportEmail": "Support email",
+      "save": "Save",
+      "saved": "Settings saved",
+      "backupTitle": "Backup",
+      "version": "Version",
+      "users": "Users",
+      "talents": "Talents",
+      "media": "Materials",
+      "lastBackup": "Last backup",
+      "never": "Never created",
+      "backupText": "The backup is downloaded as a JSON file.",
+      "backup": "Create backup",
+      "backupDone": "Backup created",
+      "errors": {
+        "email": "Invalid email.",
+        "generic": "The action failed."
+      }
     }
   }
 }
