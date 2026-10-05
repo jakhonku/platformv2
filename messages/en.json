@@ -871,5 +871,63 @@
         "generic": "The action failed."
       }
     }
+  },
+  "adminPage": {
+    "table": {
+      "search": "Search…",
+      "noMatches": "Nothing matches your search.",
+      "page": "Page {current} of {total}",
+      "prev": "Previous",
+      "next": "Next"
+    },
+    "guard": {
+      "title": "This section is not for your role",
+      "text": "A moderator only sees the moderation sections.",
+      "back": "Back to the dashboard"
+    },
+    "dashboard": {
+      "title": "Dashboard",
+      "description": "Overall platform figures.",
+      "users": "Users",
+      "talents": "Talents",
+      "collectives": "Collectives",
+      "organizations": "Organizations",
+      "castingsOpen": "Open castings",
+      "applications": "Applications",
+      "pending": "In moderation",
+      "views": "Views (12 months)",
+      "queues": "Moderation queue",
+      "queue": {
+        "profiles": "Profiles",
+        "media": "Media files",
+        "organizations": "Organizations"
+      },
+      "recentActivity": "Recent activity"
+    },
+    "users": {
+      "title": "Users and roles",
+      "description": "Search users, change their roles and block them.",
+      "name": "Name",
+      "contact": "Contact",
+      "roles": "Roles",
+      "status": "Status",
+      "created": "Registered",
+      "statuses": {
+        "active": "Active",
+        "pending": "Pending",
+        "blocked": "Blocked"
+      },
+      "editRoles": "Edit roles",
+      "block": "Block",
+      "unblock": "Unblock",
+      "blocked": "User blocked",
+      "unblocked": "User unblocked",
+      "rolesSaved": "Roles saved",
+      "cancel": "Cancel",
+      "save": "Save",
+      "empty": "No users found",
+      "lastAdmin": "The last active admin cannot be changed",
+      "error": "The action failed"
+    }
   }
 }

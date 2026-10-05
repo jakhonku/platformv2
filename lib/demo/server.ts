@@ -42,3 +42,8 @@ export async function getDemoSubject(): Promise<DemoSubject> {
   }
   return { role, userId: null, name: "" };
 }
+
+/** Admin harakatlari jurnali uchun mock aktor (demo rolga mos) */
+export async function getActorId(): Promise<string> {
+  return (await getDemoRole()) === "moderator" ? "user-moderator" : "user-admin";
+}

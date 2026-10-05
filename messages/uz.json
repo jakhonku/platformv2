@@ -871,5 +871,63 @@
         "generic": "Amalni bajarib boʻlmadi."
       }
     }
+  },
+  "adminPage": {
+    "table": {
+      "search": "Qidirish…",
+      "noMatches": "Qidiruv boʻyicha hech narsa topilmadi.",
+      "page": "{current} / {total}-sahifa",
+      "prev": "Oldingi",
+      "next": "Keyingi"
+    },
+    "guard": {
+      "title": "Bu boʻlim sizning rolingiz uchun emas",
+      "text": "Moderator faqat moderatsiya boʻlimlarini koʻradi.",
+      "back": "Boshqaruv paneliga qaytish"
+    },
+    "dashboard": {
+      "title": "Boshqaruv paneli",
+      "description": "Platformaning umumiy koʻrsatkichlari.",
+      "users": "Foydalanuvchilar",
+      "talents": "Iqtidorlar",
+      "collectives": "Jamoalar",
+      "organizations": "Tashkilotlar",
+      "castingsOpen": "Ochiq kastinglar",
+      "applications": "Arizalar",
+      "pending": "Moderatsiyada",
+      "views": "Koʻrishlar (12 oy)",
+      "queues": "Moderatsiya navbati",
+      "queue": {
+        "profiles": "Profillar",
+        "media": "Media fayllar",
+        "organizations": "Tashkilotlar"
+      },
+      "recentActivity": "Oxirgi harakatlar"
+    },
+    "users": {
+      "title": "Foydalanuvchilar va rollar",
+      "description": "Foydalanuvchilarni qidiring, rollarini oʻzgartiring va bloklang.",
+      "name": "Ism",
+      "contact": "Kontakt",
+      "roles": "Rollar",
+      "status": "Holat",
+      "created": "Roʻyxatdan oʻtgan",
+      "statuses": {
+        "active": "Faol",
+        "pending": "Kutilmoqda",
+        "blocked": "Bloklangan"
+      },
+      "editRoles": "Rollarni tahrirlash",
+      "block": "Bloklash",
+      "unblock": "Blokdan chiqarish",
+      "blocked": "Foydalanuvchi bloklandi",
+      "unblocked": "Foydalanuvchi blokdan chiqarildi",
+      "rolesSaved": "Rollar saqlandi",
+      "cancel": "Bekor qilish",
+      "save": "Saqlash",
+      "empty": "Foydalanuvchilar topilmadi",
+      "lastAdmin": "Oxirgi faol adminni oʻzgartirib boʻlmaydi",
+      "error": "Amalni bajarib boʻlmadi"
+    }
   }
 }
