@@ -1,15 +1,14 @@
 "use client";
 
-import { use, useEffect, useId, useRef, useState } from "react";
+import { use, useId } from "react";
 import { useLocale, useTranslations } from "next-intl";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { NativeSelect } from "@/components/ui/native-select";
 import { REGIONS } from "@/lib/constants";
 import { localized } from "@/lib/localized";
 import type { LocaleCode } from "@/types/common";
 import type { Instrument, InstrumentFamily, Region, VoiceType } from "@/types/reference";
 import type { TalentKind } from "@/types/talent";
+import { SelectField, TextField } from "./filter-fields";
 import { useUrlFilters } from "./use-url-filters";
 
 export type FilterOptions = {
@@ -26,74 +25,6 @@ const ORG_KINDS = ["philharmonic", "theatre", "conservatory", "college", "school
 const EXPERIENCE = ["2", "5", "10", "20"];
 const RESET_KEYS = ["q", "instrument", "voice", "specialty", "region", "city", "education", "exp", "collective", "availability", "verified", "kind"];
 const AVAILABILITY = ["available", "open_to_offers", "busy"];
-
-function Field({ label, htmlFor, children }: { label: string; htmlFor: string; children: React.ReactNode }) {
-  return (
-    <div className="flex flex-col gap-1.5">
-      <label htmlFor={htmlFor} className="text-sm font-medium">
-        {label}
-      </label>
-      {children}
-    </div>
-  );
-}
-
-/** Matn maydoni: 400 ms kechikish bilan URL'ga `replace` qiladi; URL tashqaridan o'zgarsa (tozalash) yangilanadi */
-function TextField({ param, label, placeholder }: { param: string; label: string; placeholder?: string }) {
-  const { get, set } = useUrlFilters();
-  const id = useId();
-  const urlValue = get(param);
-  const [value, setValue] = useState(urlValue);
-  const committed = useRef(urlValue);
-
-  useEffect(() => {
-    if (urlValue !== committed.current) {
-      committed.current = urlValue;
-      setValue(urlValue);
-    }
-  }, [urlValue]);
-
-  useEffect(() => {
-    if (value === committed.current) return;
-    const timer = setTimeout(() => {
-      committed.current = value.trim();
-      set({ [param]: value.trim() || undefined }, { replace: true });
-    }, 400);
-    return () => clearTimeout(timer);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [value]);
-
-  return (
-    <Field label={label} htmlFor={id}>
-      <Input id={id} type="search" value={value} placeholder={placeholder} onChange={(e) => setValue(e.target.value)} maxLength={100} />
-    </Field>
-  );
-}
-
-function SelectField({
-  param,
-  label,
-  anyLabel,
-  children,
-  onChange,
-}: {
-  param: string;
-  label: string;
-  anyLabel: string;
-  children: React.ReactNode;
-  onChange?: (value: string) => void;
-}) {
-  const { get, set } = useUrlFilters();
-  const id = useId();
-  return (
-    <Field label={label} htmlFor={id}>
-      <NativeSelect id={id} value={get(param)} onChange={(e) => (onChange ? onChange(e.target.value) : set({ [param]: e.target.value || undefined }))}>
-        <option value="">{anyLabel}</option>
-        {children}
-      </NativeSelect>
-    </Field>
-  );
-}
 
 export function FilterPanel({
   kind,
