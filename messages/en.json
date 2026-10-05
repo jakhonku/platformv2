@@ -928,6 +928,31 @@
       "empty": "No users found",
       "lastAdmin": "The last active admin cannot be changed",
       "error": "The action failed"
+    },
+    "moderation": {
+      "title": {
+        "profiles": "Profile moderation",
+        "media": "Media moderation",
+        "organizations": "Organization approval"
+      },
+      "description": {
+        "profiles": "Review new and edited profiles.",
+        "media": "Preview uploaded materials, then approve or reject.",
+        "organizations": "Manage organization verification."
+      },
+      "emptyTitle": "The queue is empty",
+      "emptyText": "Nothing needs review right now.",
+      "approve": "Approve",
+      "reject": "Reject",
+      "cancel": "Cancel",
+      "rejectTitle": "Reason for rejection",
+      "reason": "Reason",
+      "reasonHint": "At least {min} characters. The reason is shown to the user.",
+      "approvedToast": "Approved",
+      "rejectedToast": "Rejected",
+      "error": "The action failed",
+      "openProfile": "Open profile",
+      "experience": "{count, plural, one {# year of experience} other {# years of experience}}"
     }
   }
 }

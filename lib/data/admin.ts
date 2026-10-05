@@ -83,6 +83,7 @@ export async function moderate(
 ): Promise<ModerationItem> {
   await simulateLatency();
   if (decision !== "approved" && decision !== "rejected") throw new DataError("invalid", "Notoʻgʻri qaror");
+  if (decision === "rejected" && (reason?.trim().length ?? 0) < 5) throw new DataError("invalid", "Rad etish sababi kamida 5 belgi boʻlsin");
 
   let item: ModerationItem | undefined;
   if (kind === "profile") {

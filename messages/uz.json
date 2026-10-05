@@ -928,6 +928,31 @@
       "empty": "Foydalanuvchilar topilmadi",
       "lastAdmin": "Oxirgi faol adminni oʻzgartirib boʻlmaydi",
       "error": "Amalni bajarib boʻlmadi"
+    },
+    "moderation": {
+      "title": {
+        "profiles": "Profillar moderatsiyasi",
+        "media": "Media moderatsiyasi",
+        "organizations": "Tashkilotlarni tasdiqlash"
+      },
+      "description": {
+        "profiles": "Yangi va tahrirlangan profillarni koʻrib chiqing.",
+        "media": "Yuklangan materiallarni oldindan koʻrib, tasdiqlang yoki rad eting.",
+        "organizations": "Tashkilotlarning tasdiqlanishini boshqaring."
+      },
+      "emptyTitle": "Navbat boʻsh",
+      "emptyText": "Koʻrib chiqilishi kerak boʻlgan yozuvlar yoʻq.",
+      "approve": "Tasdiqlash",
+      "reject": "Rad etish",
+      "cancel": "Bekor qilish",
+      "rejectTitle": "Rad etish sababi",
+      "reason": "Sabab",
+      "reasonHint": "Kamida {min} ta belgi. Sabab foydalanuvchiga koʻrsatiladi.",
+      "approvedToast": "Tasdiqlandi",
+      "rejectedToast": "Rad etildi",
+      "error": "Amalni bajarib boʻlmadi",
+      "openProfile": "Profilni ochish",
+      "experience": "{count, plural, other {# yillik tajriba}}"
     }
   }
 }

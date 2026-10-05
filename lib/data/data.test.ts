@@ -243,7 +243,7 @@ test("moderation queue and decisions", async () => {
   assert.equal(done.id, item.id);
   assert.ok(!(await getModerationQueue("profile")).some((q) => q.id === item.id));
   assert.equal((await getAuditLog(1, 1)).items[0].entityId, item.id);
-  await assert.rejects(() => moderate("media", "media-yoq", "rejected"), (e: unknown) => e instanceof DataError && e.code === "not_found");
+  await assert.rejects(() => moderate("media", "media-yoq", "rejected", "Sifat yetarli emas"), (e: unknown) => e instanceof DataError && e.code === "not_found");
 });
 
 test("notifications, stats, users, audit log, references", async () => {
@@ -478,4 +478,12 @@ test("system settings, backup and statistics (Review Focus 6, 7)", async () => {
   const stats = await getAdminStatistics();
   assert.equal(stats.monthlyViews.length, 12);
   assert.ok(stats.talentsByKind.length > 0);
+});
+
+test("rejecting requires a reason of at least 5 characters (Review Focus 2)", async () => {
+  const [item] = await getModerationQueue("media");
+  await assert.rejects(() => moderate("media", item.id, "rejected"), { code: "invalid" });
+  await assert.rejects(() => moderate("media", item.id, "rejected", "yo"), { code: "invalid" });
+  const done = await moderate("media", item.id, "rejected", "Sifat talabiga mos emas");
+  assert.equal(done.status, "rejected");
 });
