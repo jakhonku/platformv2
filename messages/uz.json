@@ -571,6 +571,66 @@
       "members": "Aʼzolar",
       "upcomingEvents": "Yaqin tadbirlar",
       "noSubject": "Demo maʼlumot topilmadi"
+    },
+    "applications": {
+      "title": "Mening arizalarim",
+      "description": "Topshirgan arizalaringiz va ularning holati.",
+      "emptyTitle": "Hali ariza topshirmagansiz",
+      "emptyText": "Kastinglar va vakansiyalarga ariza topshiring — holat shu yerda koʻrinadi.",
+      "browse": "Kastinglarni koʻrish",
+      "history": "Holatlar tarixi",
+      "kind": {
+        "casting": "Kasting",
+        "vacancy": "Vakansiya"
+      }
+    },
+    "offers": {
+      "title": "Takliflar",
+      "description": "Tashkilotlar va jamoalardan kelgan takliflar.",
+      "emptyTitle": "Hozircha takliflar yoʻq",
+      "emptyText": "Profilingiz toʻldirilgan boʻlsa, takliflar shu yerda paydo boʻladi.",
+      "accept": "Qabul qilish",
+      "decline": "Rad etish",
+      "acceptedToast": "Taklif qabul qilindi",
+      "declinedToast": "Taklif rad etildi",
+      "error": "Amalni bajarib boʻlmadi",
+      "status": {
+        "new": "Yangi",
+        "accepted": "Qabul qilingan",
+        "declined": "Rad etilgan"
+      }
+    },
+    "notifications": {
+      "title": "Bildirishnomalar",
+      "description": "Platformadagi barcha xabarlar.",
+      "emptyTitle": "Bildirishnomalar yoʻq",
+      "emptyText": "Yangi xabarlar shu yerda koʻrinadi.",
+      "unreadCount": "{count, plural, other {# ta oʻqilmagan}}",
+      "markAll": "Hammasini oʻqilgan qilish",
+      "markRead": "Oʻqilgan",
+      "open": "Ochish",
+      "error": "Amalni bajarib boʻlmadi"
+    },
+    "settings": {
+      "title": "Bildirishnoma sozlamalari",
+      "description": "Xabarlarni qaysi kanallar orqali olishni tanlang.",
+      "legend": "Kanallar",
+      "save": "Saqlash",
+      "saving": "Saqlanmoqda…",
+      "saved": "Sozlamalar saqlandi",
+      "error": "Saqlab boʻlmadi",
+      "channels": {
+        "internal": "Platforma ichida",
+        "email": "Email",
+        "sms": "SMS",
+        "telegram": "Telegram"
+      },
+      "channelHints": {
+        "internal": "Qoʻngʻiroqcha va bildirishnomalar sahifasi",
+        "email": "Xabarlar emailingizga yuboriladi",
+        "sms": "Muhim xabarlar telefonga SMS bilan",
+        "telegram": "Telegram bot orqali"
+      }
     }
   }
 }

@@ -571,6 +571,66 @@
       "members": "Members",
       "upcomingEvents": "Upcoming events",
       "noSubject": "Demo data not found"
+    },
+    "applications": {
+      "title": "My applications",
+      "description": "Applications you submitted and their status.",
+      "emptyTitle": "You have not applied yet",
+      "emptyText": "Apply to castings and vacancies — the status will appear here.",
+      "browse": "Browse castings",
+      "history": "Status history",
+      "kind": {
+        "casting": "Casting",
+        "vacancy": "Vacancy"
+      }
+    },
+    "offers": {
+      "title": "Offers",
+      "description": "Offers from organizations and collectives.",
+      "emptyTitle": "No offers yet",
+      "emptyText": "Once your profile is complete, offers will appear here.",
+      "accept": "Accept",
+      "decline": "Decline",
+      "acceptedToast": "Offer accepted",
+      "declinedToast": "Offer declined",
+      "error": "The action failed",
+      "status": {
+        "new": "New",
+        "accepted": "Accepted",
+        "declined": "Declined"
+      }
+    },
+    "notifications": {
+      "title": "Notifications",
+      "description": "All platform messages.",
+      "emptyTitle": "No notifications",
+      "emptyText": "New messages will appear here.",
+      "unreadCount": "{count, plural, one {# unread} other {# unread}}",
+      "markAll": "Mark all as read",
+      "markRead": "Mark read",
+      "open": "Open",
+      "error": "The action failed"
+    },
+    "settings": {
+      "title": "Notification settings",
+      "description": "Choose how you receive messages.",
+      "legend": "Channels",
+      "save": "Save",
+      "saving": "Saving…",
+      "saved": "Settings saved",
+      "error": "Could not save",
+      "channels": {
+        "internal": "In the platform",
+        "email": "Email",
+        "sms": "SMS",
+        "telegram": "Telegram"
+      },
+      "channelHints": {
+        "internal": "Bell and the notifications page",
+        "email": "Messages to your email",
+        "sms": "Important messages by SMS",
+        "telegram": "Via the Telegram bot"
+      }
     }
   }
 }
