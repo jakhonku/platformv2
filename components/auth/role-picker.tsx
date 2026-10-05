@@ -40,19 +40,22 @@ export function RolePicker() {
   }
 
   return (
-    <div className="grid gap-2 sm:grid-cols-2">
-      {ROLES.map(({ role, icon: RoleIcon }) => (
+    <div className="stagger-in grid gap-2.5 sm:grid-cols-2">
+      {ROLES.map(({ role, icon: RoleIcon }, index) => (
         <button
           key={role}
+          style={{ "--i": index } as React.CSSProperties}
           type="button"
           disabled={pending !== null}
           onClick={() => enter(role)}
           className={cn(
-            "flex min-w-0 items-start gap-3 rounded-xl border p-3 text-left transition-colors hover:bg-muted focus-visible:outline-2 focus-visible:outline-ring disabled:opacity-60",
+            "flex min-w-0 items-center gap-3 rounded-2xl border bg-card p-3 text-left shadow-xs transition-[background-color,border-color,transform] duration-150 ease-[cubic-bezier(0.23,1,0.32,1)] hover:bg-muted active:scale-[0.97] focus-visible:outline-2 focus-visible:outline-ring disabled:opacity-60",
             pending === role && "border-primary bg-primary/10",
           )}
         >
-          <RoleIcon className="mt-0.5 size-5 shrink-0 text-primary" aria-hidden />
+          <span className="flex size-10 shrink-0 items-center justify-center rounded-[11px] bg-primary text-primary-foreground">
+            <RoleIcon className="size-5" aria-hidden />
+          </span>
           <span className="flex min-w-0 flex-col">
             <span className="text-sm font-medium">{tr(role)}</span>
             <span className="text-xs text-muted-foreground">{t(`desc.${role}`)}</span>
