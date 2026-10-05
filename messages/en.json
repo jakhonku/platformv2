@@ -232,7 +232,8 @@
       "experience": "Experience",
       "recent": "Recently added",
       "founded": "Year founded",
-      "members": "Number of members"
+      "members": "Number of members",
+      "deadline": "By deadline"
     },
     "view": {
       "label": "View",
@@ -332,5 +333,126 @@
     "vacancies": "Vacancies",
     "noOpenings": "No open castings or vacancies yet",
     "contacts": "Contacts"
+  },
+  "listing": {
+    "title": {
+      "castings": "Castings",
+      "vacancies": "Vacancies",
+      "competitions": "Competitions",
+      "festivals": "Festivals",
+      "projects": "Projects",
+      "news": "News",
+      "education": "Education and master classes"
+    },
+    "description": {
+      "castings": "Open castings for orchestras, choirs and ensembles: review the requirements and apply.",
+      "vacancies": "Jobs in music: full-time, part-time and contract positions.",
+      "competitions": "National and international competitions: dates, rules and prize funds.",
+      "festivals": "Festival calendar: programme, participants and venue.",
+      "projects": "Current and planned music projects on the platform.",
+      "news": "Latest news from the music world, interviews and announcements.",
+      "education": "Master classes from experienced teachers: online and offline."
+    },
+    "filters": {
+      "query": "Search",
+      "status": "Status",
+      "region": "Region",
+      "instrument": "Instrument",
+      "voice": "Voice type",
+      "kind": "Specialist type",
+      "employment": "Employment type",
+      "category": "Category",
+      "format": "Format",
+      "any": "All",
+      "reset": "Reset"
+    },
+    "format": {
+      "online": "Online",
+      "offline": "Offline"
+    }
+  },
+  "opportunity": {
+    "description": "Description",
+    "requirements": "Requirements",
+    "organization": "Organization",
+    "contacts": "Contacts",
+    "requirement": {
+      "kinds": "Specialist type",
+      "instruments": "Instruments",
+      "voices": "Voice types",
+      "regions": "Regions",
+      "experience": "Experience",
+      "experienceValue": "{count, plural, one {# year or more} other {# years or more}}"
+    },
+    "meta": {
+      "location": "Venue",
+      "eventDate": "Event date",
+      "deadline": "Application deadline",
+      "employment": "Employment type",
+      "salary": "Salary",
+      "city": "City",
+      "applicants": "Applications"
+    },
+    "apply": {
+      "cta": "Apply",
+      "closed": "Applications closed",
+      "applied": "Application sent",
+      "loginToApply": "Sign in to apply",
+      "talentOnly": "Only talent profiles can apply.",
+      "title": "Apply",
+      "description": "An application for “{title}” will be sent as {name}.",
+      "message": "Message (optional)",
+      "media": "Portfolio materials",
+      "noMedia": "No approved materials in the portfolio.",
+      "submit": "Send",
+      "sending": "Sending…",
+      "cancel": "Cancel",
+      "success": "Application sent",
+      "errors": {
+        "duplicate": "You have already applied.",
+        "closed": "Applications are closed.",
+        "generic": "Could not send the application. Please try again.",
+        "message": "The message must not exceed 2000 characters.",
+        "media": "You can select up to 10 materials."
+      }
+    },
+    "backCastings": "All castings",
+    "backVacancies": "All vacancies"
+  },
+  "eventPage": {
+    "when": "Date",
+    "where": "Venue",
+    "prizeFund": "Prize fund",
+    "category": "Category",
+    "deadline": "Application deadline",
+    "lineup": "Line-up",
+    "organizer": "Organizer",
+    "backCompetitions": "All competitions",
+    "backFestivals": "All festivals"
+  },
+  "projectPage": {
+    "organization": "Organization",
+    "collectives": "Participating collectives",
+    "talents": "Participating talents",
+    "period": "Period",
+    "ongoing": "ongoing",
+    "back": "All projects"
+  },
+  "newsPage": {
+    "otherNews": "More news",
+    "back": "All news"
+  },
+  "educationPage": {
+    "teacher": "Teacher",
+    "date": "Date",
+    "duration": "Duration",
+    "hours": "{count, plural, one {# hour} other {# hours}}",
+    "price": "Price",
+    "free": "Free",
+    "seats": "Seats",
+    "seatsLeft": "{count, plural, one {# seat} other {# seats}}",
+    "noSeats": "No seats left",
+    "format": "Format",
+    "back": "All classes"
   }
 }

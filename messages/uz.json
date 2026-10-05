@@ -232,7 +232,8 @@
       "experience": "Tajriba boʻyicha",
       "recent": "Yangi qoʻshilganlar",
       "founded": "Tashkil topgan yil",
-      "members": "Aʼzolar soni"
+      "members": "Aʼzolar soni",
+      "deadline": "Muddat boʻyicha"
     },
     "view": {
       "label": "Koʻrinish",
@@ -332,5 +333,126 @@
     "vacancies": "Vakansiyalar",
     "noOpenings": "Hozircha ochiq kasting va vakansiyalar yoʻq",
     "contacts": "Kontaktlar"
+  },
+  "listing": {
+    "title": {
+      "castings": "Kastinglar",
+      "vacancies": "Vakansiyalar",
+      "competitions": "Tanlovlar",
+      "festivals": "Festivallar",
+      "projects": "Loyihalar",
+      "news": "Yangiliklar",
+      "education": "Taʼlim va mahorat darslari"
+    },
+    "description": {
+      "castings": "Orkestr, xor va ansambllarga ochiq kastinglar: talablarni koʻring va ariza topshiring.",
+      "vacancies": "Musiqa sohasidagi ish oʻrinlari: toʻliq va qisman bandlik, shartnoma asosida.",
+      "competitions": "Respublika va xalqaro tanlovlar: sanalar, shartlar va mukofot fondi.",
+      "festivals": "Festivallar taqvimi: dastur, ishtirokchilar va joy.",
+      "projects": "Platformadagi joriy va rejalashtirilgan musiqiy loyihalar.",
+      "news": "Musiqa olamidan soʻnggi yangiliklar, intervyular va eʼlonlar.",
+      "education": "Tajribali ustozlardan mahorat darslari: onlayn va oflayn."
+    },
+    "filters": {
+      "query": "Qidirish",
+      "status": "Holat",
+      "region": "Hudud",
+      "instrument": "Cholgʻu",
+      "voice": "Ovoz turi",
+      "kind": "Mutaxassis turi",
+      "employment": "Bandlik turi",
+      "category": "Turkum",
+      "format": "Format",
+      "any": "Hammasi",
+      "reset": "Tozalash"
+    },
+    "format": {
+      "online": "Onlayn",
+      "offline": "Oflayn"
+    }
+  },
+  "opportunity": {
+    "description": "Tavsif",
+    "requirements": "Talablar",
+    "organization": "Tashkilot",
+    "contacts": "Aloqa",
+    "requirement": {
+      "kinds": "Mutaxassis turi",
+      "instruments": "Cholgʻular",
+      "voices": "Ovoz turlari",
+      "regions": "Hududlar",
+      "experience": "Tajriba",
+      "experienceValue": "{count, plural, other {# yildan ortiq}}"
+    },
+    "meta": {
+      "location": "Joy",
+      "eventDate": "Tadbir sanasi",
+      "deadline": "Ariza muddati",
+      "employment": "Bandlik turi",
+      "salary": "Maosh",
+      "city": "Shahar",
+      "applicants": "Arizalar"
+    },
+    "apply": {
+      "cta": "Ariza topshirish",
+      "closed": "Qabul yopilgan",
+      "applied": "Ariza topshirilgan",
+      "loginToApply": "Ariza topshirish uchun kiring",
+      "talentOnly": "Ariza topshirish faqat iqtidor profillari uchun.",
+      "title": "Ariza topshirish",
+      "description": "«{title}» uchun {name} nomidan ariza yuboriladi.",
+      "message": "Xabar (ixtiyoriy)",
+      "media": "Portfolio materiallari",
+      "noMedia": "Portfolioda tasdiqlangan material yoʻq.",
+      "submit": "Yuborish",
+      "sending": "Yuborilmoqda…",
+      "cancel": "Bekor qilish",
+      "success": "Ariza yuborildi",
+      "errors": {
+        "duplicate": "Siz allaqachon ariza topshirgansiz.",
+        "closed": "Bu eʼlon uchun ariza qabuli yopilgan.",
+        "generic": "Arizani yuborib boʻlmadi. Qayta urinib koʻring.",
+        "message": "Xabar 2000 belgidan oshmasligi kerak.",
+        "media": "Koʻpi bilan 10 ta material tanlash mumkin."
+      }
+    },
+    "backCastings": "Barcha kastinglar",
+    "backVacancies": "Barcha vakansiyalar"
+  },
+  "eventPage": {
+    "when": "Sana",
+    "where": "Joy",
+    "prizeFund": "Mukofot fondi",
+    "category": "Turkum",
+    "deadline": "Ariza muddati",
+    "lineup": "Ishtirokchilar",
+    "organizer": "Tashkilotchi",
+    "backCompetitions": "Barcha tanlovlar",
+    "backFestivals": "Barcha festivallar"
+  },
+  "projectPage": {
+    "organization": "Tashkilot",
+    "collectives": "Ishtirokchi jamoalar",
+    "talents": "Ishtirokchi iqtidorlar",
+    "period": "Davri",
+    "ongoing": "davom etmoqda",
+    "back": "Barcha loyihalar"
+  },
+  "newsPage": {
+    "otherNews": "Boshqa yangiliklar",
+    "back": "Barcha yangiliklar"
+  },
+  "educationPage": {
+    "teacher": "Ustoz",
+    "date": "Sana",
+    "duration": "Davomiyligi",
+    "hours": "{count, plural, other {# soat}}",
+    "price": "Narxi",
+    "free": "Bepul",
+    "seats": "Oʻrinlar",
+    "seatsLeft": "{count, plural, other {# ta oʻrin}}",
+    "noSeats": "Oʻrin qolmagan",
+    "format": "Format",
+    "back": "Barcha darslar"
   }
 }

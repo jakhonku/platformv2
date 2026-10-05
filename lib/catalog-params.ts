@@ -17,16 +17,16 @@ const DEFAULTS: Record<string, string> = { view: "cards", sort: "name", page: "1
 
 const first = (v: string | string[] | undefined): string | undefined => (Array.isArray(v) ? v[0] : v);
 
-function str(raw: RawParams, key: string): string | undefined {
+export function str(raw: RawParams, key: string): string | undefined {
   const v = first(raw[key])?.trim();
   return v ? v.slice(0, 100) : undefined;
 }
 
-function oneOf<T extends string>(v: string | undefined, list: readonly T[]): T | undefined {
+export function oneOf<T extends string>(v: string | undefined, list: readonly T[]): T | undefined {
   return v !== undefined && (list as readonly string[]).includes(v) ? (v as T) : undefined;
 }
 
-function int(v: string | undefined, min: number, max: number): number | undefined {
+export function int(v: string | undefined, min: number, max: number): number | undefined {
   if (v === undefined || !/^-?\d+$/.test(v)) return undefined;
   const n = Number(v);
   return n >= min && n <= max ? n : undefined;
@@ -36,11 +36,11 @@ function bool(v: string | undefined): true | undefined {
   return v === "true" || v === "1" ? true : undefined;
 }
 
-const parsePage = (raw: RawParams): number => int(str(raw, "page"), 1, 100000) ?? 1;
+export const parsePage = (raw: RawParams): number => int(str(raw, "page"), 1, 100000) ?? 1;
 const parseView = (raw: RawParams): View => oneOf(str(raw, "view"), ["cards", "list"] as const) ?? "cards";
 
 /** Faqat aniqlangan (undefined bo'lmagan) kalitlarni qoldiradi */
-function compact<T extends object>(obj: T): T {
+export function compact<T extends object>(obj: T): T {
   return Object.fromEntries(Object.entries(obj).filter(([, v]) => v !== undefined)) as T;
 }
 

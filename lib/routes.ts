@@ -21,3 +21,4 @@ export const competition = (slug: string): string => `/competitions/${slug}`;
 export const festival = (slug: string): string => `/festivals/${slug}`;
 export const project = (slug: string): string => `/projects/${slug}`;
 export const news = (slug: string): string => `/news/${slug}`;
+export const masterClass = (slug: string): string => `/education/${slug}`;
