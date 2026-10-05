@@ -12,15 +12,18 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
 }
 
 export default async function TwoFactorPage({ searchParams }: { searchParams: Promise<Record<string, string | string[] | undefined>> }) {
-  const raw = (await searchParams).role;
-  const role = parseTwoFactorRole(Array.isArray(raw) ? raw[0] : raw);
+  const params = await searchParams;
+  const first = (v: string | string[] | undefined) => (Array.isArray(v) ? v[0] : v);
+  const role = parseTwoFactorRole(first(params.role));
+  const userParam = first(params.user);
+  const userId = userParam && /^[A-Za-z0-9_-]{1,60}$/.test(userParam) ? userParam : undefined;
   if (!role) return <InvalidLink href="/login" />;
 
   const t = await getTranslations("auth");
   return (
     <>
       <AuthHeading title={t("twoFactorTitle")} text={t("twoFactorText")} />
-      <TwoFactorForm role={role} showDemoCode={isDemoEnabled()} />
+      <TwoFactorForm role={role} userId={userId} showDemoCode={isDemoEnabled()} />
     </>
   );
 }

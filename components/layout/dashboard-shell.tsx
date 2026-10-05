@@ -4,6 +4,7 @@ import { Input } from "@/components/ui/input";
 import { getNotifications } from "@/lib/data";
 import { getDemoSubject } from "@/lib/demo/server";
 import { isDemoEnabled } from "@/lib/demo/role";
+import { StatusBanner } from "@/components/cabinet/status-banner";
 import { Brand } from "./brand";
 import { DashboardNav } from "./dashboard-nav";
 import { DemoRoleSwitcher } from "./demo-role-switcher";
@@ -42,7 +43,10 @@ export async function DashboardShell({ area, children }: { area: NavArea; childr
           <LanguageSwitcher />
           <UserMenu fullName={subject.name || t("common.demoUser")} roleLabel={t(`roles.${role}`)} profileHref={area === "admin" ? "/admin" : "/cabinet/profile"} />
         </header>
-        <main className="flex-1 px-3 py-4 sm:px-6 sm:py-6">{children}</main>
+        <main className="flex-1 px-3 py-4 sm:px-6 sm:py-6">
+          {area === "cabinet" && <StatusBanner subject={subject} />}
+          {children}
+        </main>
       </div>
     </div>
   );

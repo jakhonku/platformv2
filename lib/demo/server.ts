@@ -1,30 +1,43 @@
 import "server-only";
 import { cookies } from "next/headers";
-import { getCollectives, getMediaForOwner, getOrganizations, getTalents } from "@/lib/data";
+import { getCollectives, getMediaForOwner, getOrganizations, getSubjectForUser, getTalents } from "@/lib/data";
 import type { DemoSubject } from "./subject";
-import { parseRole, ROLE_COOKIE, talentKindOfRole, type Role } from "./role";
+import { parseRole, ROLE_COOKIE, talentKindOfRole, USER_COOKIE, type Role } from "./role";
 
 export async function getDemoRole(): Promise<Role> {
   const store = await cookies();
   return parseRole(store.get(ROLE_COOKIE)?.value);
 }
 
+/** Kirgan foydalanuvchining o`z yozuvlari (moderatsiya holatidan qat`i nazar); demo rol almashtirilsa yo`q */
+async function getSignedInSubject(role: Role): Promise<DemoSubject | null> {
+  const userId = (await cookies()).get(USER_COOKIE)?.value;
+  if (!userId) return null;
+  const found = await getSubjectForUser(userId);
+  if (!found || !found.user.roles.includes(role)) return null;
+  const { user, talent, collective, organization } = found;
+  if (talent && talentKindOfRole(role)) return { role, userId: user.id, name: talent.fullName, talent };
+  if (collective && role === "collective") return { role, userId: user.id, name: collective.name, collective };
+  if (organization && role === "organization") return { role, userId: user.id, name: organization.name, organization };
+  return null;
+}
+
 export type DemoApplicant = { talentId: string; name: string; media: { id: string; title: string }[] };
 
-/** Demo rolga mos birinchi tasdiqlangan iqtidor (haqiqiy auth 7-bosqichda); iqtidor roli bo'lmasa null */
+/** Ariza beruvchi: kirgan foydalanuvchining iqtidor profili yoki demo rolga mos birinchi tasdiqlangan iqtidor */
 export async function getDemoApplicant(): Promise<DemoApplicant | null> {
-  const kind = talentKindOfRole(await getDemoRole());
-  if (!kind) return null;
-  const { items } = await getTalents({ kind, verified: true }, 1, 1);
-  const talent = items[0];
+  const subject = await getDemoSubject();
+  const talent = subject.talent;
   if (!talent) return null;
   const media = await getMediaForOwner(talent.id);
   return { talentId: talent.id, name: talent.fullName, media: media.map((m) => ({ id: m.id, title: m.title })) };
 }
 
-/** Rolga mos birinchi tasdiqlangan mock subyekt: iqtidor, jamoa yoki tashkilot */
+/** Rolga mos mock subyekt: avval kirgan foydalanuvchining yozuvi, aks holda birinchi tasdiqlangan demo subyekt */
 export async function getDemoSubject(): Promise<DemoSubject> {
   const role = await getDemoRole();
+  const own = await getSignedInSubject(role);
+  if (own) return own;
   const kind = talentKindOfRole(role);
   if (kind) {
     const talent = (await getTalents({ kind, verified: true }, 1, 1)).items[0];

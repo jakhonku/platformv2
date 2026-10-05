@@ -147,7 +147,64 @@
       "invalid": "Maʼlumotlar notoʻgʻri.",
       "duplicate": "Bu kontakt bilan hisob allaqachon mavjud.",
       "generic": "Xatolik yuz berdi. Qayta urinib koʻring.",
-      "code": "6 xonali kodni toʻliq kiriting."
+      "code": "6 xonali kodni toʻliq kiriting.",
+      "entityName": "Nomni kiriting (kamida 2 belgi).",
+      "stir": "STIR 9 ta raqamdan iborat boʻlsin.",
+      "documents": "Kamida bitta tasdiqlovchi hujjat qoʻshing.",
+      "docFormat": "Hujjat formati yoki hajmi mos emas. Ruxsat etilgan: {formats}, {size} gacha."
+    },
+    "moderationNote": "Roʻyxatdan oʻtgach profilingiz, jamoangiz yoki tashkilotingiz moderator tomonidan koʻrib chiqiladi. Tasdiqlangunga qadar u ommaga koʻrinmaydi.",
+    "representative": "Vakil F.I.Sh.",
+    "entityName": {
+      "collective": "Jamoa nomi",
+      "organization": "Tashkilot nomi"
+    },
+    "collectiveType": {
+      "label": "Jamoa turi",
+      "orchestra": "Orkestr",
+      "choir": "Xor"
+    },
+    "orgKind": "Tashkilot turi",
+    "stir": "STIR (9 raqam)",
+    "stirHint": "Yuridik shaxsning soliq toʻlovchi raqami",
+    "documents": {
+      "label": "Tasdiqlovchi hujjatlar",
+      "hintOrg": "Guvohnoma, nizom yoki ruxsatnoma nusxasi. Moderator tekshiradi.",
+      "hintCollective": "Jamoa nizomi, rahbarlik buyrugʻi yoki tarkib roʻyxati. Moderator tekshiradi.",
+      "limit": "Ruxsat etilgan: {formats}. Hajm: {size} gacha. Eng koʻpi 5 ta.",
+      "add": "Hujjat qoʻshish",
+      "remove": "Hujjatni olib tashlash"
+    },
+    "oneIdDialog": {
+      "cta": "OneID orqali kirish / roʻyxatdan oʻtish",
+      "title": "OneID (demo)",
+      "text": "Davlat tizimi shaxsingizni aniqlaydi: jismoniy shaxs — PINFL, yuridik shaxs — STIR boʻyicha. Hisob boʻlsa kirasiz, boʻlmasa yaratiladi.",
+      "kind": "Shaxs turi",
+      "individual": "Jismoniy shaxs",
+      "legal": "Yuridik shaxs",
+      "pinfl": "PINFL (14 raqam)",
+      "pinflHint": "Demo: istalgan 14 ta raqam",
+      "stir": "STIR (9 raqam)",
+      "stirHint": "Demo: istalgan 9 ta raqam",
+      "fullName": "F.I.Sh. (OneID maʼlumoti)",
+      "representative": "Vakil F.I.Sh.",
+      "role": "Rol",
+      "organizationName": "Tashkilot nomi",
+      "collectiveName": "Jamoa nomi",
+      "moderationNote": "Shaxsingiz OneID bilan tasdiqlanadi, lekin profil, jamoa yoki tashkilot yozuvini baribir moderator tasdiqlaydi.",
+      "cancel": "Bekor qilish",
+      "submit": "Davom etish",
+      "createdToast": "Hisob yaratildi. Yozuv moderator tasdigʻini kutmoqda",
+      "signedInToast": "OneID orqali kirdingiz",
+      "errors": {
+        "pinfl": "PINFL 14 ta raqamdan iborat boʻlsin.",
+        "stir": "STIR 9 ta raqamdan iborat boʻlsin.",
+        "name": "Ismni kiriting (kamida 2 belgi).",
+        "entityName": "Nomni kiriting (kamida 2 belgi).",
+        "forbidden": "Hisob bloklangan.",
+        "invalid": "Maʼlumotlar notoʻgʻri yoki rol mos emas.",
+        "generic": "Amalni bajarib boʻlmadi."
+      }
     }
   },
   "home": {
@@ -870,6 +927,13 @@
         "eventDate": "Sanani tanlang.",
         "generic": "Amalni bajarib boʻlmadi."
       }
+    },
+    "banner": {
+      "pendingTitle": "Moderator tasdigʻi kutilmoqda",
+      "pendingText": "Yozuvingiz ommaga koʻrinmaydi va tashkilotlar kasting yarata olmaydi. Tasdiqlangach avtomatik ochiladi.",
+      "rejectedTitle": "Yozuv rad etildi",
+      "rejectedText": "Maʼlumotlarni toʻgʻrilab, qoʻllab-quvvatlashga murojaat qiling.",
+      "reason": "Sabab: {reason}"
     }
   },
   "adminPage": {

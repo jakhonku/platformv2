@@ -147,7 +147,64 @@
       "invalid": "Invalid data.",
       "duplicate": "An account with this contact already exists.",
       "generic": "Something went wrong. Please try again.",
-      "code": "Enter the full 6-digit code."
+      "code": "Enter the full 6-digit code.",
+      "entityName": "Enter a name (at least 2 characters).",
+      "stir": "STIR must be 9 digits.",
+      "documents": "Add at least one supporting document.",
+      "docFormat": "Unsupported document format or size. Allowed: {formats}, up to {size}."
+    },
+    "moderationNote": "After you register, your profile, collective or organization is reviewed by a moderator. Until approved it is not visible publicly.",
+    "representative": "Representative full name",
+    "entityName": {
+      "collective": "Collective name",
+      "organization": "Organization name"
+    },
+    "collectiveType": {
+      "label": "Collective type",
+      "orchestra": "Orchestra",
+      "choir": "Choir"
+    },
+    "orgKind": "Organization type",
+    "stir": "Tax ID / STIR (9 digits)",
+    "stirHint": "The legal entity taxpayer number",
+    "documents": {
+      "label": "Supporting documents",
+      "hintOrg": "Registration certificate, charter or licence. A moderator reviews them.",
+      "hintCollective": "Collective charter, leadership order or roster. A moderator reviews them.",
+      "limit": "Allowed: {formats}. Up to {size}. At most 5 files.",
+      "add": "Add document",
+      "remove": "Remove document"
+    },
+    "oneIdDialog": {
+      "cta": "Sign in / register with OneID",
+      "title": "OneID (demo)",
+      "text": "The state system identifies you: an individual by PINFL, a legal entity by STIR. If you have an account you sign in, otherwise one is created.",
+      "kind": "Entity type",
+      "individual": "Individual",
+      "legal": "Legal entity",
+      "pinfl": "PINFL (14 digits)",
+      "pinflHint": "Demo: any 14 digits",
+      "stir": "STIR (9 digits)",
+      "stirHint": "Demo: any 9 digits",
+      "fullName": "Full name (OneID data)",
+      "representative": "Representative full name",
+      "role": "Role",
+      "organizationName": "Organization name",
+      "collectiveName": "Collective name",
+      "moderationNote": "Your identity is confirmed through OneID, but a moderator still approves the profile, collective or organization record.",
+      "cancel": "Cancel",
+      "submit": "Continue",
+      "createdToast": "Account created. The record awaits moderator approval",
+      "signedInToast": "Signed in with OneID",
+      "errors": {
+        "pinfl": "PINFL must be 14 digits.",
+        "stir": "STIR must be 9 digits.",
+        "name": "Enter a name (at least 2 characters).",
+        "entityName": "Enter a name (at least 2 characters).",
+        "forbidden": "The account is blocked.",
+        "invalid": "Invalid data or the role does not fit.",
+        "generic": "The action failed."
+      }
     }
   },
   "home": {
@@ -870,6 +927,13 @@
         "eventDate": "Pick a date.",
         "generic": "The action failed."
       }
+    },
+    "banner": {
+      "pendingTitle": "Waiting for moderator approval",
+      "pendingText": "Your record is not visible publicly and organizations cannot create castings. Everything opens automatically once approved.",
+      "rejectedTitle": "Record rejected",
+      "rejectedText": "Fix the details and contact support.",
+      "reason": "Reason: {reason}"
     }
   },
   "adminPage": {

@@ -1,23 +1,26 @@
 "use client";
 
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Building2, Mic2, Music, PenLine, UsersRound, Wand2 } from "lucide-react";
+import { Building2, FileUp, Mic2, Music, PenLine, Trash2, UsersRound, Wand2 } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { Controller, useForm, useWatch } from "react-hook-form";
 import { z } from "zod";
 import { useSingleSubmit } from "@/components/layout/use-single-submit";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { NativeSelect } from "@/components/ui/native-select";
 import { Link, useRouter } from "@/i18n/navigation";
 import { parseContact } from "@/lib/auth/contact";
 import { REGISTERABLE_ROLES } from "@/lib/auth/flow";
 import { registerAccount } from "@/lib/data/client";
 import { DataError } from "@/lib/data/errors";
 import type { Role } from "@/lib/demo/role";
+import { formatBytes, UPLOAD_RULES, validateUpload } from "@/lib/upload";
 import { cn } from "@/lib/utils";
 import { ContactField } from "./contact-field";
 import { FormField } from "./form-field";
+import { OneIdDialog } from "./oneid-dialog";
 import { PasswordInput } from "./password-input";
 
 const ICONS: Record<(typeof REGISTERABLE_ROLES)[number], typeof Music> = {
@@ -28,17 +31,36 @@ const ICONS: Record<(typeof REGISTERABLE_ROLES)[number], typeof Music> = {
   collective: UsersRound,
   organization: Building2,
 };
+const ORG_KINDS = ["philharmonic", "theatre", "conservatory", "college", "school", "festival_org", "agency"] as const;
 
 type Channel = "phone" | "email";
-type Values = { fullName: string; channel: Channel; contact: string; password: string; confirm: string; terms: boolean };
+type Values = {
+  fullName: string;
+  channel: Channel;
+  contact: string;
+  password: string;
+  confirm: string;
+  terms: boolean;
+  entityName: string;
+  stir: string;
+  collectiveType: "orchestra" | "choir";
+  orgKind: (typeof ORG_KINDS)[number];
+};
+type Doc = { name: string; size: number };
 
 export function RegisterForm() {
   const t = useTranslations("auth");
   const tr = useTranslations("roles");
+  const tk = useTranslations("catalog.orgKind");
   const router = useRouter();
+  const fileInput = useRef<HTMLInputElement>(null);
   const [role, setRole] = useState<Role | null>(null);
   const [step, setStep] = useState<1 | 2>(1);
   const [formError, setFormError] = useState<string | null>(null);
+  const [docs, setDocs] = useState<Doc[]>([]);
+  const [docError, setDocError] = useState<string | null>(null);
+  const isOrg = role === "organization";
+  const isEntity = isOrg || role === "collective";
 
   const schema = z
     .object({
@@ -48,11 +70,17 @@ export function RegisterForm() {
       password: z.string().min(8, t("errors.passwordLength")),
       confirm: z.string(),
       terms: z.boolean().refine((v) => v, t("errors.terms")),
+      entityName: z.string(),
+      stir: z.string(),
+      collectiveType: z.enum(["orchestra", "choir"]),
+      orgKind: z.enum(ORG_KINDS),
     })
     .superRefine((v, ctx) => {
       const parsed = parseContact(v.contact);
       if (!parsed || parsed.channel !== v.channel) ctx.addIssue({ code: "custom", path: ["contact"], message: t("errors.contact") });
       if (v.confirm !== v.password) ctx.addIssue({ code: "custom", path: ["confirm"], message: t("errors.passwordMismatch") });
+      if (isEntity && v.entityName.trim().length < 2) ctx.addIssue({ code: "custom", path: ["entityName"], message: t("errors.entityName") });
+      if (isOrg && !/^\d{9}$/.test(v.stir.trim())) ctx.addIssue({ code: "custom", path: ["stir"], message: t("errors.stir") });
     });
 
   const {
@@ -63,16 +91,40 @@ export function RegisterForm() {
     formState: { errors, isSubmitting },
   } = useForm<Values>({
     resolver: zodResolver(schema),
-    defaultValues: { fullName: "", channel: "phone", contact: "", password: "", confirm: "", terms: false },
+    defaultValues: { fullName: "", channel: "phone", contact: "", password: "", confirm: "", terms: false, entityName: "", stir: "", collectiveType: "orchestra", orgKind: "agency" },
   });
   const channel = useWatch({ control, name: "channel" });
+
+  function addFiles(files: FileList | null) {
+    if (!files) return;
+    const next = [...docs];
+    for (const f of Array.from(files)) {
+      const verdict = validateUpload("document", f.name, f.size);
+      if (!verdict.ok) {
+        setDocError(t("errors.docFormat", { formats: UPLOAD_RULES.document.extensions.join(", ").toUpperCase(), size: formatBytes(UPLOAD_RULES.document.maxBytes) }));
+        continue;
+      }
+      setDocError(null);
+      if (next.length < 5) next.push({ name: f.name, size: f.size });
+    }
+    setDocs(next);
+  }
 
   const onSubmit = handleSubmit(async (v) => {
     if (!role) return;
     setFormError(null);
+    if (isEntity && docs.length === 0) return setFormError(t("errors.documents"));
     try {
       const contact = parseContact(v.contact)!.value;
-      await registerAccount({ role, fullName: v.fullName, contact, password: v.password });
+      await registerAccount({
+        role,
+        fullName: v.fullName,
+        contact,
+        password: v.password,
+        ...(isEntity ? { entityName: v.entityName, documents: docs } : {}),
+        ...(isOrg ? { stir: v.stir.trim(), orgKind: v.orgKind } : {}),
+        ...(role === "collective" ? { collectiveType: v.collectiveType } : {}),
+      });
       router.push(`/verify?contact=${encodeURIComponent(contact)}&role=${role}`);
     } catch (error) {
       const code = error instanceof DataError ? error.code : undefined;
@@ -119,6 +171,13 @@ export function RegisterForm() {
         <Button size="lg" disabled={!role} onClick={() => setStep(2)}>
           {t("continue")}
         </Button>
+        <div className="flex items-center gap-3 text-xs text-muted-foreground" aria-hidden>
+          <span className="h-px flex-1 bg-border" />
+          {t("or")}
+          <span className="h-px flex-1 bg-border" />
+        </div>
+        <OneIdDialog />
+        <p className="rounded-lg bg-muted p-3 text-xs text-muted-foreground">{t("moderationNote")}</p>
         {loginLink}
       </div>
     );
@@ -134,7 +193,38 @@ export function RegisterForm() {
           {t("back")}
         </Button>
       </div>
-      <FormField id="reg-name" label={t("fullName")} error={errors.fullName?.message}>
+
+      {isEntity && (
+        <FormField id="reg-entity" label={t(isOrg ? "entityName.organization" : "entityName.collective")} error={errors.entityName?.message}>
+          <Input id="reg-entity" className="h-10" aria-invalid={!!errors.entityName} aria-describedby={errors.entityName ? "reg-entity-error" : undefined} {...register("entityName")} />
+        </FormField>
+      )}
+      {role === "collective" && (
+        <FormField id="reg-ctype" label={t("collectiveType.label")}>
+          <NativeSelect id="reg-ctype" {...register("collectiveType")}>
+            <option value="orchestra">{t("collectiveType.orchestra")}</option>
+            <option value="choir">{t("collectiveType.choir")}</option>
+          </NativeSelect>
+        </FormField>
+      )}
+      {isOrg && (
+        <>
+          <FormField id="reg-kind" label={t("orgKind")}>
+            <NativeSelect id="reg-kind" {...register("orgKind")}>
+              {ORG_KINDS.map((k) => (
+                <option key={k} value={k}>
+                  {tk(k)}
+                </option>
+              ))}
+            </NativeSelect>
+          </FormField>
+          <FormField id="reg-stir" label={t("stir")} hint={t("stirHint")} error={errors.stir?.message}>
+            <Input id="reg-stir" className="h-10" inputMode="numeric" maxLength={9} aria-invalid={!!errors.stir} aria-describedby={errors.stir ? "reg-stir-error" : undefined} {...register("stir")} />
+          </FormField>
+        </>
+      )}
+
+      <FormField id="reg-name" label={isEntity ? t("representative") : t("fullName")} error={errors.fullName?.message}>
         <Input id="reg-name" className="h-10" autoComplete="name" aria-invalid={!!errors.fullName} aria-describedby={errors.fullName ? "reg-name-error" : undefined} {...register("fullName")} />
       </FormField>
       <fieldset className="flex flex-col gap-1.5">
@@ -148,12 +238,7 @@ export function RegisterForm() {
                 channel === c ? "bg-background shadow-sm" : "text-muted-foreground",
               )}
             >
-              <input
-                type="radio"
-                value={c}
-                className="sr-only"
-                {...register("channel", { onChange: () => setValue("contact", "") })}
-              />
+              <input type="radio" value={c} className="sr-only" {...register("channel", { onChange: () => setValue("contact", "") })} />
               {t(`channel.${c}`)}
             </label>
           ))}
@@ -168,6 +253,33 @@ export function RegisterForm() {
       <FormField id="reg-confirm" label={t("confirmPassword")} error={errors.confirm?.message}>
         <PasswordInput id="reg-confirm" autoComplete="new-password" aria-invalid={!!errors.confirm} aria-describedby={errors.confirm ? "reg-confirm-error" : undefined} {...register("confirm")} />
       </FormField>
+
+      {isEntity && (
+        <fieldset className="flex flex-col gap-2 rounded-xl border p-3">
+          <legend className="px-1 text-sm font-medium">{t("documents.label")}</legend>
+          <p className="text-xs text-muted-foreground">{t(isOrg ? "documents.hintOrg" : "documents.hintCollective")}</p>
+          <p className="text-xs text-muted-foreground">{t("documents.limit", { formats: UPLOAD_RULES.document.extensions.join(", ").toUpperCase(), size: formatBytes(UPLOAD_RULES.document.maxBytes) })}</p>
+          <ul className="flex flex-col gap-1">
+            {docs.map((d, i) => (
+              <li key={`${d.name}-${i}`} className="flex items-center justify-between gap-2 rounded-lg bg-muted px-2 py-1 text-sm">
+                <span className="min-w-0 truncate">
+                  {d.name} · {formatBytes(d.size)}
+                </span>
+                <button type="button" aria-label={t("documents.remove")} onClick={() => setDocs((cur) => cur.filter((_, idx) => idx !== i))} className="text-muted-foreground hover:text-foreground">
+                  <Trash2 className="size-4" aria-hidden />
+                </button>
+              </li>
+            ))}
+          </ul>
+          <input ref={fileInput} type="file" multiple className="sr-only" tabIndex={-1} accept={UPLOAD_RULES.document.extensions.map((x) => `.${x}`).join(",")} onChange={(e) => (addFiles(e.target.files), (e.target.value = ""))} />
+          <Button type="button" variant="outline" size="sm" className="w-fit" onClick={() => fileInput.current?.click()}>
+            <FileUp aria-hidden />
+            {t("documents.add")}
+          </Button>
+          <div aria-live="polite">{docError && <p className="text-xs text-destructive">{docError}</p>}</div>
+        </fieldset>
+      )}
+
       <div className="flex flex-col gap-1.5">
         <label htmlFor="reg-terms" className="flex cursor-pointer items-start gap-2 text-sm">
           <input id="reg-terms" type="checkbox" aria-invalid={!!errors.terms} className="mt-0.5 size-4 shrink-0 rounded border-input accent-primary" {...register("terms")} />

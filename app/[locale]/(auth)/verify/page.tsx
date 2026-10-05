@@ -24,7 +24,7 @@ export default async function VerifyPage({ searchParams }: { searchParams: Promi
   return (
     <>
       <AuthHeading title={t("verifyTitle")} text={t("verifyText", { contact: contact.value })} />
-      <VerifyForm role={role} showDemoCode={isDemoEnabled()} />
+      <VerifyForm contact={contact.value} role={role} showDemoCode={isDemoEnabled()} />
     </>
   );
 }

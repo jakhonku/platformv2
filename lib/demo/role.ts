@@ -13,6 +13,7 @@ export const ROLES = [
 export type Role = (typeof ROLES)[number];
 
 export const ROLE_COOKIE = "demo-role";
+export const USER_COOKIE = "demo-user";
 
 export function parseRole(value: string | undefined): Role {
   return (ROLES as readonly string[]).includes(value ?? "") ? (value as Role) : "guest";

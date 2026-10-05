@@ -13,7 +13,7 @@ import { parseContact } from "@/lib/auth/contact";
 import { login } from "@/lib/data/client";
 import { DataError } from "@/lib/data/errors";
 import { FormField } from "./form-field";
-import { OneIdButton } from "./oneid-button";
+import { OneIdDialog } from "./oneid-dialog";
 import { PasswordInput } from "./password-input";
 import { useSignIn } from "./use-sign-in";
 
@@ -38,7 +38,7 @@ export function LoginForm({ showDemoHint }: { showDemoHint: boolean }) {
     setFormError(null);
     try {
       const res = await login(values);
-      await signIn.afterCredentials(res.role);
+      await signIn.afterCredentials(res.role, res.userId);
     } catch (error) {
       const code = error instanceof DataError ? error.code : undefined;
       setFormError(code === "not_found" ? t("errors.notFound") : code === "forbidden" ? t("errors.forbidden") : code === "invalid" ? t("errors.invalid") : t("errors.generic"));
@@ -83,7 +83,7 @@ export function LoginForm({ showDemoHint }: { showDemoHint: boolean }) {
         {t("or")}
         <span className="h-px flex-1 bg-border" />
       </div>
-      <OneIdButton />
+      <OneIdDialog />
       <p className="text-center text-sm text-muted-foreground">
         {t("noAccount")}{" "}
         <Link href="/register" className="font-medium text-primary hover:underline">
