@@ -1,4 +1,4 @@
-import { Globe, Mail, Phone, Send } from "lucide-react";
+import { Globe, Mail, Phone, Send } from "@/components/icons";
 import { useTranslations } from "next-intl";
 import type { Contacts } from "@/types/common";
 

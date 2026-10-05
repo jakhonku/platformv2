@@ -1,4 +1,4 @@
-import { Bell, Briefcase, CalendarDays, ClipboardList, Eye, Mail, Users } from "lucide-react";
+import { Bell, Briefcase, CalendarDays, ClipboardList, Eye, Mail, Users } from "@/components/icons";
 import { getTranslations } from "next-intl/server";
 import { ApplicationStatusBadge } from "@/components/cabinet/application-status";
 import { CabinetGuard } from "@/components/cabinet/cabinet-guard";

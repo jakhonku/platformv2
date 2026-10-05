@@ -17,23 +17,23 @@ import {
   UserRound,
   Users,
   UsersRound,
-  type LucideIcon,
-} from "lucide-react";
+  type Icon,
+} from "@/components/icons";
 import type { Role } from "@/lib/demo/role";
 
 export type NavArea = "cabinet" | "admin";
-export type NavItem = { href: string; labelKey: string; icon: LucideIcon; exact?: boolean };
+export type NavItem = { href: string; labelKey: string; icon: Icon; exact?: boolean };
 
 const TALENT_ROLES: readonly Role[] = ["musician", "vocalist", "conductor", "composer"];
 
-const cabinetItem = (key: string, icon: LucideIcon, path = key, exact = false): NavItem => ({
+const cabinetItem = (key: string, icon: Icon, path = key, exact = false): NavItem => ({
   href: path ? `/cabinet/${path}` : "/cabinet",
   labelKey: `cabinet.${key}`,
   icon,
   exact,
 });
 
-const adminItem = (key: string, icon: LucideIcon, path = key, exact = false): NavItem => ({
+const adminItem = (key: string, icon: Icon, path = key, exact = false): NavItem => ({
   href: path ? `/admin/${path}` : "/admin",
   labelKey: `admin.${key}`,
   icon,

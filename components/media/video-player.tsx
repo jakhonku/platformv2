@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Play, VideoOff } from "lucide-react";
+import { Play, VideoOff } from "@/components/icons";
 import { useTranslations } from "next-intl";
 import { youtubeEmbedUrl } from "@/lib/media";
 import type { MediaItem } from "@/types/media";

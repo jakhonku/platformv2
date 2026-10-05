@@ -1,4 +1,4 @@
-import { MapPin, Wallet } from "lucide-react";
+import { MapPin, Wallet } from "@/components/icons";
 import { useLocale, useTranslations } from "next-intl";
 import { Card } from "@/components/ui/card";
 import { StatusBadge } from "@/components/ui/status-badge";

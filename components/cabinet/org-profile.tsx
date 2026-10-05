@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { ExternalLink, MapPin } from "lucide-react";
+import { ExternalLink, MapPin } from "@/components/icons";
 import { useLocale, useTranslations } from "next-intl";
 import { ContactList } from "@/components/layout/contact-list";
 import { Button } from "@/components/ui/button";

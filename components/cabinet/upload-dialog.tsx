@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef, useState } from "react";
-import { FileUp, Upload } from "lucide-react";
+import { FileUp, Upload } from "@/components/icons";
 import { useTranslations } from "next-intl";
 import { toast } from "sonner";
 import { useSingleSubmit } from "@/components/layout/use-single-submit";

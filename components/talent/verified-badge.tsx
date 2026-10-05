@@ -1,4 +1,4 @@
-import { BadgeCheck } from "lucide-react";
+import { BadgeCheck } from "@/components/icons";
 import { useTranslations } from "next-intl";
 
 export function VerifiedBadge() {

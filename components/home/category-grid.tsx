@@ -1,8 +1,8 @@
-import { AudioLines, Building2, Mic, Music, PenLine, Sparkles, Users, type LucideIcon } from "lucide-react";
+import { AudioLines, Building2, Mic, Music, PenLine, Sparkles, Users, type Icon } from "@/components/icons";
 import { getTranslations } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
 
-const CATEGORIES: { href: string; labelKey: string; icon: LucideIcon }[] = [
+const CATEGORIES: { href: string; labelKey: string; icon: Icon }[] = [
   { href: "/musicians", labelKey: "musicians", icon: Music },
   { href: "/vocalists", labelKey: "vocalists", icon: Mic },
   { href: "/conductors", labelKey: "conductors", icon: Sparkles },

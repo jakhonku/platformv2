@@ -1,4 +1,4 @@
-import { CalendarClock } from "lucide-react";
+import { CalendarClock } from "@/components/icons";
 import { useLocale, useTranslations } from "next-intl";
 import { daysLeft, formatDate } from "@/lib/format";
 import type { LocaleCode } from "@/types/common";

@@ -1,4 +1,4 @@
-import { Eye } from "lucide-react";
+import { Eye } from "@/components/icons";
 import { getTranslations } from "next-intl/server";
 import { CabinetGuard } from "@/components/cabinet/cabinet-guard";
 import { PageHeader } from "@/components/cabinet/page-header";

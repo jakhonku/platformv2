@@ -1,4 +1,4 @@
-import { Briefcase, ClipboardList, Eye, ShieldCheck, UserRound, Users, UsersRound } from "lucide-react";
+import { Briefcase, ClipboardList, Eye, ShieldCheck, UserRound, Users, UsersRound } from "@/components/icons";
 import { getTranslations } from "next-intl/server";
 import { PageHeader } from "@/components/cabinet/page-header";
 import { StatCard } from "@/components/cabinet/stat-card";

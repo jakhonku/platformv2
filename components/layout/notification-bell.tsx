@@ -1,4 +1,4 @@
-import { Bell } from "lucide-react";
+import { Bell } from "@/components/icons";
 import { useTranslations } from "next-intl";
 import { Button } from "@/components/ui/button";
 import { Link } from "@/i18n/navigation";

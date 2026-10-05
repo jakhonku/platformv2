@@ -1,4 +1,4 @@
-import { Search } from "lucide-react";
+import { Search } from "@/components/icons";
 import { getTranslations } from "next-intl/server";
 import { Input } from "@/components/ui/input";
 import { getNotifications } from "@/lib/data";

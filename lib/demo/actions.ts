@@ -20,3 +20,10 @@ export async function signInAs(role: Role, userId?: string): Promise<void> {
   if (userId && /^[\w-]{1,60}$/.test(userId)) store.set(USER_COOKIE, userId, COOKIE_OPTS);
   else store.delete(USER_COOKIE);
 }
+
+/** Chiqish: rol va foydalanuvchi cookie'lari tozalanadi (mehmon holatiga qaytadi) */
+export async function signOut(): Promise<void> {
+  const store = await cookies();
+  store.delete(ROLE_COOKIE);
+  store.delete(USER_COOKIE);
+}

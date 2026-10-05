@@ -1,4 +1,4 @@
-import { Eye } from "lucide-react";
+import { Eye } from "@/components/icons";
 import { useTranslations } from "next-intl";
 import { Card } from "@/components/ui/card";
 import { formatCount } from "@/lib/format";

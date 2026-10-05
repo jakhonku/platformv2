@@ -1,4 +1,4 @@
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft } from "@/components/icons";
 import { Link } from "@/i18n/navigation";
 
 export function DetailShell({ backHref, backLabel, children }: { backHref: string; backLabel: string; children: React.ReactNode }) {

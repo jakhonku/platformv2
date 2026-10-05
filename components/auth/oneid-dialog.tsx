@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { ShieldCheck } from "lucide-react";
+import { ShieldCheck } from "@/components/icons";
 import { useTranslations } from "next-intl";
 import { toast } from "sonner";
 import { useSingleSubmit } from "@/components/layout/use-single-submit";

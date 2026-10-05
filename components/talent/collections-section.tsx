@@ -1,4 +1,4 @@
-import { FolderOpen } from "lucide-react";
+import { FolderOpen } from "@/components/icons";
 import { getTranslations } from "next-intl/server";
 import { EmptyState } from "@/components/layout/empty-state";
 import { Card } from "@/components/ui/card";

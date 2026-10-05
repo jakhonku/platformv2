@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Trash2, UserPlus } from "lucide-react";
+import { Trash2, UserPlus } from "@/components/icons";
 import { useTranslations } from "next-intl";
 import { toast } from "sonner";
 import { EmptyState } from "@/components/layout/empty-state";

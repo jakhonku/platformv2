@@ -1,4 +1,4 @@
-import { Clock, XCircle } from "lucide-react";
+import { Clock, XCircle } from "@/components/icons";
 import { getTranslations } from "next-intl/server";
 import type { DemoSubject } from "@/lib/demo/subject";
 

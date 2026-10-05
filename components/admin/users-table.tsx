@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Ban, Check, ShieldCheck } from "lucide-react";
+import { Ban, Check, ShieldCheck } from "@/components/icons";
 import { useLocale, useTranslations } from "next-intl";
 import { toast } from "sonner";
 import type { LegacyColumnDef } from "@tanstack/react-table/legacy";

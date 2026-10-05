@@ -1,6 +1,6 @@
 "use client";
 
-import { LogOut, UserRound } from "lucide-react";
+import { LogOut, UserRound } from "@/components/icons";
 import { useTranslations } from "next-intl";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
@@ -13,7 +13,8 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { Link } from "@/i18n/navigation";
+import { Link, useRouter } from "@/i18n/navigation";
+import { signOut } from "@/lib/demo/actions";
 
 function initials(name: string) {
   return name
@@ -34,6 +35,7 @@ export function UserMenu({
   profileHref: string;
 }) {
   const t = useTranslations();
+  const router = useRouter();
   return (
     <DropdownMenu>
       <DropdownMenuTrigger
@@ -54,7 +56,13 @@ export function UserMenu({
         <DropdownMenuItem render={<Link href={profileHref} />}>
           <UserRound /> {t("cabinet.profile")}
         </DropdownMenuItem>
-        <DropdownMenuItem render={<Link href="/" />}>
+        <DropdownMenuItem
+          onClick={async () => {
+            await signOut();
+            router.push("/");
+            router.refresh();
+          }}
+        >
           <LogOut /> {t("common.logout")}
         </DropdownMenuItem>
       </DropdownMenuContent>

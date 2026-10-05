@@ -1,4 +1,4 @@
-import { Download, FileText, Music } from "lucide-react";
+import { Download, FileText, Music } from "@/components/icons";
 import { useTranslations } from "next-intl";
 import { Card } from "@/components/ui/card";
 import type { MediaItem } from "@/types/media";

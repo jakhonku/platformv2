@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { ArrowLeft, MapPin } from "lucide-react";
+import { ArrowLeft, MapPin } from "@/components/icons";
 import { useLocale, useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
 import { instrumentById, regionById } from "@/lib/constants";

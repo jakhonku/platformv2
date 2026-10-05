@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { MapPin } from "lucide-react";
+import { MapPin } from "@/components/icons";
 import { useLocale, useTranslations } from "next-intl";
 import { VerifiedBadge } from "@/components/talent/verified-badge";
 import { Card } from "@/components/ui/card";

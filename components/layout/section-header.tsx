@@ -1,4 +1,4 @@
-import { ArrowRight } from "lucide-react";
+import { ArrowRight } from "@/components/icons";
 import { Link } from "@/i18n/navigation";
 
 export function SectionHeader({ id, title, href, hrefLabel }: { id: string; title: string; href?: string; hrefLabel?: string }) {

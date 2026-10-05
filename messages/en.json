@@ -135,7 +135,6 @@
       "text": "The data is missing or expired. Please start again.",
       "cta": "Create account"
     },
-    "demoAccounts": "Demo accounts: admin@example.uz (admin), moderator@example.uz. Password: any 8+ characters.",
     "errors": {
       "identifier": "Enter a phone (+998 XX XXX XX XX) or an email.",
       "passwordLength": "The password must be at least 8 characters.",
@@ -205,6 +204,20 @@
         "forbidden": "The account is blocked.",
         "invalid": "Invalid data or the role does not fit.",
         "generic": "The action failed."
+      }
+    },
+    "picker": {
+      "title": "Sign in to the platform",
+      "text": "Choose a role — the platform opens with that role's capabilities.",
+      "desc": {
+        "musician": "Portfolio, applications and offers",
+        "vocalist": "Voice range, repertoire and castings",
+        "conductor": "Working with collectives and profile",
+        "composer": "Works, scores and MIDI",
+        "collective": "Collective page, roster and events",
+        "organization": "Castings, vacancies and candidates",
+        "moderator": "Moderation and approval",
+        "admin": "Full admin panel"
       }
     }
   },

@@ -32,11 +32,8 @@ export async function PublicHeader() {
         <div className="flex-1" />
         {isDemoEnabled() && <DemoRoleSwitcher current={role} />}
         <LanguageSwitcher />
-        <Button nativeButton={false} variant="ghost" size="sm" className="hidden sm:inline-flex" render={<Link href="/login" />}>
+        <Button nativeButton={false} size="sm" render={<Link href="/login" />}>
           {t("nav.login")}
-        </Button>
-        <Button nativeButton={false} size="sm" render={<Link href="/register" />}>
-          {t("nav.register")}
         </Button>
       </div>
     </header>

@@ -1,4 +1,4 @@
-import { CalendarDays, MapPin } from "lucide-react";
+import { CalendarDays, MapPin } from "@/components/icons";
 import { useLocale, useTranslations } from "next-intl";
 import { EmptyState } from "@/components/layout/empty-state";
 import { formatDate } from "@/lib/format";

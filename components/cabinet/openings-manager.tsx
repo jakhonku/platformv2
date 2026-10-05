@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Users } from "lucide-react";
+import { Users } from "@/components/icons";
 import { useTranslations } from "next-intl";
 import { toast } from "sonner";
 import { DeadlineLabel } from "@/components/casting/deadline-label";

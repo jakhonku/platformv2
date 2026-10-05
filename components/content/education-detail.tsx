@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { CalendarDays, Clock, Wallet } from "lucide-react";
+import { CalendarDays, Clock, Wallet } from "@/components/icons";
 import { notFound } from "next/navigation";
 import { getLocale, getTranslations } from "next-intl/server";
 import { SectionBoundary } from "@/components/home/section-boundary";

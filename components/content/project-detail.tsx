@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { CalendarDays } from "lucide-react";
+import { CalendarDays } from "@/components/icons";
 import { notFound } from "next/navigation";
 import { getLocale, getTranslations } from "next-intl/server";
 import { CollectiveCard } from "@/components/collective/collective-card";

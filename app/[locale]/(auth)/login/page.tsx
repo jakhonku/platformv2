@@ -1,7 +1,6 @@
 import { getTranslations } from "next-intl/server";
 import { AuthHeading } from "@/components/auth/auth-heading";
-import { LoginForm } from "@/components/auth/login-form";
-import { isDemoEnabled } from "@/lib/demo/role";
+import { RolePicker } from "@/components/auth/role-picker";
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
@@ -10,11 +9,11 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
 }
 
 export default async function LoginPage() {
-  const t = await getTranslations("auth");
+  const t = await getTranslations("auth.picker");
   return (
     <>
-      <AuthHeading title={t("loginTitle")} text={t("loginText")} />
-      <LoginForm showDemoHint={isDemoEnabled()} />
+      <AuthHeading title={t("title")} text={t("text")} />
+      <RolePicker />
     </>
   );
 }

@@ -1,7 +1,7 @@
 "use client";
 
 import { useTransition } from "react";
-import { Shuffle } from "lucide-react";
+import { Shuffle } from "@/components/icons";
 import { useTranslations } from "next-intl";
 import { Button } from "@/components/ui/button";
 import {

@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Check, X } from "lucide-react";
+import { Check, X } from "@/components/icons";
 import { useLocale, useTranslations } from "next-intl";
 import { toast } from "sonner";
 import { EmptyState } from "@/components/layout/empty-state";

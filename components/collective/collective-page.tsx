@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { ArrowLeft, MapPin } from "lucide-react";
+import { ArrowLeft, MapPin } from "@/components/icons";
 import { notFound } from "next/navigation";
 import { getTranslations, getLocale } from "next-intl/server";
 import { CardSkeletons } from "@/components/layout/card-skeletons";

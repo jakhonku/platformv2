@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { CalendarDays, MapPin } from "lucide-react";
+import { CalendarDays, MapPin } from "@/components/icons";
 import { notFound } from "next/navigation";
 import { getLocale, getTranslations } from "next-intl/server";
 import { DeadlineLabel } from "@/components/casting/deadline-label";

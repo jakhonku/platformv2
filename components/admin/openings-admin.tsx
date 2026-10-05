@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Lock, LockOpen, Trash2 } from "lucide-react";
+import { Lock, LockOpen, Trash2 } from "@/components/icons";
 import { useLocale, useTranslations } from "next-intl";
 import { toast } from "sonner";
 import type { LegacyColumnDef } from "@tanstack/react-table/legacy";

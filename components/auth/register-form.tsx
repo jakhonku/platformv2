@@ -2,7 +2,7 @@
 
 import { useRef, useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Building2, FileUp, Mic2, Music, PenLine, Trash2, UsersRound, Wand2 } from "lucide-react";
+import { Building2, FileUp, Mic2, Music, PenLine, Trash2, UsersRound, Wand2 } from "@/components/icons";
 import { useTranslations } from "next-intl";
 import { Controller, useForm, useWatch } from "react-hook-form";
 import { z } from "zod";

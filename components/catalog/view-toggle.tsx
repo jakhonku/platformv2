@@ -1,6 +1,6 @@
 "use client";
 
-import { LayoutGrid, List } from "lucide-react";
+import { LayoutGrid, List } from "@/components/icons";
 import { useTranslations } from "next-intl";
 import type { View } from "@/lib/catalog-params";
 import { cn } from "@/lib/utils";

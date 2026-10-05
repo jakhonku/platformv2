@@ -45,10 +45,7 @@ export default async function HomePage() {
           <p className="max-w-2xl text-lg text-muted-foreground">{t("home.heroText")}</p>
           <HeroSearch />
           <div className="flex flex-wrap gap-3">
-            <Button nativeButton={false} render={<Link href="/register" />}>
-              {t("nav.register")}
-            </Button>
-            <Button nativeButton={false} variant="outline" render={<Link href="/login" />}>
+            <Button nativeButton={false} render={<Link href="/login" />}>
               {t("nav.login")}
             </Button>
           </div>

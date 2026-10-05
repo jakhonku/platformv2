@@ -1,4 +1,4 @@
-import { Music } from "lucide-react";
+import { Music } from "@/components/icons";
 import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
 

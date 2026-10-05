@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { CalendarClock, MapPin, Wallet } from "lucide-react";
+import { CalendarClock, MapPin, Wallet } from "@/components/icons";
 import { notFound } from "next/navigation";
 import { getLocale, getTranslations } from "next-intl/server";
 import { ContactList } from "@/components/layout/contact-list";

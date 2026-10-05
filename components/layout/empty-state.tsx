@@ -1,4 +1,4 @@
-import { Inbox } from "lucide-react";
+import { Inbox } from "@/components/icons";
 
 export function EmptyState({ title, text }: { title: string; text?: string }) {
   return (

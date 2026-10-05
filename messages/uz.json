@@ -135,7 +135,6 @@
       "text": "Maʼlumotlar topilmadi yoki eskirgan. Qaytadan boshlang.",
       "cta": "Roʻyxatdan oʻtish"
     },
-    "demoAccounts": "Demo hisoblar: admin@example.uz (admin), moderator@example.uz. Parol — istalgan 8+ belgi.",
     "errors": {
       "identifier": "Telefon (+998 XX XXX XX XX) yoki email kiriting.",
       "passwordLength": "Parol kamida 8 ta belgidan iborat boʻlishi kerak.",
@@ -205,6 +204,20 @@
         "forbidden": "Hisob bloklangan.",
         "invalid": "Maʼlumotlar notoʻgʻri yoki rol mos emas.",
         "generic": "Amalni bajarib boʻlmadi."
+      }
+    },
+    "picker": {
+      "title": "Platformaga kirish",
+      "text": "Rolni tanlang — platforma shu rol imkoniyatlari bilan ochiladi.",
+      "desc": {
+        "musician": "Portfolio, arizalar va takliflar",
+        "vocalist": "Ovoz diapazoni, repertuar va kastinglar",
+        "conductor": "Jamoalar bilan ishlash va profil",
+        "composer": "Asarlar, partituralar va MIDI",
+        "collective": "Jamoa sahifasi, tarkib va tadbirlar",
+        "organization": "Kasting, vakansiya va nomzodlar",
+        "moderator": "Moderatsiya va tasdiqlash",
+        "admin": "Toʻliq boshqaruv paneli"
       }
     }
   },

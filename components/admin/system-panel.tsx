@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Download } from "lucide-react";
+import { Download } from "@/components/icons";
 import { useLocale, useTranslations } from "next-intl";
 import { toast } from "sonner";
 import { useSingleSubmit } from "@/components/layout/use-single-submit";

@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Plus, Trash2 } from "lucide-react";
+import { Plus, Trash2 } from "@/components/icons";
 import { useTranslations } from "next-intl";
 import { useFieldArray, useForm, type FieldPath } from "react-hook-form";
 import { toast } from "sonner";

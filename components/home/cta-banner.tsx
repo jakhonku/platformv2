@@ -14,10 +14,7 @@ export async function CtaBanner() {
           <p className="mt-1 text-muted-foreground">{t("home.ctaText")}</p>
         </div>
         <div className="flex flex-wrap gap-3">
-          <Button nativeButton={false} size="lg" render={<Link href="/register" />}>
-            {t("nav.register")}
-          </Button>
-          <Button nativeButton={false} size="lg" variant="outline" render={<Link href="/login" />}>
+          <Button nativeButton={false} size="lg" render={<Link href="/login" />}>
             {t("nav.login")}
           </Button>
         </div>
