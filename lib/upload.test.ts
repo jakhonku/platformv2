@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import { test } from "node:test";
-import { parseYoutubeId, UPLOAD_RULES, validateUpload } from "./upload.ts";
+import { formatBytes, parseYoutubeId, UPLOAD_RULES, validateUpload } from "./upload.ts";
 
 const MB = 1024 * 1024;
 
@@ -28,4 +28,11 @@ test("parseYoutubeId accepts only real YouTube links or bare ids", () => {
   for (const input of ["javascript:alert(1)", "https://youtube.com/x", "", "https://evil.com/watch?v=dQw4w9WgXcQ", "<script>"]) {
     assert.equal(parseYoutubeId(input), null);
   }
+});
+
+test("formatBytes", () => {
+  assert.equal(formatBytes(512), "512 B");
+  assert.equal(formatBytes(1536), "1.5 KB");
+  assert.equal(formatBytes(5 * MB), "5 MB");
+  assert.equal(formatBytes(-1), "");
 });
