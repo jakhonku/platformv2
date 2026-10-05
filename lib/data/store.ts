@@ -95,7 +95,7 @@ export const store = {
       assigneeId: "user-moderator",
       assignedAt: "2026-10-02T10:00:00.000Z",
       checklist: { documents: true, phone: false },
-      calls: [{ id: "call-seed-1", at: "2026-10-02T11:30:00.000Z", byId: "user-moderator", outcome: "no_answer", note: "Javob bermadi, ertaga qayta qo'ng'iroq qilinadi." }],
+      calls: [{ id: "call-seed-1", at: "2026-10-02T11:30:00.000Z", byId: "user-moderator", outcome: "no_answer", note: "Javob bermadi, ertaga qayta qoʻngʻiroq qilinadi." }],
     },
   } as Record<string, ReviewState>,
   system: {
